@@ -130,10 +130,30 @@
       font-size: 1rem;
       cursor: pointer;
     }
-    
+
     .action-buttons button:nth-child(2) {
   background-color: #2f8732;
   color: #fff;
+    }
+    .location-box {
+  text-align: center;
+  padding: 1rem;
+}
+
+.location-box input {
+  padding: 0.75rem 1.25rem;
+  width: 80%;
+  max-width: 400px;
+  border: none;
+  border-radius: 30px;
+  font-size: 1rem;
+  background-color: #2f8732;
+  color: white;
+}
+
+.location-box input::placeholder {
+  color: white;
+  opacity: 0.9;
 }
   </style>
 </head>
@@ -145,10 +165,13 @@
   </header>
 
   <section class="hero">
-    <h1>Swipe. Match. Hustle.</h1>
-    <p>Find gigs, tasks, and local work — in seconds.</p>
-    <button class="cta-button">Start Browsing</button>
-  </section>
+  <h1>Swipe. Match. Hustle.</h1>
+  <p>Find gigs, tasks, and local work — in seconds.</p>
+</section>
+
+<div class="location-box">
+  <input type="text" placeholder="Enter your location" />
+</div>
 
   <div class="filters">
     <button class="filter-btn">5 mi</button>
