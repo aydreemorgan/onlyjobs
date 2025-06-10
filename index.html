@@ -34,21 +34,40 @@
       border-radius: 50%;
     }
 
-    .hero {
-      text-align: center;
-      padding: 3rem 1.5rem 2rem;
-    }
+    .hero-box {
+  background-color: #2f8732;
+  color: white;
+  padding: 2.5rem 1rem 2rem;
+  text-align: center;
+  border-radius: 20px;
+  margin: 1rem;
+}
 
-    .hero h1 {
-      font-size: 2rem;
-      margin-bottom: 0.5rem;
-    }
+.hero-box h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
 
-    .hero p {
-      font-size: 1rem;
-      color: #666;
-      margin-bottom: 1.5rem;
-    }
+.hero-box p {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.hero-box input {
+  padding: 0.75rem 1.25rem;
+  width: 80%;
+  max-width: 400px;
+  border: none;
+  border-radius: 30px;
+  font-size: 1rem;
+  background-color: white;
+  color: #2f8732;
+}
+
+.hero-box input::placeholder {
+  color: #2f8732;
+  opacity: 0.9;
+}
 
         
  .cta-button {
@@ -61,13 +80,7 @@
   cursor: pointer;
  }
 
-      
-
-
-   
-
-
-    .filters {
+      .filters {
       display: flex;
       gap: 0.5rem;
       padding: 1rem;
@@ -135,41 +148,16 @@
   background-color: #2f8732;
   color: #fff;
     }
-    .location-box {
-  text-align: center;
-  padding: 1rem;
-}
-
-.location-box input {
-  padding: 0.75rem 1.25rem;
-  width: 80%;
-  max-width: 400px;
-  border: none;
-  border-radius: 30px;
-  font-size: 1rem;
-  background-color: #2f8732;
-  color: white;
-}
-
-.location-box input::placeholder {
-  color: white;
-  opacity: 0.9;
-}
-  </style>
-</head>
-<body>
+   
 
   <header>
     <div class="logo">OnlyJobs</div>
     <div class="profile-icon"></div>
   </header>
 
-  <section class="hero">
+ <div class="hero-box">
   <h1>Swipe. Match. Hustle.</h1>
   <p>Find gigs, tasks, and local work — in seconds.</p>
-</section>
-
-<div class="location-box">
   <input type="text" placeholder="Enter your location" />
 </div>
 
