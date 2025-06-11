@@ -208,7 +208,7 @@
   background: #2f8732;
   color: white;
  }
- }
+ 
 
     
  .job-extra {
@@ -288,6 +288,7 @@
 
   // Placeholder job data (in real use, this could come from your backend)
   const jobs = [
+
     {
       title: "Part-Time Dog Walker",
       details: "Salt Lake City • $20/hr • Local",
@@ -305,7 +306,9 @@
     }
   ];
 
- 
+  let jobIndex = 0;
+
+
   const swipeThreshold = 100;
 
   function setTransform(x) {
