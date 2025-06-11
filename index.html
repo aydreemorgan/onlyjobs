@@ -347,6 +347,16 @@
   </div>
 </div>
 
+<div id="welcome-modal" class="modal" style="display: flex;">
+  <div class="modal-content">
+    <h2>Welcome to OnlyJobs</h2>
+    <p>Would you like to log in, sign up, or skip and start swiping?</p>
+    <button id="login-btn">Log In</button>
+    <button id="signup-btn">Sign Up</button>
+    <button id="skip-btn">Skip and Get Swiping</button>
+  </div>
+</div>
+
 
   <script>
     // Post modal logic
@@ -529,7 +539,40 @@
    profileScreen.classList.remove('show');
    profileScreen.style.display = 'none';
    });
+ // Automatically show profile on load for testing if not "logged in"
+window.addEventListener('DOMContentLoaded', () => {
 
+  const welcomeModal = document.getElementById('welcome-modal');
+const loginBtn = document.getElementById('login-btn');
+const signupBtn = document.getElementById('signup-btn');
+const skipBtn = document.getElementById('skip-btn');
+
+// Always show for testing
+welcomeModal.style.display = 'flex';
+
+loginBtn.addEventListener('click', () => {
+  alert('Login clicked (add login logic)');
+  welcomeModal.style.display = 'none';
+});
+
+signupBtn.addEventListener('click', () => {
+  alert('Sign up clicked (add signup logic)');
+  welcomeModal.style.display = 'none';
+});
+
+skipBtn.addEventListener('click', () => {
+  welcomeModal.style.display = 'none';
+});
+
+  const isLoggedIn = localStorage.getItem('loggedIn') === 'true';
+  
+  if (!isLoggedIn) {
+    profileScreen.style.display = 'block';
+    requestAnimationFrame(() => {
+      profileScreen.classList.add('show');
+    });
+  }
+});
   </script>
 </body>
 </html>
