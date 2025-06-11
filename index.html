@@ -175,14 +175,14 @@
   </div>
 
   <div class="card" id="swipe-card" data-swipeable="true">
-  <img src="https://via.placeholder.com/400x200" alt="Job Preview">
+  <img id="job-img" src="https://via.placeholder.com/400x200" alt="Job Preview">
   <div class="card-content">
-    <div class="job-title">Part-Time Dog Walker</div>
-    <div class="job-details">Salt Lake City • $20/hr • Local</div>
+    <div class="job-title" id="job-title">Part-Time Dog Walker</div>
+    <div class="job-details" id="job-details">Salt Lake City • $20/hr • Local</div>
    </div>
    <div class="action-buttons">
-    <button>❌ Pass</button>
-    <button>✅ Match</button>
+    <button id="pass-btn">❌ Pass</button>
+    <button id="match-btn">✅ Match</button>
   </div>
 </div>
 
@@ -253,6 +253,127 @@
     isDragging = false;
     handleSwipe(currentX);
     currentX = 0;
+  });
+</script>
+
+<script>
+  const card = document.getElementById("swipe-card");
+  const jobImg = document.getElementById("job-img");
+  const jobTitle = document.getElementById("job-title");
+  const jobDetails = document.getElementById("job-details");
+  const passBtn = document.getElementById("pass-btn");
+  const matchBtn = document.getElementById("match-btn");
+
+  // Placeholder job data (in real use, this could come from your backend)
+  const jobs = [
+    {
+      title: "Part-Time Dog Walker",
+      details: "Salt Lake City • $20/hr • Local",
+      img: "https://via.placeholder.com/400x200?text=Dog+Walker"
+    },
+    {
+      title: "Event Assistant",
+      details: "Virtual • $18/hr • Weekend Work",
+      img: "https://via.placeholder.com/400x200?text=Event+Assistant"
+    },
+    {
+      title: "Yard Cleanup Crew",
+      details: "West Valley • $22/hr • 1-day Gig",
+      img: "https://via.placeholder.com/400x200?text=Yard+Cleanup"
+    }
+  ];
+
+  let jobIndex = 0;
+  let startX = 0;
+  let currentX = 0;
+  let isDragging = false;
+  const swipeThreshold = 100;
+
+  function setTransform(x) {
+    card.style.transform = `translateX(${x}px) rotate(${x * 0.05}deg)`;
+  }
+
+  function resetCard() {
+    card.style.transition = 'transform 0.3s ease';
+    setTransform(0);
+    setTimeout(() => {
+      card.style.transition = '';
+    }, 300);
+  }
+
+  function loadNextJob() {
+    jobIndex++;
+    if (jobIndex >= jobs.length) {
+      jobTitle.textContent = "No more jobs!";
+      jobDetails.textContent = "Check back later!";
+      jobImg.src = "https://via.placeholder.com/400x200?text=No+More+Jobs";
+      return;
+    }
+    const nextJob = jobs[jobIndex];
+    jobTitle.textContent = nextJob.title;
+    jobDetails.textContent = nextJob.details;
+    jobImg.src = nextJob.img;
+    resetCard();
+  }
+
+  function handleSwipe(endX) {
+    if (endX < -swipeThreshold) {
+      card.style.transform = 'translateX(-100vw) rotate(-15deg)';
+      setTimeout(loadNextJob, 300);
+    } else if (endX > swipeThreshold) {
+      card.style.transform = 'translateX(100vw) rotate(15deg)';
+      setTimeout(loadNextJob, 300);
+    } else {
+      resetCard();
+    }
+  }
+
+  // Touch events
+  card.addEventListener("touchstart", (e) => {
+    startX = e.touches[0].clientX;
+    isDragging = true;
+  });
+
+  card.addEventListener("touchmove", (e) => {
+    if (!isDragging) return;
+    currentX = e.touches[0].clientX - startX;
+    setTransform(currentX);
+  });
+
+  card.addEventListener("touchend", () => {
+    isDragging = false;
+    handleSwipe(currentX);
+    currentX = 0;
+  });
+
+  // Mouse events
+  card.addEventListener("mousedown", (e) => {
+    startX = e.clientX;
+    isDragging = true;
+  });
+
+  document.addEventListener("mousemove", (e) => {
+    if (!isDragging) return;
+    currentX = e.clientX - startX;
+    setTransform(currentX);
+  });
+
+  document.addEventListener("mouseup", () => {
+    if (!isDragging) return;
+    isDragging = false;
+    handleSwipe(currentX);
+    currentX = 0;
+  });
+
+  // Button clicks (match/pass)
+  matchBtn.addEventListener("click", () => {
+    card.style.transform = 'translateX(100vw) rotate(15deg)';
+    setTimeout(loadNextJob, 300);
+  });
+
+  passBtn.addEventListener("click", () => {
+    card.style.transform = 'translateX(-100vw) rotate(-15deg)';
+    setTimeout(loadNextJob, 300);
   });
 </script>
 
