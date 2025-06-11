@@ -151,6 +151,22 @@
       background-color: #2f8732;
       color: #fff;
     }
+    
+ .job-extra {
+  display: none;
+  padding: 1rem;
+  font-size: 0.9rem;
+  color: #444;
+  background-color: #fdfdfb;
+  border-top: 1px solid #eee;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+ }
+
   </style>
 </head>
 <body>
@@ -180,6 +196,10 @@
     <div class="job-title" id="job-title">Part-Time Dog Walker</div>
     <div class="job-details" id="job-details">Salt Lake City • $20/hr • Local</div>
    </div>
+   <div class="job-extra" id="job-extra">
+    Must love dogs! Flexible hours. Experience with pets preferred. Available weekends.
+   </div>
+
    <div class="action-buttons">
     <button id="pass-btn">❌ Pass</button>
     <button id="match-btn">✅ Match</button>
@@ -283,10 +303,7 @@
     }
   ];
 
-  let jobIndex = 0;
-  let startX = 0;
-  let currentX = 0;
-  let isDragging = false;
+ 
   const swipeThreshold = 100;
 
   function setTransform(x) {
@@ -375,7 +392,19 @@
     card.style.transform = 'translateX(-100vw) rotate(-15deg)';
     setTimeout(loadNextJob, 300);
   });
+
+  const jobExtra = document.getElementById("job-extra");
+ let extraVisible = false;
+
+ card.addEventListener("click", (e) => {
+  // Prevent interfering with swipe gestures
+  if (Math.abs(currentX) > 10) return;
+
+  extraVisible = !extraVisible;
+  jobExtra.style.display = extraVisible ? "block" : "none";
+ });
 </script>
+
 
 </body>
 </html>
