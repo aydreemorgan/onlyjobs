@@ -3,218 +3,145 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>OnlyJobs</title>
+  <title>OnlyJobs Swipe</title>
   <style>
     body {
       margin: 0;
       font-family: 'Helvetica Neue', sans-serif;
       background: #fdfaf5;
-      color: #333;
       overflow-x: hidden;
     }
 
-    header {
-      padding: 1rem;
-      background: #fff;
-      border-bottom: 1px solid #eee;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo {
-      font-size: 1.4rem;
-      font-weight: bold;
-      letter-spacing: -0.5px;
-    }
-
-    .profile-icon {
-      width: 32px;
-      height: 32px;
-      background: #ccc;
-      border-radius: 50%;
-    }
-
-    .hero-box {
-      background-color: #2f8732;
-      color: white;
-      padding: 2.5rem 1rem 2rem;
-      text-align: center;
-      border-radius: 20px;
-      margin: 1rem;
-    }
-
-    .hero-box input {
-      padding: 0.75rem 1.25rem;
-      width: 80%;
+    .card-stack {
+      position: relative;
       max-width: 400px;
-      border: none;
-      border-radius: 30px;
-      font-size: 1rem;
-      background-color: white;
-      color: #2f8732;
-      margin-bottom: 1rem;
-    }
-
-    .hero-box input::placeholder {
-      color: #2f8732;
-      opacity: 0.9;
-    }
-
-    .filters {
-      display: flex;
-      gap: 0.5rem;
-      padding: 1rem;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .filter-btn {
-      padding: 0.5rem 0.75rem;
-      background: #2f8732;
-      color: #fff;
-      border: none;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      cursor: pointer;
+      margin: 3rem auto;
+      height: 500px;
+      perspective: 1000px;
     }
 
     .card {
-      position: relative;
-      background: #fff;
-      margin: 2rem auto;
-      max-width: 400px;
+      position: absolute;
+      width: 100%;
+      height: 100%;
       border-radius: 16px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      background: #fff;
+      border: 2px solid #2f8732;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      transition: transform 0.5s ease, opacity 0.3s ease;
+      cursor: grab;
+      display: flex;
+      flex-direction: column;
       overflow: hidden;
-      transition: transform 0.3s ease;
+      backface-visibility: hidden;
     }
 
-    .card img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
+    .card.flipped {
+      transform: rotateY(180deg);
     }
 
     .card-content {
       padding: 1rem;
+      flex-grow: 1;
     }
 
     .job-title {
-      font-size: 1.2rem;
+      font-size: 1.5rem;
       font-weight: bold;
+      color: #2f8732;
     }
 
     .job-details {
-      font-size: 0.9rem;
-      color: #666;
+      font-size: 1rem;
+      color: #555;
       margin-top: 0.5rem;
     }
 
-    .card.flip .card-front {
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #2f8732;
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      border-radius: 30px;
+      font-size: 1rem;
       display: none;
-    }
-
-    .card.flip .card-back {
-      display: block;
-    }
-
-    .card-front, .card-back {
-      padding: 1rem;
-    }
-
-    .card-back {
-      display: none;
-      background-color: #f4f4f4;
     }
   </style>
 </head>
 <body>
-  <header>
-    <div class="logo">OnlyJobs</div>
-    <div class="profile-icon"></div>
-  </header>
 
-  <div class="hero-box">
-    <h1>Swipe. Match. Hustle.</h1>
-    <p>Find gigs, tasks, and local work — in seconds.</p>
-    <input id="locationInput" type="text" placeholder="Enter your location" />
-    <input id="searchInput" type="text" placeholder="Search jobs or gigs..." style="display: none;" />
-  </div>
-
-  <div class="filters">
-    <button class="filter-btn">5 mi</button>
-    <button class="filter-btn">25 mi</button>
-    <button class="filter-btn">50+ mi</button>
-    <button class="filter-btn">Virtual</button>
-    <button class="filter-btn">Local</button>
-  </div>
-
-  <div class="card" id="jobCard">
-    <div class="card-front">
-      <img src="https://via.placeholder.com/400x200" alt="Job Preview">
+  <div class="card-stack" id="cardStack">
+    <div class="card">
       <div class="card-content">
-        <div class="job-title">Part-Time Dog Walker</div>
+        <div class="job-title">Dog Walker</div>
         <div class="job-details">Salt Lake City • $20/hr • Local</div>
       </div>
     </div>
-    <div class="card-back">
-      <p>More information about the job goes here. Requirements, schedule, etc.</p>
+    <div class="card">
+      <div class="card-content">
+        <div class="job-title">Barista</div>
+        <div class="job-details">Downtown • $15/hr • Local</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-content">
+        <div class="job-title">Event Staff</div>
+        <div class="job-details">Weekend Gig • $25/hr • Local</div>
+      </div>
     </div>
   </div>
 
+  <div class="toast" id="toast">🎉 You've shown interest!</div>
+
   <script>
-    const locationInput = document.getElementById('locationInput');
-    const searchInput = document.getElementById('searchInput');
+    const cards = document.querySelectorAll('.card');
+    const toast = document.getElementById('toast');
+    let currentIndex = cards.length - 1;
+    let lastRemovedCard = null;
 
-    locationInput.addEventListener('keypress', function (e) {
-      if (e.key === 'Enter' && locationInput.value.trim() !== '') {
-        locationInput.style.display = 'none';
-        searchInput.style.display = 'inline-block';
-        searchInput.focus();
-      }
-    });
+    cards.forEach((card, index) => {
+      card.style.zIndex = cards.length - index;
 
-    const jobCard = document.getElementById('jobCard');
+      let startX = 0, startY = 0;
+      let isFlipped = false;
 
-    let startX = 0;
-    let startY = 0;
+      card.addEventListener('click', () => {
+        isFlipped = !isFlipped;
+        card.classList.toggle('flipped');
+      });
 
-    jobCard.addEventListener('touchstart', (e) => {
-      startX = e.touches[0].clientX;
-      startY = e.touches[0].clientY;
-    });
+      card.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+      });
 
-    jobCard.addEventListener('touchend', (e) => {
-      const endX = e.changedTouches[0].clientX;
-      const endY = e.changedTouches[0].clientY;
-      const deltaX = endX - startX;
-      const deltaY = endY - startY;
+      card.addEventListener('touchend', (e) => {
+        const endX = e.changedTouches[0].clientX;
+        const endY = e.changedTouches[0].clientY;
+        const deltaX = endX - startX;
+        const deltaY = startY - endY;
 
-      if (Math.abs(deltaX) > Math.abs(deltaY)) {
-        if (deltaX > 50) {
-          alert('Previous swipe');
-        } else if (deltaX < -50) {
-          alert('Passed on job');
+        if (deltaX < -80) {
+          // Swipe right (undo pass)
+          if (lastRemovedCard) {
+            document.getElementById('cardStack').appendChild(lastRemovedCard);
+            lastRemovedCard.style.display = 'block';
+            lastRemovedCard = null;
+          }
+        } else if (deltaX > 80) {
+          // Swipe left (pass)
+          lastRemovedCard = card;
+          card.style.opacity = 0;
+          setTimeout(() => card.remove(), 300);
+        } else if (deltaY > 100) {
+          // Swipe up (apply)
+          toast.style.display = 'block';
+          setTimeout(() => toast.style.display = 'none', 2000);
         }
-      } else {
-        if (deltaY < -50) {
-          alert('Applied to job');
-        }
-      }
-    });
-
-    let lastTap = 0;
-    jobCard.addEventListener('click', () => {
-      const now = Date.now();
-      if (now - lastTap < 300) {
-        alert('Applied (double tap)');
-      }
-      lastTap = now;
-    });
-
-    jobCard.addEventListener('click', () => {
-      jobCard.classList.toggle('flip');
+      });
     });
   </script>
 </body>
