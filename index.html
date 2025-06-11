@@ -229,32 +229,28 @@
       color: black;
     }
     .profile-screen {
-   position: fixed;
-   top: 0; left: 0;
-   width: 100vw;
-   height: 100vh;
-   background-color: #fff;
-   z-index: 9999;
-   padding: 2rem;
-   box-sizing: border-box;
-   overflow-y: auto;
- }
-
- .profile-content {
-  max-width: 600px;
-  margin: 0 auto;
-  font-size: 1rem;
-  color: #333;
- }
-
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: #fff;
+      z-index: 9999;
+      padding: 2rem;
+      box-sizing: border-box;
+      overflow-y: auto;
+    }
+    .profile-content {
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 1rem;
+      color: #333;
+    }
   </style>
 </head>
 <body>
   <header>
     <div class="logo">OnlyJobs</div>
     <button id="header-profile-btn" class="profile-icon" aria-label="Profile"></button>
-
-
   </header>
   <div class="side-buttons">
     <button class="side-btn" id="post-btn">➕</button>
@@ -319,7 +315,23 @@
     </div>
   </div>
 
+  <!-- Profile Screen (now outside the script!) -->
+  <div id="profile-screen" class="profile-screen" style="display: none;">
+    <div class="profile-content">
+      <h2>Your Profile</h2>
+      <p><strong>Name:</strong> (Add Name)</p>
+      <p><strong>Bio / About:</strong> (Add Bio or Summary)</p>
+      <p><strong>Past Experience / Resume:</strong></p>
+      <ul>
+        <li>Example: Freelance Graphic Designer – 3 yrs</li>
+        <li>Example: Customer Support Rep – 2 yrs</li>
+      </ul>
+      <button id="close-profile">Close</button>
+    </div>
+  </div>
+
   <script>
+    // Post modal logic
     const postBtn = document.getElementById('post-btn');
     const postModal = document.getElementById('post-modal');
     const closeModal = document.getElementById('close-post-modal');
@@ -347,6 +359,7 @@
       postModal.style.display = 'none';
     });
 
+    // Card swipe logic
     const card = document.getElementById("swipe-card");
     const jobImg = document.getElementById("job-img");
     const jobTitle = document.getElementById("job-title");
@@ -454,44 +467,23 @@
       currentX = 0;
     });
 
-    
-  const profileBtn = document.getElementById('profile-btn');
-  const headerProfileBtn = document.getElementById('header-profile-btn');
-  const profileScreen = document.getElementById('profile-screen');
-  const closeProfileBtn = document.getElementById('close-profile');
+    // Profile screen logic
+    const profileBtn = document.getElementById('profile-btn');
+    const headerProfileBtn = document.getElementById('header-profile-btn');
+    const profileScreen = document.getElementById('profile-screen');
+    const closeProfileBtn = document.getElementById('close-profile');
 
-  // Open profile screen
-  profileBtn.addEventListener('click', () => {
-    profileScreen.style.display = 'block';
-  });
+    profileBtn.addEventListener('click', () => {
+      profileScreen.style.display = 'block';
+    });
 
-  headerProfileBtn.addEventListener('click', () => {
-    profileScreen.style.display = 'block';
-  });
+    headerProfileBtn.addEventListener('click', () => {
+      profileScreen.style.display = 'block';
+    });
 
-  // Close profile screen
-  closeProfileBtn.addEventListener('click', () => {
-    profileScreen.style.display = 'none';
-  });
-</script>
-
- 
-
-
- <div id="profile-screen" class="profile-screen" style="display: none;">
-  <div class="profile-content">
-    <h2>Your Profile</h2>
-    <p><strong>Name:</strong> (Add Name)</p>
-    <p><strong>Bio / About:</strong> (Add Bio or Summary)</p>
-    <p><strong>Past Experience / Resume:</strong></p>
-    <ul>
-      <li>Example: Freelance Graphic Designer – 3 yrs</li>
-      <li>Example: Customer Support Rep – 2 yrs</li>
-    </ul>
-    <button id="close-profile">Close</button>
-  </div>
-</div>
-
-
+    closeProfileBtn.addEventListener('click', () => {
+      profileScreen.style.display = 'none';
+    });
+  </script>
 </body>
 </html>
