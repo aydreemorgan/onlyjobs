@@ -225,6 +225,55 @@
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
  }
+.modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  width: 90%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.modal-content input,
+.modal-content textarea,
+.modal-content select {
+  padding: 0.6rem;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  width: 100%;
+}
+
+.modal-content button {
+  padding: 0.6rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+#submit-post {
+  background-color: #2f8732;
+  color: white;
+}
+
+#close-post-modal {
+  background-color: #ccc;
+  color: black;
+}
 
   </style>
 </head>
@@ -408,7 +457,69 @@
   extraVisible = !extraVisible;
   jobExtra.style.display = extraVisible ? "block" : "none";
  });
+ const postBtn = document.getElementById('post-btn');
+const postModal = document.getElementById('post-modal');
+const closeModal = document.getElementById('close-post-modal');
+const submitPost = document.getElementById('submit-post');
+
+postBtn.addEventListener('click', () => {
+  postModal.style.display = 'flex';
+});
+
+closeModal.addEventListener('click', () => {
+  postModal.style.display = 'none';
+});
+
+submitPost.addEventListener('click', () => {
+  const post = {
+    image: document.getElementById('post-image').files[0],
+    title: document.getElementById('post-title').value,
+    description: document.getElementById('post-description').value,
+    type: document.getElementById('post-type').value,
+    priceType: document.getElementById('price-type').value,
+    price: document.getElementById('post-price').value,
+    location: document.getElementById('post-location').value
+  };
+
+  console.log("📝 New Post:", post);
+  postModal.style.display = 'none';
+});
+
 </script>
+
+<div id="post-modal" class="modal">
+  <div class="modal-content">
+    <h2>Post</h2>
+
+    <label for="post-image">Add Photo</label>
+    <input type="file" id="post-image" accept="image/*" />
+
+    <input type="text" id="post-title" placeholder="Title (e.g: developer, florist, nail artist, personal job)" />
+
+    <textarea id="post-description" placeholder="Describe the job, task, offer"></textarea>
+
+    <label for="post-type">Post Type</label>
+    <select id="post-type">
+      <option value="available">I'm Available</option>
+      <option value="looking">I'm Looking For</option>
+      <option value="hiring">Hiring Help</option>
+    </select>
+
+    <label for="price-type">Price Type</label>
+    <select id="price-type">
+      <option value="set">Set Price</option>
+      <option value="hourly">Hourly</option>
+      <option value="weekly">Weekly</option>
+      <option value="one-time">One Time</option>
+    </select>
+
+    <input type="text" id="post-price" placeholder="Enter price (e.g. 20, 50/hr)" />
+    <input type="text" id="post-location" placeholder="Location (or 'Virtual')" />
+
+    <button id="submit-post">Submit</button>
+    <button id="close-post-modal">Cancel</button>
+  </div>
+</div>
 
 
 
