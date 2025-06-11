@@ -62,6 +62,7 @@
       font-size: 1rem;
       background-color: white;
       color: #2f8732;
+      margin-bottom: 1rem;
     }
 
     .hero-box input::placeholder {
@@ -137,6 +138,85 @@
       background-color: #2f8732;
       color: #fff;
     }
+
+    /* Modal Styling */
+    .welcome-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: #1a1a1a;
+      color: white;
+      padding: 2rem;
+      border-radius: 16px;
+      max-width: 90%;
+      width: 360px;
+      text-align: center;
+      position: relative;
+    }
+
+    .modal-content h2 {
+      margin-top: 0;
+      font-size: 1.5rem;
+    }
+
+    .modal-content p {
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      color: #ccc;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 0.75rem;
+      border-radius: 30px;
+      font-size: 1rem;
+      margin: 0.5rem 0;
+      cursor: pointer;
+    }
+
+    .green-btn {
+      background-color: #2f8732;
+      color: white;
+      border: none;
+    }
+
+    .outline-btn {
+      background-color: transparent;
+      color: #2f8732;
+      border: 1px solid #2f8732;
+    }
+
+    .link-btn {
+      background: none;
+      color: #aaa;
+      border: none;
+      font-size: 0.9rem;
+    }
+
+    .or-text {
+      font-size: 0.9rem;
+      color: #666;
+      margin: 0.5rem 0;
+    }
+
+    .close-button {
+      position: absolute;
+      top: 0.75rem;
+      right: 1rem;
+      font-size: 1.5rem;
+      color: #aaa;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -147,12 +227,11 @@
   </header>
 
   <div class="hero-box">
-  <h1>Swipe. Match. Hustle.</h1>
-  <p>Find gigs, tasks, and local work — in seconds.</p>
-  
-  <input id="locationInput" type="text" placeholder="Enter your location" />
-  <input id="searchInput" type="text" placeholder="Search jobs or gigs..." style="display: none;" />
-</div>
+    <h1>Swipe. Match. Hustle.</h1>
+    <p>Find gigs, tasks, and local work — in seconds.</p>
+    <input id="locationInput" type="text" placeholder="Enter your location" />
+    <input id="searchInput" type="text" placeholder="Search jobs or gigs..." style="display: none;" />
+  </div>
 
   <div class="filters">
     <button class="filter-btn">5 mi</button>
@@ -174,5 +253,50 @@
     </div>
   </div>
 
+  <!-- Welcome Modal -->
+  <div class="welcome-modal" id="welcomeModal">
+    <div class="modal-content">
+      <span class="close-button" id="closeModal">&times;</span>
+      <h2>Welcome to OnlyJobs</h2>
+      <p>Find your next hustle. Sign in or skip to swipe.</p>
+      <button class="btn green-btn">Sign Up</button>
+      <button class="btn outline-btn">Sign In</button>
+      <div class="or-text">OR</div>
+      <button class="btn link-btn" id="skipBtn">Skip that, and swipe →</button>
+    </div>
+  </div>
+
+  <script>
+    // Location input swap
+    const locationInput = document.getElementById('locationInput');
+    const searchInput = document.getElementById('searchInput');
+
+    locationInput.addEventListener('keypress', function (e) {
+      if (e.key === 'Enter' && locationInput.value.trim() !== '') {
+        locationInput.style.display = 'none';
+        searchInput.style.display = 'inline-block';
+        searchInput.focus();
+      }
+    });
+
+    // Modal control
+    const modal = document.getElementById('welcomeModal');
+    const closeModal = document.getElementById('closeModal');
+    const skipBtn = document.getElementById('skipBtn');
+
+    closeModal.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+
+    skipBtn.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        modal.style.display = 'none';
+      }
+    });
+  </script>
 </body>
 </html>
