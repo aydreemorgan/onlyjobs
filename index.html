@@ -284,13 +284,17 @@
         <option value="looking">I'm Looking For</option>
         <option value="hiring">Hiring Help</option>
       </select>
-      <label for="price-type">Price Type</label>
-      <select id="price-type">
-        <option value="set">Set Price</option>
-        <option value="hourly">Hourly</option>
-        <option value="weekly">Weekly</option>
-        <option value="one-time">One Time</option>
-      </select>
+      <div style="display: flex; gap: 0.5rem;">
+  <input type="text" id="post-price" placeholder="Enter price (e.g. 20)" style="flex: 2;" />
+  <select id="price-type" style="flex: 1;">
+    <option value="hourly">Hourly</option>
+    <option value="one-time">One Time</option>
+    <option value="weekly">Weekly</option>
+    <option value="yearly">Yearly</option>
+    <option value="other">Other</option>
+  </select>
+ </div>
+
       <input type="text" id="post-price" placeholder="Enter price (e.g. 20, 50/hr)" />
       <input type="text" id="post-location" placeholder="Location (or 'Virtual')" />
       <button id="submit-post">Submit</button>
