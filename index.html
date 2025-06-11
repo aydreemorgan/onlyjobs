@@ -151,6 +151,60 @@
       background-color: #2f8732;
       color: #fff;
     }
+    .side-buttons {
+  position: fixed;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem 0.5rem;
+  z-index: 999;
+ }
+
+ .side-btn {
+  background-color: #2f8732;
+  color: white;
+  border: none;
+  border-radius: 12px 0 0 12px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: background 0.2s;
+ }
+
+ .side-btn:hover {
+  background-color: #256b27;
+ }
+ 
+ .post-type-filters {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0 1rem 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+ }
+
+ .post-type-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid #2f8732;
+  border-radius: 20px;
+  background: white;
+  color: #2f8732;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+ }
+
+ .post-type-btn:hover,
+ .post-type-btn.active {
+  background: #2f8732;
+  color: white;
+ }
+ }
+
     
  .job-extra {
   display: none;
@@ -160,7 +214,7 @@
   background-color: #fdfdfb;
   border-top: 1px solid #eee;
   animation: fadeIn 0.3s ease;
-}
+ }
 
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
@@ -176,6 +230,11 @@
     <div class="profile-icon"></div>
   </header>
 
+  <div class="side-buttons">
+  <button class="side-btn" id="post-btn">➕ Post</button>
+  <button class="side-btn" id="profile-btn">👤 Profile</button>
+ </div>
+
   <div class="hero-box">
     <h1>Swipe. Match. Hustle.</h1>
     <p>Find gigs, tasks, and local work — in seconds.</p>
@@ -189,6 +248,12 @@
     <button class="filter-btn">Virtual</button>
     <button class="filter-btn">Local</button>
   </div>
+
+  <div class="post-type-filters">
+  <button class="post-type-btn" data-type="available">I'm available</button>
+  <button class="post-type-btn" data-type="looking">I'm looking for</button>
+  <button class="post-type-btn" data-type="hiring">Hiring help</button>
+</div>
 
   <div class="card" id="swipe-card" data-swipeable="true">
   <img id="job-img" src="https://via.placeholder.com/400x200" alt="Job Preview">
@@ -206,75 +271,7 @@
   </div>
 </div>
 
-<script>
-  const card = document.getElementById("swipe-card");
-  let startX = 0;
-  let currentX = 0;
-  let isDragging = false;
 
-  const swipeThreshold = 100; // px distance to count as a pass/match
-
-  function setTransform(x) {
-    card.style.transform = `translateX(${x}px) rotate(${x * 0.05}deg)`;
-  }
-
-  function resetCard() {
-    card.style.transition = 'transform 0.3s ease';
-    setTransform(0);
-    setTimeout(() => {
-      card.style.transition = '';
-    }, 300);
-  }
-
-  function handleSwipe(endX) {
-    if (endX < -swipeThreshold) {
-      // Swiped left = ❌ Pass
-      card.style.transform = 'translateX(-100vw) rotate(-15deg)';
-    } else if (endX > swipeThreshold) {
-      // Swiped right = ✅ Match
-      card.style.transform = 'translateX(100vw) rotate(15deg)';
-    } else {
-      resetCard();
-    }
-  }
-
-  // --- Touch Events ---
-  card.addEventListener("touchstart", (e) => {
-    startX = e.touches[0].clientX;
-    isDragging = true;
-  });
-
-  card.addEventListener("touchmove", (e) => {
-    if (!isDragging) return;
-    currentX = e.touches[0].clientX - startX;
-    setTransform(currentX);
-  });
-
-  card.addEventListener("touchend", () => {
-    isDragging = false;
-    handleSwipe(currentX);
-    currentX = 0;
-  });
-
-  // --- Mouse Events (desktop) ---
-  card.addEventListener("mousedown", (e) => {
-    startX = e.clientX;
-    isDragging = true;
-  });
-
-  document.addEventListener("mousemove", (e) => {
-    if (!isDragging) return;
-    currentX = e.clientX - startX;
-    setTransform(currentX);
-  });
-
-  document.addEventListener("mouseup", () => {
-    if (!isDragging) return;
-    isDragging = false;
-    handleSwipe(currentX);
-    currentX = 0;
-  });
-</script>
 
 <script>
   const card = document.getElementById("swipe-card");
@@ -404,6 +401,7 @@
   jobExtra.style.display = extraVisible ? "block" : "none";
  });
 </script>
+
 
 
 </body>
