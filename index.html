@@ -327,8 +327,8 @@
     </div>
    </div>
 
-   <div id="profile-screen" class="profile-screen">
-  <div class="profile-card">
+   <div id="profile-screen" class="profile-screen" style="display: none;">
+   <div class="profile-card">
     <h2>Edit Your Profile</h2>
 
     <label for="profile-name">Name</label>
@@ -494,16 +494,22 @@
 
     [profileBtn, headerProfileBtn].forEach(btn => {
      btn.addEventListener('click', () => {
-     profileScreen.classList.add('show');
+    profileScreen.style.display = 'block';
+    requestAnimationFrame(() => {
+   profileScreen.classList.add('show');
+    });
      });
-   });
+    });
+   
 
    
 
     closeProfileBtn.addEventListener('click', () => {
-      profileScreen.classList.remove('show');
-    });
-    
+   profileScreen.classList.remove('show');
+   setTimeout(() => {
+    profileScreen.style.display = 'none';
+   }, 300); // matches the 0.3s CSS transition
+   });
     saveProfileBtn.addEventListener('click', () => {
    const name = document.getElementById('profile-name').value.trim();
    const bio = document.getElementById('profile-bio').value.trim();
@@ -518,6 +524,10 @@
 
    alert('Profile saved!');
    profileScreen.classList.remove('show');
+   });
+   window.addEventListener('DOMContentLoaded', () => {
+   profileScreen.classList.remove('show');
+   profileScreen.style.display = 'none';
    });
 
   </script>
