@@ -313,22 +313,25 @@
       <button id="submit-post">Submit</button>
       <button id="close-post-modal">Cancel</button>
     </div>
-  </div>
+   </div>
 
-  <!-- Profile Screen (now outside the script!) -->
-  <div id="profile-screen" class="profile-screen" style="display: none;">
-    <div class="profile-content">
-      <h2>Your Profile</h2>
-      <p><strong>Name:</strong> (Add Name)</p>
-      <p><strong>Bio / About:</strong> (Add Bio or Summary)</p>
-      <p><strong>Past Experience / Resume:</strong></p>
-      <ul>
-        <li>Example: Freelance Graphic Designer – 3 yrs</li>
-        <li>Example: Customer Support Rep – 2 yrs</li>
-      </ul>
-      <button id="close-profile">Close</button>
-    </div>
+   <div id="profile-screen" class="profile-screen" style="display: none;">
+   <div class="profile-content">
+    <h2>Your Profile</h2>
+    <label>Name:</label>
+    <input type="text" id="profile-name" placeholder="Add your name" />
+
+    <label>Bio / About:</label>
+    <textarea id="profile-bio" placeholder="Tell us about yourself"></textarea>
+
+    <label>Experience:</label>
+    <textarea id="profile-experience" placeholder="Ex: Dog walker, customer support, etc."></textarea>
+
+    <button id="save-profile">Save</button>
+    <button id="close-profile">Close</button>
   </div>
+ </div>
+
 
   <script>
     // Post modal logic
