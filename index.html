@@ -229,22 +229,34 @@
       color: black;
     }
     .profile-screen {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: #fff;
-      z-index: 9999;
-      padding: 2rem;
-      box-sizing: border-box;
-      overflow-y: auto;
-    }
+   position: fixed;
+   top: 0; left: 0;
+   width: 100vw;
+   height: 100vh;
+   background-color: #fff;
+   z-index: 9999;
+   padding: 2rem;
+   box-sizing: border-box;
+   overflow-y: auto;
+   opacity: 0;
+   pointer-events: none;
+   transition: opacity 0.3s ease;
+   }
+
+   .profile-screen.show {
+   opacity: 1;
+   pointer-events: all;
+   }
+
+    
     .profile-content {
       max-width: 600px;
       margin: 0 auto;
       font-size: 1rem;
       color: #333;
     }
+    
+
   </style>
 </head>
 <body>
@@ -334,9 +346,6 @@
     </div>
   </div>
 </div>
-
-  </div>
- </div>
 
 
   <script>
@@ -481,40 +490,34 @@
     const headerProfileBtn = document.getElementById('header-profile-btn');
     const profileScreen = document.getElementById('profile-screen');
     const closeProfileBtn = document.getElementById('close-profile');
-
-    profileBtn.addEventListener('click', () => {
-      profileScreen.style.display = 'block';
-    });
-
-    headerProfileBtn.addEventListener('click', () => {
-      profileScreen.style.display = 'block';
-    });
-
-    closeProfileBtn.addEventListener('click', () => {
-      profileScreen.style.display = 'none';
-    });
-    const profileBtn = document.getElementById('profile-btn');
-    const profileScreen = document.getElementById('profile-screen');
-    const closeProfileBtn = document.getElementById('close-profile');
     const saveProfileBtn = document.getElementById('save-profile');
 
-    profileBtn.addEventListener('click', () => {
-     profileScreen.style.display = 'block';
-    });
+    [profileBtn, headerProfileBtn].forEach(btn => {
+     btn.addEventListener('click', () => {
+     profileScreen.classList.add('show');
+     });
+   });
+
+   
 
     closeProfileBtn.addEventListener('click', () => {
-    profileScreen.style.display = 'none';
+      profileScreen.classList.remove('show');
     });
-
+    
     saveProfileBtn.addEventListener('click', () => {
-    const name = document.getElementById('profile-name').value;
-    const bio = document.getElementById('profile-bio').value;
-    const experience = document.getElementById('profile-experience').value;
+   const name = document.getElementById('profile-name').value.trim();
+   const bio = document.getElementById('profile-bio').value.trim();
+   const experience = document.getElementById('profile-experience').value.trim();
+
+   if (!name || !bio) {
+    alert('Please complete at least your name and bio.');
+    return;
+   }
 
    console.log('✅ Saved Profile:', { name, bio, experience });
 
    alert('Profile saved!');
-   profileScreen.style.display = 'none';
+   profileScreen.classList.remove('show');
    });
 
   </script>
