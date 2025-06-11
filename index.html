@@ -5,14 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>OnlyJobs</title>
   <style>
-    /* your original styles, unchanged */
     body {
       margin: 0;
       font-family: 'Helvetica Neue', sans-serif;
       background: #fdfaf5;
       color: #333;
     }
-
     header {
       padding: 1rem;
       background: #fff;
@@ -21,20 +19,17 @@
       justify-content: space-between;
       align-items: center;
     }
-
     .logo {
       font-size: 1.4rem;
       font-weight: bold;
       letter-spacing: -0.5px;
     }
-
     .profile-icon {
       width: 32px;
       height: 32px;
       background: #ccc;
       border-radius: 50%;
     }
-
     .hero-box {
       background-color: #2f8732;
       color: white;
@@ -43,17 +38,14 @@
       border-radius: 20px;
       margin: 1rem;
     }
-
     .hero-box h1 {
       font-size: 2rem;
       margin-bottom: 0.5rem;
     }
-
     .hero-box p {
       font-size: 1rem;
       margin-bottom: 1.5rem;
     }
-
     .hero-box input {
       padding: 0.75rem 1.25rem;
       width: 80%;
@@ -64,22 +56,10 @@
       background-color: white;
       color: #2f8732;
     }
-
     .hero-box input::placeholder {
       color: #2f8732;
       opacity: 0.9;
     }
-
-    .cta-button {
-      background-color: #000;
-      color: #fff;
-      padding: 0.75rem 1.5rem;
-      border: none;
-      border-radius: 30px;
-      font-size: 1rem;
-      cursor: pointer;
-    }
-
     .filters {
       display: flex;
       gap: 0.5rem;
@@ -87,7 +67,6 @@
       flex-wrap: wrap;
       justify-content: center;
     }
-
     .filter-btn {
       padding: 0.5rem 0.75rem;
       background: #2f8732;
@@ -97,7 +76,6 @@
       font-size: 0.85rem;
       cursor: pointer;
     }
-
     .card {
       background: #fff;
       margin: 1rem auto;
@@ -110,34 +88,28 @@
       touch-action: pan-y;
       user-select: none;
     }
-
     .card img {
       width: 100%;
       height: 200px;
       object-fit: cover;
     }
-
     .card-content {
       padding: 1rem;
     }
-
     .job-title {
       font-size: 1.2rem;
       font-weight: bold;
     }
-
     .job-details {
       font-size: 0.9rem;
       color: #666;
       margin-top: 0.5rem;
     }
-
     .action-buttons {
       display: flex;
       justify-content: space-around;
       padding: 1rem;
     }
-
     .action-buttons button {
       background: #f5f5f5;
       border: none;
@@ -146,155 +118,132 @@
       font-size: 1rem;
       cursor: pointer;
     }
-
     .action-buttons button:nth-child(2) {
       background-color: #2f8732;
       color: #fff;
     }
-
     .side-buttons {
-   position: fixed;
-   top: 1rem;
-   right: 1rem;
-   display: flex;
-   flex-direction: row; /* horizontal layout */
-   gap: 0.5rem;
-   z-index: 999; 
-   }
-
-   .side-btn {
-   background-color: #2f8732;
-   color: white;
-   border: none;
-   border-radius: 50%;
-   width: 40px;
-   height: 40px;
-   font-size: 1.25rem;
-   cursor: pointer;
-   display: flex;
-   align-items: center;
-    justify-content: center;
-   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-   transition: background 0.2s; 
-   }
-
- 
-
- .side-btn:hover {
-  background-color: #256b27;
- }
- 
- .post-type-filters {
-  display: flex;
-  gap: 0.5rem;
-  padding: 0 1rem 1rem;
-  justify-content: center;
-  flex-wrap: wrap;
- }
-
- .post-type-btn {
-  padding: 0.5rem 1rem;
-  border: 1px solid #2f8732;
-  border-radius: 20px;
-  background: white;
-  color: #2f8732;
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: background 0.2s, color 0.2s;
- }
-
- .post-type-btn:hover,
- .post-type-btn.active {
-  background: #2f8732;
-  color: white;
- }
- 
-
-    
- .job-extra {
-  display: none;
-  padding: 1rem;
-  font-size: 0.9rem;
-  color: #444;
-  background-color: #fdfdfb;
-  border-top: 1px solid #eee;
-  animation: fadeIn 0.3s ease;
- }
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
- }
-.modal {
-  display: none;
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.modal-content {
-  background: white;
-  border-radius: 12px;
-  padding: 1.5rem;
-  width: 90%;
-  max-width: 400px;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.modal-content input,
-.modal-content textarea,
-.modal-content select {
-  padding: 0.6rem;
-  font-size: 0.95rem;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  width: 100%;
-}
-
-.modal-content button {
-  padding: 0.6rem;
-  font-size: 1rem;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-}
-
-#submit-post {
-  background-color: #2f8732;
-  color: white;
-}
-
-#close-post-modal {
-  background-color: #ccc;
-  color: black;
-}
-
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      display: flex;
+      flex-direction: row;
+      gap: 0.5rem;
+      z-index: 999;
+    }
+    .side-btn {
+      background-color: #2f8732;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 1.25rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: background 0.2s;
+    }
+    .side-btn:hover {
+      background-color: #256b27;
+    }
+    .post-type-filters {
+      display: flex;
+      gap: 0.5rem;
+      padding: 0 1rem 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .post-type-btn {
+      padding: 0.5rem 1rem;
+      border: 1px solid #2f8732;
+      border-radius: 20px;
+      background: white;
+      color: #2f8732;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .post-type-btn:hover,
+    .post-type-btn.active {
+      background: #2f8732;
+      color: white;
+    }
+    .job-extra {
+      display: none;
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #444;
+      background-color: #fdfdfb;
+      border-top: 1px solid #eee;
+      animation: fadeIn 0.3s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .modal-content {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      width: 90%;
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .modal-content input,
+    .modal-content textarea,
+    .modal-content select {
+      padding: 0.6rem;
+      font-size: 0.95rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      width: 100%;
+    }
+    .modal-content button {
+      padding: 0.6rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+    }
+    #submit-post {
+      background-color: #2f8732;
+      color: white;
+    }
+    #close-post-modal {
+      background-color: #ccc;
+      color: black;
+    }
   </style>
 </head>
 <body>
-
   <header>
     <div class="logo">OnlyJobs</div>
     <div class="profile-icon"></div>
   </header>
-
   <div class="side-buttons">
-  <button class="side-btn" id="post-btn">➕</button>
-  <button class="side-btn" id="profile-btn">👤 </button>
- </div>
-
+    <button class="side-btn" id="post-btn">➕</button>
+    <button class="side-btn" id="profile-btn">👤</button>
+  </div>
   <div class="hero-box">
     <h1>Swipe. Match. Hustle.</h1>
     <p>Find gigs, tasks, and local work — in seconds.</p>
     <input type="text" placeholder="Enter your location" />
   </div>
-
   <div class="filters">
     <button class="filter-btn">5 mi</button>
     <button class="filter-btn">25 mi</button>
@@ -302,226 +251,187 @@
     <button class="filter-btn">Virtual</button>
     <button class="filter-btn">Local</button>
   </div>
-
   <div class="post-type-filters">
-  <button class="post-type-btn" data-type="available">I'm available</button>
-  <button class="post-type-btn" data-type="looking">I'm looking for</button>
-  <button class="post-type-btn" data-type="hiring">Hiring help</button>
-</div>
-
-  <div class="card" id="swipe-card" data-swipeable="true">
-  <img id="job-img" src="https://via.placeholder.com/400x200" alt="Job Preview">
-  <div class="card-content">
-    <div class="job-title" id="job-title">Part-Time Dog Walker</div>
-    <div class="job-details" id="job-details">Salt Lake City • $20/hr • Local</div>
-   </div>
-   <div class="job-extra" id="job-extra">
-    Must love dogs! Flexible hours. Experience with pets preferred. Available weekends.
-   </div>
-
-   <div class="action-buttons">
-    <button id="pass-btn">❌ Pass</button>
-    <button id="match-btn">✅ Match</button>
+    <button class="post-type-btn" data-type="available">I'm available</button>
+    <button class="post-type-btn" data-type="looking">I'm looking for</button>
+    <button class="post-type-btn" data-type="hiring">Hiring help</button>
   </div>
-</div>
+  <div class="card" id="swipe-card" data-swipeable="true">
+    <img id="job-img" src="https://via.placeholder.com/400x200" alt="Job Preview">
+    <div class="card-content">
+      <div class="job-title" id="job-title">Part-Time Dog Walker</div>
+      <div class="job-details" id="job-details">Salt Lake City • $20/hr • Local</div>
+    </div>
+    <div class="job-extra" id="job-extra">
+      Must love dogs! Flexible hours. Experience with pets preferred. Available weekends.
+    </div>
+    <div class="action-buttons">
+      <button id="pass-btn">❌ Pass</button>
+      <button id="match-btn">✅ Match</button>
+    </div>
+  </div>
 
+  <div id="post-modal" class="modal">
+    <div class="modal-content">
+      <h2>Post</h2>
+      <label for="post-image">Add Photo</label>
+      <input type="file" id="post-image" accept="image/*" />
+      <input type="text" id="post-title" placeholder="Title (e.g: developer, florist, nail artist, personal job)" />
+      <textarea id="post-description" placeholder="Describe the job, task, offer"></textarea>
+      <label for="post-type">Post Type</label>
+      <select id="post-type">
+        <option value="available">I'm Available</option>
+        <option value="looking">I'm Looking For</option>
+        <option value="hiring">Hiring Help</option>
+      </select>
+      <label for="price-type">Price Type</label>
+      <select id="price-type">
+        <option value="set">Set Price</option>
+        <option value="hourly">Hourly</option>
+        <option value="weekly">Weekly</option>
+        <option value="one-time">One Time</option>
+      </select>
+      <input type="text" id="post-price" placeholder="Enter price (e.g. 20, 50/hr)" />
+      <input type="text" id="post-location" placeholder="Location (or 'Virtual')" />
+      <button id="submit-post">Submit</button>
+      <button id="close-post-modal">Cancel</button>
+    </div>
+  </div>
 
+  <script>
+    const postBtn = document.getElementById('post-btn');
+    const postModal = document.getElementById('post-modal');
+    const closeModal = document.getElementById('close-post-modal');
+    const submitPost = document.getElementById('submit-post');
 
-<script>
-  const card = document.getElementById("swipe-card");
-  const jobImg = document.getElementById("job-img");
-  const jobTitle = document.getElementById("job-title");
-  const jobDetails = document.getElementById("job-details");
-  const passBtn = document.getElementById("pass-btn");
-  const matchBtn = document.getElementById("match-btn");
+    postBtn.addEventListener('click', () => {
+      postModal.style.display = 'flex';
+    });
 
-  // Placeholder job data (in real use, this could come from your backend)
-  const jobs = [
+    closeModal.addEventListener('click', () => {
+      postModal.style.display = 'none';
+    });
 
-    {
-      title: "Part-Time Dog Walker",
-      details: "Salt Lake City • $20/hr • Local",
-      img: "https://via.placeholder.com/400x200?text=Dog+Walker"
-    },
-    {
-      title: "Event Assistant",
-      details: "Virtual • $18/hr • Weekend Work",
-      img: "https://via.placeholder.com/400x200?text=Event+Assistant"
-    },
-    {
-      title: "Yard Cleanup Crew",
-      details: "West Valley • $22/hr • 1-day Gig",
-      img: "https://via.placeholder.com/400x200?text=Yard+Cleanup"
+    submitPost.addEventListener('click', () => {
+      const post = {
+        image: document.getElementById('post-image').files[0],
+        title: document.getElementById('post-title').value,
+        description: document.getElementById('post-description').value,
+        type: document.getElementById('post-type').value,
+        priceType: document.getElementById('price-type').value,
+        price: document.getElementById('post-price').value,
+        location: document.getElementById('post-location').value
+      };
+      console.log("📝 New Post:", post);
+      postModal.style.display = 'none';
+    });
+
+    const card = document.getElementById("swipe-card");
+    const jobImg = document.getElementById("job-img");
+    const jobTitle = document.getElementById("job-title");
+    const jobDetails = document.getElementById("job-details");
+    const jobExtra = document.getElementById("job-extra");
+    const passBtn = document.getElementById("pass-btn");
+    const matchBtn = document.getElementById("match-btn");
+
+    const jobs = [
+      { title: "Part-Time Dog Walker", details: "Salt Lake City • $20/hr • Local", img: "https://via.placeholder.com/400x200?text=Dog+Walker" },
+      { title: "Event Assistant", details: "Virtual • $18/hr • Weekend Work", img: "https://via.placeholder.com/400x200?text=Event+Assistant" },
+      { title: "Yard Cleanup Crew", details: "West Valley • $22/hr • 1-day Gig", img: "https://via.placeholder.com/400x200?text=Yard+Cleanup" }
+    ];
+
+    let jobIndex = 0;
+    let startX = 0;
+    let currentX = 0;
+    let isDragging = false;
+    const swipeThreshold = 100;
+
+    function setTransform(x) {
+      card.style.transform = `translateX(${x}px) rotate(${x * 0.05}deg)`;
     }
-  ];
 
-  let jobIndex = 0;
-
-
-  const swipeThreshold = 100;
-
-  function setTransform(x) {
-    card.style.transform = `translateX(${x}px) rotate(${x * 0.05}deg)`;
-  }
-
-  function resetCard() {
-    card.style.transition = 'transform 0.3s ease';
-    setTransform(0);
-    setTimeout(() => {
-      card.style.transition = '';
-    }, 300);
-  }
-
-  function loadNextJob() {
-    jobIndex++;
-    if (jobIndex >= jobs.length) {
-      jobTitle.textContent = "No more jobs!";
-      jobDetails.textContent = "Check back later!";
-      jobImg.src = "https://via.placeholder.com/400x200?text=No+More+Jobs";
-      return;
+    function resetCard() {
+      card.style.transition = 'transform 0.3s ease';
+      setTransform(0);
+      setTimeout(() => { card.style.transition = ''; }, 300);
     }
-    const nextJob = jobs[jobIndex];
-    jobTitle.textContent = nextJob.title;
-    jobDetails.textContent = nextJob.details;
-    jobImg.src = nextJob.img;
-    resetCard();
-  }
 
-  function handleSwipe(endX) {
-    if (endX < -swipeThreshold) {
-      card.style.transform = 'translateX(-100vw) rotate(-15deg)';
-      setTimeout(loadNextJob, 300);
-    } else if (endX > swipeThreshold) {
-      card.style.transform = 'translateX(100vw) rotate(15deg)';
-      setTimeout(loadNextJob, 300);
-    } else {
+    function loadNextJob() {
+      jobIndex++;
+      if (jobIndex >= jobs.length) {
+        jobTitle.textContent = "No more jobs!";
+        jobDetails.textContent = "Check back later!";
+        jobImg.src = "https://via.placeholder.com/400x200?text=No+More+Jobs";
+        return;
+      }
+      const nextJob = jobs[jobIndex];
+      jobTitle.textContent = nextJob.title;
+      jobDetails.textContent = nextJob.details;
+      jobImg.src = nextJob.img;
       resetCard();
     }
-  }
 
-  // Touch events
-  card.addEventListener("touchstart", (e) => {
-    startX = e.touches[0].clientX;
-    isDragging = true;
-  });
+    function handleSwipe(endX) {
+      if (endX < -swipeThreshold) {
+        card.style.transform = 'translateX(-100vw) rotate(-15deg)';
+        setTimeout(loadNextJob, 300);
+      } else if (endX > swipeThreshold) {
+        card.style.transform = 'translateX(100vw) rotate(15deg)';
+        setTimeout(loadNextJob, 300);
+      } else {
+        resetCard();
+      }
+    }
 
-  card.addEventListener("touchmove", (e) => {
-    if (!isDragging) return;
-    currentX = e.touches[0].clientX - startX;
-    setTransform(currentX);
-  });
+    matchBtn.addEventListener("click", () => {
+      card.style.transform = 'translateX(100vw) rotate(15deg)';
+      setTimeout(loadNextJob, 300);
+    });
 
-  card.addEventListener("touchend", () => {
-    isDragging = false;
-    handleSwipe(currentX);
-    currentX = 0;
-  });
+    passBtn.addEventListener("click", () => {
+      card.style.transform = 'translateX(-100vw) rotate(-15deg)';
+      setTimeout(loadNextJob, 300);
+    });
 
-  // Mouse events
-  card.addEventListener("mousedown", (e) => {
-    startX = e.clientX;
-    isDragging = true;
-  });
+    card.addEventListener("click", () => {
+      if (Math.abs(currentX) > 10) return;
+      jobExtra.style.display = jobExtra.style.display === "block" ? "none" : "block";
+    });
 
-  document.addEventListener("mousemove", (e) => {
-    if (!isDragging) return;
-    currentX = e.clientX - startX;
-    setTransform(currentX);
-  });
+    card.addEventListener("mousedown", (e) => {
+      startX = e.clientX;
+      isDragging = true;
+    });
 
-  document.addEventListener("mouseup", () => {
-    if (!isDragging) return;
-    isDragging = false;
-    handleSwipe(currentX);
-    currentX = 0;
-  });
+    document.addEventListener("mousemove", (e) => {
+      if (!isDragging) return;
+      currentX = e.clientX - startX;
+      setTransform(currentX);
+    });
 
-  // Button clicks (match/pass)
-  matchBtn.addEventListener("click", () => {
-    card.style.transform = 'translateX(100vw) rotate(15deg)';
-    setTimeout(loadNextJob, 300);
-  });
+    document.addEventListener("mouseup", () => {
+      if (!isDragging) return;
+      isDragging = false;
+      handleSwipe(currentX);
+      currentX = 0;
+    });
 
-  passBtn.addEventListener("click", () => {
-    card.style.transform = 'translateX(-100vw) rotate(-15deg)';
-    setTimeout(loadNextJob, 300);
-  });
+    card.addEventListener("touchstart", (e) => {
+      startX = e.touches[0].clientX;
+      isDragging = true;
+    });
 
-  const jobExtra = document.getElementById("job-extra");
- let extraVisible = false;
+    card.addEventListener("touchmove", (e) => {
+      if (!isDragging) return;
+      currentX = e.touches[0].clientX - startX;
+      setTransform(currentX);
+    });
 
- card.addEventListener("click", (e) => {
-  // Prevent interfering with swipe gestures
-  if (Math.abs(currentX) > 10) return;
-
-  extraVisible = !extraVisible;
-  jobExtra.style.display = extraVisible ? "block" : "none";
- });
- const postBtn = document.getElementById('post-btn');
-const postModal = document.getElementById('post-modal');
-const closeModal = document.getElementById('close-post-modal');
-const submitPost = document.getElementById('submit-post');
-
-postBtn.addEventListener('click', () => {
-  postModal.style.display = 'flex';
-});
-
-closeModal.addEventListener('click', () => {
-  postModal.style.display = 'none';
-});
-
-submitPost.addEventListener('click', () => {
-  const post = {
-    image: document.getElementById('post-image').files[0],
-    title: document.getElementById('post-title').value,
-    description: document.getElementById('post-description').value,
-    type: document.getElementById('post-type').value,
-    priceType: document.getElementById('price-type').value,
-    price: document.getElementById('post-price').value,
-    location: document.getElementById('post-location').value
-  };
-
-  console.log("📝 New Post:", post);
-  postModal.style.display = 'none';
-});
-
-</script>
-
-<div id="post-modal" class="modal">
-  <div class="modal-content">
-    <h2>Post</h2>
-
-    <label for="post-image">Add Photo</label>
-    <input type="file" id="post-image" accept="image/*" />
-
-    <input type="text" id="post-title" placeholder="Title (e.g: developer, florist, nail artist, personal job)" />
-
-    <textarea id="post-description" placeholder="Describe the job, task, offer"></textarea>
-
-    <label for="post-type">Post Type</label>
-    <select id="post-type">
-      <option value="available">I'm Available</option>
-      <option value="looking">I'm Looking For</option>
-      <option value="hiring">Hiring Help</option>
-    </select>
-
-    <label for="price-type">Price Type</label>
-    <select id="price-type">
-      <option value="set">Set Price</option>
-      <option value="hourly">Hourly</option>
-      <option value="weekly">Weekly</option>
-      <option value="one-time">One Time</option>
-    </select>
-
-    <input type="text" id="post-price" placeholder="Enter price (e.g. 20, 50/hr)" />
-    <input type="text" id="post-location" placeholder="Location (or 'Virtual')" />
-
-    <button id="submit-post">Submit</button>
-    <button id="close-post-modal">Cancel</button>
-  </div>
-</div>
-
-
-
+    card.addEventListener("touchend", () => {
+      isDragging = false;
+      handleSwipe(currentX);
+      currentX = 0;
+    });
+  </script>
 </body>
 </html>
