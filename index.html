@@ -382,22 +382,22 @@
       <button id="save-profile">Save</button>
       <button id="close-profile">Close</button>
     </div>
-  </div>
- </div>
+   </div>
+   </div>
 
- <div id="welcome-modal" class="modal">
-  <div class="modal-content">
+   <div id="welcome-modal" class="modal" style="display: none;"></div>
+   <div class="modal-content">
     <h2>Welcome to OnlyJobs</h2>
     <p>Would you like to log in, sign up, or skip and start swiping?</p>
     <button id="login-btn">Log In</button>
     <button id="signup-btn">Sign Up</button>
     <button id="skip-btn">Skip and Get Swiping</button>
-  </div>
- </div>
+   </div>
+   </div>
 
 
 
-  <script>
+   <script>
     // Post modal logic
     const postBtn = document.getElementById('post-btn');
     const postModal = document.getElementById('post-modal');
@@ -575,39 +575,34 @@
    profileScreen.classList.remove('show');
    });
    window.addEventListener('DOMContentLoaded', () => {
+   const profileScreen = document.getElementById('profile-screen');
    profileScreen.classList.remove('show');
    profileScreen.style.display = 'none';
-   });
-   // Automatically show profile on load for testing if not "logged in"
-   window.addEventListener('DOMContentLoaded', () => {
 
    const welcomeModal = document.getElementById('welcome-modal');
    const loginBtn = document.getElementById('login-btn');
    const signupBtn = document.getElementById('signup-btn');
    const skipBtn = document.getElementById('skip-btn');
 
-   // Always show for testing
-   welcomeModal.style.display = 'flex';
+   // Wait 10 seconds then show the welcome modal
+   setTimeout(() => {
+    welcomeModal.classList.add('show');
+   }, 10000);
 
    loginBtn.addEventListener('click', () => {
-   alert('Login clicked (add login logic)');
-   welcomeModal.style.display = 'none';
+    alert('Login clicked (add login logic)');
+    welcomeModal.classList.remove('show');
    });
 
    signupBtn.addEventListener('click', () => {
-   alert('Sign up clicked (add signup logic)');
-   welcomeModal.style.display = 'none';
+    alert('Sign up clicked (add signup logic)');
+    welcomeModal.classList.remove('show');
    });
 
    skipBtn.addEventListener('click', () => {
-   welcomeModal.classList.remove('show');
+    welcomeModal.classList.remove('show');
    });
-   
-   window.addEventListener('DOMContentLoaded', () => {
-   setTimeout(() => {
-    welcomeModal.classList.add('show');
-   }, 10000); // 10 seconds
-   });
+  });
   </script>
 </body>
 </html>
