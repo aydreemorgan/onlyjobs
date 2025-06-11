@@ -254,9 +254,47 @@
       margin: 0 auto;
       font-size: 1rem;
       color: #333;
-    }
-    
 
+    }#welcome-modal {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   position: fixed;
+   top: 0; left: 0;
+   width: 100vw;
+   height: 100vh;
+   background-color: rgba(0,0,0,0.4);
+   opacity: 0;
+   pointer-events: none;
+   transition: opacity 0.4s ease;
+   z-index: 2000;
+   }
+
+   #welcome-modal.show {
+   opacity: 1;
+   pointer-events: all;
+   }
+
+   #welcome-modal .modal-content {
+   background: white;
+   border-radius: 12px;
+   padding: 2rem;
+   width: 90%;
+   max-width: 400px;
+   text-align: center;
+   animation: popupFadeIn 0.5s ease;
+   }
+
+   @keyframes popupFadeIn {
+   from {
+    transform: translateY(30px);
+    opacity: 0;
+   }
+   to {
+    transform: translateY(0);
+    opacity: 1;
+   }
+  }
   </style>
 </head>
 <body>
@@ -345,9 +383,9 @@
       <button id="close-profile">Close</button>
     </div>
   </div>
-</div>
+ </div>
 
-<div id="welcome-modal" class="modal" style="display: flex;">
+ <div id="welcome-modal" class="modal">
   <div class="modal-content">
     <h2>Welcome to OnlyJobs</h2>
     <p>Would you like to log in, sign up, or skip and start swiping?</p>
@@ -355,7 +393,8 @@
     <button id="signup-btn">Sign Up</button>
     <button id="skip-btn">Skip and Get Swiping</button>
   </div>
-</div>
+ </div>
+
 
 
   <script>
@@ -571,8 +610,8 @@ skipBtn.addEventListener('click', () => {
     requestAnimationFrame(() => {
       profileScreen.classList.add('show');
     });
-  }
-});
+   }
+   });
   </script>
 </body>
 </html>
