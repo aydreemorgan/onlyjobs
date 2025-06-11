@@ -315,20 +315,26 @@
     </div>
    </div>
 
-   <div id="profile-screen" class="profile-screen" style="display: none;">
-   <div class="profile-content">
-    <h2>Your Profile</h2>
-    <label>Name:</label>
-    <input type="text" id="profile-name" placeholder="Add your name" />
+   <div id="profile-screen" class="profile-screen">
+  <div class="profile-card">
+    <h2>Edit Your Profile</h2>
 
-    <label>Bio / About:</label>
-    <textarea id="profile-bio" placeholder="Tell us about yourself"></textarea>
+    <label for="profile-name">Name</label>
+    <input type="text" id="profile-name" placeholder="Enter your name" />
 
-    <label>Experience:</label>
-    <textarea id="profile-experience" placeholder="Ex: Dog walker, customer support, etc."></textarea>
+    <label for="profile-bio">Bio / About</label>
+    <textarea id="profile-bio" placeholder="Tell us about yourself..."></textarea>
 
-    <button id="save-profile">Save</button>
-    <button id="close-profile">Close</button>
+    <label for="profile-experience">Past Experience / Resume</label>
+    <textarea id="profile-experience" placeholder="Example: Freelance Designer – 3 years"></textarea>
+
+    <div class="profile-actions">
+      <button id="save-profile">Save</button>
+      <button id="close-profile">Close</button>
+    </div>
+  </div>
+</div>
+
   </div>
  </div>
 
@@ -487,6 +493,30 @@
     closeProfileBtn.addEventListener('click', () => {
       profileScreen.style.display = 'none';
     });
+    const profileBtn = document.getElementById('profile-btn');
+    const profileScreen = document.getElementById('profile-screen');
+    const closeProfileBtn = document.getElementById('close-profile');
+    const saveProfileBtn = document.getElementById('save-profile');
+
+    profileBtn.addEventListener('click', () => {
+     profileScreen.style.display = 'block';
+    });
+
+    closeProfileBtn.addEventListener('click', () => {
+    profileScreen.style.display = 'none';
+    });
+
+    saveProfileBtn.addEventListener('click', () => {
+    const name = document.getElementById('profile-name').value;
+    const bio = document.getElementById('profile-bio').value;
+    const experience = document.getElementById('profile-experience').value;
+
+   console.log('✅ Saved Profile:', { name, bio, experience });
+
+   alert('Profile saved!');
+   profileScreen.style.display = 'none';
+   });
+
   </script>
 </body>
 </html>
