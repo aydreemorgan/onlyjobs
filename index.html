@@ -252,7 +252,9 @@
 <body>
   <header>
     <div class="logo">OnlyJobs</div>
-    <div class="profile-icon" id="header-profile-icon"></div>
+    <button id="header-profile-btn" class="profile-icon" aria-label="Profile"></button>
+
+
   </header>
   <div class="side-buttons">
     <button class="side-btn" id="post-btn">➕</button>
@@ -452,26 +454,31 @@
       currentX = 0;
     });
 
-    const profileBtn = document.getElementById('profile-btn');
- const profileScreen = document.getElementById('profile-screen');
- const closeProfileBtn = document.getElementById('close-profile');
+    
+  const profileBtn = document.getElementById('profile-btn');
+  const headerProfileBtn = document.getElementById('header-profile-btn');
+  const profileScreen = document.getElementById('profile-screen');
+  const closeProfileBtn = document.getElementById('close-profile');
 
- profileBtn.addEventListener('click', () => {
-  profileScreen.style.display = 'block';
- });
+  // Open profile screen
+  profileBtn.addEventListener('click', () => {
+    profileScreen.style.display = 'block';
+  });
 
- closeProfileBtn.addEventListener('click', () => {
-  profileScreen.style.display = 'none';
- });
+  headerProfileBtn.addEventListener('click', () => {
+    profileScreen.style.display = 'block';
+  });
 
- // ✅ New handler for the header icon
- const headerProfileIcon = document.getElementById('header-profile-icon');
- headerProfileIcon.addEventListener('click', () => {
-  profileScreen.style.display = 'block';
- });
-  </script>
+  // Close profile screen
+  closeProfileBtn.addEventListener('click', () => {
+    profileScreen.style.display = 'none';
+  });
+</script>
 
-  <div id="profile-screen" class="profile-screen" style="display: none;">
+ 
+</script>
+
+ <div id="profile-screen" class="profile-screen" style="display: none;">
   <div class="profile-content">
     <h2>Your Profile</h2>
     <p><strong>Name:</strong> (Add Name)</p>
@@ -483,6 +490,8 @@
     </ul>
     <button id="close-profile">Close</button>
   </div>
- </div>
+</div>
+
+
 </body>
 </html>
