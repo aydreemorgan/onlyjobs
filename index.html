@@ -252,7 +252,7 @@
 <body>
   <header>
     <div class="logo">OnlyJobs</div>
-    <div class="profile-icon"></div>
+    <div class="profile-icon" id="header-profile-icon"></div>
   </header>
   <div class="side-buttons">
     <button class="side-btn" id="post-btn">➕</button>
@@ -453,17 +453,22 @@
     });
 
     const profileBtn = document.getElementById('profile-btn');
-    const profileScreen = document.getElementById('profile-screen');
-    const closeProfileBtn = document.getElementById('close-profile');
+ const profileScreen = document.getElementById('profile-screen');
+ const closeProfileBtn = document.getElementById('close-profile');
 
-    profileBtn.addEventListener('click', () => {
+ profileBtn.addEventListener('click', () => {
   profileScreen.style.display = 'block';
  });
 
-    closeProfileBtn.addEventListener('click', () => {
+ closeProfileBtn.addEventListener('click', () => {
   profileScreen.style.display = 'none';
-  });
+ });
 
+ // ✅ New handler for the header icon
+ const headerProfileIcon = document.getElementById('header-profile-icon');
+ headerProfileIcon.addEventListener('click', () => {
+  profileScreen.style.display = 'block';
+ });
   </script>
 
   <div id="profile-screen" class="profile-screen" style="display: none;">
