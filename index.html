@@ -577,7 +577,19 @@
       cursor: pointer;
       margin-top: 0.3rem;
       align-self: flex-end;
+     }
+     /* Notification unread style */
+      #notifications-list li.unread {
+        background: #e6f5e6;
+        font-weight: bold;
+      }
+      #notifications-list li {
+        padding: 0.5rem 0.7rem;
+        border-radius: 6px;
+        margin-bottom: 0.3rem;
+        cursor: pointer;
     }
+    
   </style>
 </head>
 <body>
@@ -757,25 +769,128 @@
   </div>
   <!-- Settings Modal -->
 <div id="settings-modal" class="modal">
-  <div class="modal-content" style="max-width:400px;">
+  <div class="modal-content" style="max-width:500px;overflow-y:auto;max-height:90vh;">
     <h2>Settings</h2>
-    <label>
-      <input type="checkbox" id="settings-email-notifications" />
-      Email Notifications
-    </label>
-    <label>
-      <input type="checkbox" id="settings-show-profile-public" />
-      Show Profile Publicly
-    </label>
-    <label>
-      Theme:
-      <select id="settings-theme">
-        <option value="light">Light</option>
-        <option value="dark">Dark</option>
-      </select>
-    </label>
-    <button id="settings-change-password-btn" style="margin-top:0.5rem;">Change Password</button>
-    <button id="settings-delete-account-btn" style="background:#f44336;color:#fff;margin-top:0.5rem;">Delete Account</button>
+    <!-- 1. Profile Preferences -->
+    <section>
+      <h3>Profile Preferences</h3>
+      <label>Name: <input type="text" id="settings-name" /></label>
+      <label>Profile Picture: <input type="file" id="settings-profile-pic" accept="image/*" /></label>
+      <img id="settings-profile-pic-preview" src="https://via.placeholder.com/100?text=Photo" style="width:60px;height:60px;border-radius:50%;margin:0.5rem 0;">
+      <label>Bio / About Me:
+        <textarea id="settings-bio"></textarea>
+      </label>
+      <label>Upload Resume: <input type="file" id="settings-resume" accept="application/pdf" /></label>
+      <div id="settings-resume-link" style="display:none;">
+        <a id="settings-resume-download" href="#" target="_blank">View Uploaded Resume</a>
+      </div>
+      <label>
+        <input type="checkbox" id="settings-profile-public" />
+        Make profile public
+      </label>
+    </section>
+    <hr>
+    <!-- 2. Notifications -->
+    <section>
+      <h3>Notifications</h3>
+      <label><input type="checkbox" id="settings-email-notifications" /> Email Notifications</label>
+      <label><input type="checkbox" id="settings-sms-notifications" /> SMS Notifications</label>
+      <label><input type="checkbox" id="settings-push-notifications" /> Push Notifications</label>
+      <div style="margin-left:1rem;">
+        <label><input type="checkbox" id="settings-notify-job-matches" /> New job matches</label><br>
+        <label><input type="checkbox" id="settings-notify-interview-requests" /> Interview requests</label><br>
+        <label><input type="checkbox" id="settings-notify-messages" /> Messages</label><br>
+        <label><input type="checkbox" id="settings-notify-likes" /> Likes / reactions</label>
+      </div>
+    </section>
+    <hr>
+    <!-- 3. Calendar & Availability -->
+    <section>
+      <h3>Calendar & Availability</h3>
+      <label>Set Availability:
+        <input type="text" id="settings-availability" placeholder="e.g. Mon-Fri 9am-5pm" />
+      </label>
+      <label>Time Zone:
+        <select id="settings-timezone">
+          <option value="">Select Time Zone</option>
+          <option value="America/New_York">Eastern</option>
+          <option value="America/Chicago">Central</option>
+          <option value="America/Denver">Mountain</option>
+          <option value="America/Los_Angeles">Pacific</option>
+          <!-- Add more as needed -->
+        </select>
+      </label>
+      <label>Default Interview Duration:
+        <input type="number" id="settings-interview-duration" min="5" max="120" value="30" /> minutes
+      </label>
+    </section>
+    <hr>
+    <!-- 4. Messaging Preferences -->
+    <section>
+      <h3>Messaging Preferences</h3>
+      <label><input type="checkbox" id="settings-enable-messaging" /> Enable Messaging</label>
+      <label>Allow Messages From:
+        <select id="settings-message-allow">
+          <option value="anyone">Anyone</option>
+          <option value="matches">Matches only</option>
+          <option value="contacts">Saved contacts</option>
+        </select>
+      </label>
+    </section>
+    <hr>
+    <!-- 5. Privacy & Security -->
+    <section>
+      <h3>Privacy & Security</h3>
+      <label><input type="checkbox" id="settings-2fa" /> Two-Factor Authentication</label>
+      <button id="settings-change-password-btn" type="button">Change Password</button>
+      <label>Blocked Users:
+        <textarea id="settings-blocked-users" placeholder="Blocked users (comma separated)"></textarea>
+      </label>
+      <label>Account Visibility:
+        <select id="settings-account-visibility">
+          <option value="employers">Visible to employers</option>
+          <option value="everyone">Visible to everyone</option>
+          <option value="hidden">Hidden from search</option>
+        </select>
+      </label>
+    </section>
+    <hr>
+    <!-- 6. Account Management -->
+    <section>
+      <h3>Account Management</h3>
+      <label>Email: <input type="email" id="settings-email" /></label>
+      <label>Phone: <input type="tel" id="settings-phone" /></label>
+      <label>Connected Accounts:
+        <select id="settings-connected-accounts" multiple>
+          <option value="google">Google</option>
+          <option value="facebook">Facebook</option>
+          <!-- Add more as needed -->
+        </select>
+      </label>
+      <button id="settings-delete-account-btn" type="button" style="background:#f44336;color:#fff;margin-top:0.5rem;">Delete Account</button>
+      <button id="settings-logout-btn" type="button" style="background:#ccc;color:#222;margin-top:0.5rem;">Log Out</button>
+    </section>
+    <hr>
+    <!-- 7. App Preferences -->
+    <section>
+      <h3>App Preferences</h3>
+      <label>Theme:
+        <select id="settings-theme">
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+      <label>Language:
+        <select id="settings-language">
+          <option value="en">English</option>
+          <option value="es">Spanish</option>
+          <!-- Add more as needed -->
+        </select>
+      </label>
+      <label>Swipe Sensitivity:
+        <input type="range" id="settings-swipe-sensitivity" min="1" max="10" value="5" />
+      </label>
+    </section>
     <div style="display:flex;gap:0.5rem;margin-top:1rem;">
       <button id="settings-save-btn">Save</button>
       <button id="settings-close-btn" style="background:#ccc;color:#222;">Close</button>
@@ -803,6 +918,18 @@
     <div style="display:flex;gap:0.5rem;margin-top:1rem;">
       <button id="delete-account-confirm-btn" style="background:#f44336;color:#fff;">Delete</button>
       <button id="delete-account-cancel-btn" style="background:#ccc;color:#222;">Cancel</button>
+    </div>
+  </div>
+</div>
+<!-- Notifications Modal -->
+<div id="notifications-modal" class="modal">
+  <div class="modal-content" style="max-width:400px;">
+    <h3>Notifications</h3>
+    <ul id="notifications-list" style="list-style:none;padding:0;margin:0 0 1rem 0;"></ul>
+    <div style="display:flex;gap:0.5rem;">
+      <button id="mark-all-read-btn">Mark All as Read</button>
+      <button id="clear-notifications-btn" style="background:#f44336;color:#fff;">Clear All</button>
+      <button id="close-notifications-btn" style="background:#ccc;color:#222;">Close</button>
     </div>
   </div>
 </div>
@@ -1160,6 +1287,10 @@
                 today.getDate() === day
               ) classes.push('today');
               if (calendarEvents[key] && calendarEvents[key].length) classes.push('has-event');
+              // Highlight if any event is an interview
+              if (calendarEvents[key] && calendarEvents[key].some(ev => ev.type === 'interview')) {
+                classes.push('has-interview');
+              }
               html += `<td class="${classes.join(' ')}" data-date="${key}">${day}</td>`;
               day++;
             }
@@ -1296,6 +1427,65 @@
         );
         
       });
+
+      // --- Notifications Modal Logic ---
+const notificationsModal = document.getElementById('notifications-modal');
+const notificationsList = document.getElementById('notifications-list');
+const markAllReadBtn = document.getElementById('mark-all-read-btn');
+const clearNotificationsBtn = document.getElementById('clear-notifications-btn');
+const closeNotificationsBtn = document.getElementById('close-notifications-btn');
+const sidebarNotificationsBtn = document.getElementById('sidebar-notifications');
+
+// Example notifications data (replace with real data as needed)
+let notifications = JSON.parse(localStorage.getItem('notifications') || '[]');
+if (!notifications.length) {
+  notifications = [
+    { id: 1, type: 'like', text: 'Someone liked your post.', read: false },
+    { id: 2, type: 'match', text: 'You have a new job match!', read: false },
+    { id: 3, type: 'interview', text: 'Interview request for Friday 2pm.', read: false }
+  ];
+  localStorage.setItem('notifications', JSON.stringify(notifications));
+}
+
+function renderNotifications() {
+  notificationsList.innerHTML = '';
+  if (!notifications.length) {
+    notificationsList.innerHTML = '<li style="text-align:center;color:#888;">No notifications.</li>';
+    return;
+  }
+  notifications.forEach((notif, idx) => {
+    const li = document.createElement('li');
+    li.textContent = notif.text;
+    li.className = notif.read ? '' : 'unread';
+    li.onclick = () => {
+      notifications[idx].read = true;
+      localStorage.setItem('notifications', JSON.stringify(notifications));
+      renderNotifications();
+    };
+    notificationsList.appendChild(li);
+  });
+}
+
+sidebarNotificationsBtn.onclick = () => {
+  notificationsModal.classList.add('show');
+  renderNotifications();
+};
+
+closeNotificationsBtn.onclick = () => {
+  notificationsModal.classList.remove('show');
+};
+
+markAllReadBtn.onclick = () => {
+  notifications.forEach(n => n.read = true);
+  localStorage.setItem('notifications', JSON.stringify(notifications));
+  renderNotifications();
+};
+
+clearNotificationsBtn.onclick = () => {
+  notifications = [];
+  localStorage.setItem('notifications', JSON.stringify(notifications));
+  renderNotifications();
+};
     });
   </script>
 </body>
