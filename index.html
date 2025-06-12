@@ -589,6 +589,12 @@
         margin-bottom: 0.3rem;
         cursor: pointer;
     }
+     #conversations-list div {
+     border-bottom: 1px solid #f3f3f3;
+     }
+     #conversations-list div:hover {
+      background: #f3f3f3;
+}
     
   </style>
 </head>
@@ -736,7 +742,25 @@
       </form>
     </div>
   </div>
-
+<!-- Messaging Modal -->
+ <div id="messaging-modal" class="modal">
+  <div class="modal-content" style="max-width:500px;min-height:350px;display:flex;flex-direction:column;">
+    <h3>Messages</h3>
+    <div style="display:flex;gap:1rem;flex:1 1 0;min-height:200px;">
+      <div id="conversations-list" style="width:40%;border-right:1px solid #eee;overflow-y:auto;">
+        <!-- Conversations will be listed here -->
+      </div>
+      <div style="flex:1;display:flex;flex-direction:column;">
+        <div id="messages-list" style="flex:1 1 0;overflow-y:auto;margin-bottom:0.5rem;"></div>
+        <form id="send-message-form" style="display:flex;gap:0.5rem;">
+          <input type="text" id="message-input" placeholder="Type a message..." style="flex:1;" autocomplete="off" />
+          <button type="submit">Send</button>
+        </form>
+      </div>
+    </div>
+    <button id="close-messaging-btn" style="background:#ccc;color:#222;margin-top:0.5rem;">Close</button>
+  </div>
+ </div>
   <!-- Calendar Modal -->
   <div id="calendar-modal">
     <div class="calendar-content">
@@ -1406,7 +1430,7 @@
       // Sidebar button demo actions
       
 
-      document.getElementById('sidebar-messages').onclick = () => alert('Messaging clicked!');
+      
       document.getElementById('sidebar-likes').onclick = () => alert('Likes clicked!');
 
       // Save profile (demo: just alert and prevent reload)
@@ -1485,6 +1509,82 @@ clearNotificationsBtn.onclick = () => {
   notifications = [];
   localStorage.setItem('notifications', JSON.stringify(notifications));
   renderNotifications();
+};
+
+      // --- Messaging Modal Logic ---
+const messagingModal = document.getElementById('messaging-modal');
+const sidebarMessagesBtn = document.getElementById('sidebar-messages');
+const closeMessagingBtn = document.getElementById('close-messaging-btn');
+const conversationsList = document.getElementById('conversations-list');
+const messagesList = document.getElementById('messages-list');
+const sendMessageForm = document.getElementById('send-message-form');
+const messageInput = document.getElementById('message-input');
+
+// Example conversations/messages (replace with real data as needed)
+let conversations = JSON.parse(localStorage.getItem('conversations') || '[]');
+if (!conversations.length) {
+  conversations = [
+    { id: 1, name: "Jane Doe", messages: [
+      { from: "Jane Doe", text: "Hi! Are you available for a gig?" },
+      { from: "Me", text: "Yes, tell me more!" }
+    ]},
+    { id: 2, name: "Mike Recruiter", messages: [
+      { from: "Mike Recruiter", text: "Interview request for Thursday?" }
+    ]}
+  ];
+  localStorage.setItem('conversations', JSON.stringify(conversations));
+}
+let selectedConversation = 0;
+
+function renderConversations() {
+  conversationsList.innerHTML = '';
+  conversations.forEach((conv, idx) => {
+    const div = document.createElement('div');
+    div.textContent = conv.name;
+    div.style.padding = '0.5rem';
+    div.style.cursor = 'pointer';
+    div.style.background = idx === selectedConversation ? '#e6f5e6' : '';
+    div.onclick = () => {
+      selectedConversation = idx;
+      renderConversations();
+      renderMessages();
+    };
+    conversationsList.appendChild(div);
+  });
+}
+
+function renderMessages() {
+  messagesList.innerHTML = '';
+  const conv = conversations[selectedConversation];
+  if (!conv) return;
+  conv.messages.forEach(msg => {
+    const div = document.createElement('div');
+    div.textContent = (msg.from === "Me" ? "You: " : msg.from + ": ") + msg.text;
+    div.style.margin = '0.2rem 0';
+    div.style.textAlign = msg.from === "Me" ? 'right' : 'left';
+    messagesList.appendChild(div);
+  });
+  messagesList.scrollTop = messagesList.scrollHeight;
+}
+
+sidebarMessagesBtn.onclick = () => {
+  messagingModal.classList.add('show');
+  renderConversations();
+  renderMessages();
+};
+
+closeMessagingBtn.onclick = () => {
+  messagingModal.classList.remove('show');
+};
+
+sendMessageForm.onsubmit = (e) => {
+  e.preventDefault();
+  const text = messageInput.value.trim();
+  if (!text) return;
+  conversations[selectedConversation].messages.push({ from: "Me", text });
+  localStorage.setItem('conversations', JSON.stringify(conversations));
+  messageInput.value = '';
+  renderMessages();
 };
     });
   </script>
