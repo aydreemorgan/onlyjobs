@@ -1241,6 +1241,34 @@
         calendarModal.classList.remove('show');
       };
 
+      // Settings modal logic
+      const settingsModal = document.getElementById('settings-modal');
+      const sidebarSettingsBtn = document.getElementById('sidebar-settings');
+      const settingsCloseBtn = document.getElementById('settings-close-btn');
+      const settingsSaveBtn = document.getElementById('settings-save-btn');
+
+      sidebarSettingsBtn.onclick = () => {
+        settingsModal.classList.add('show');
+      };
+
+      settingsCloseBtn.onclick = () => {
+        settingsModal.classList.remove('show');
+      };
+
+      settingsSaveBtn.onclick = () => {
+        // Example: read settings values
+        const emailNotifications = document.getElementById('settings-email-notifications').checked;
+        const showProfilePublic = document.getElementById('settings-show-profile-public').checked;
+        const theme = document.getElementById('settings-theme').value;
+        alert(
+          'Settings saved!\n' +
+          'Email Notifications: ' + (emailNotifications ? 'On' : 'Off') + '\n' +
+          'Show Profile: ' + (showProfilePublic ? 'Yes' : 'No') + '\n' +
+          'Theme: ' + theme
+        );
+        settingsModal.classList.remove('show');
+      };
+
       // Sidebar button demo actions
       document.getElementById('sidebar-settings').onclick = () => alert('Settings clicked!');
       document.getElementById('sidebar-notifications').onclick = () => alert('Notifications clicked!');
