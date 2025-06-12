@@ -1763,7 +1763,6 @@ if (!conversations.length) {
       { from: "Me", text: "Yes, tell me more!" }
     ]},
     { id: 2, name: "Mike Recruiter", messages: [
-
       { from: "Mike Recruiter", text: "Interview request for Thursday?" }
     ]}
   ];
@@ -1818,36 +1817,27 @@ sendMessageForm.onsubmit = (e) => {
   if (!text) return;
   conversations[selectedConversation].messages.push({ from: "Me", text });
   localStorage.setItem('conversations', JSON.stringify(conversations));
-  renderMessages();.getElementById('post-image');
-  messageInput.value = '';ImagePreview = document.getElementById('post-image-preview');
+  renderMessages();
+  messageInput.value = '';
 };
 
-      const postImageInput = document.getElementById('post-image');f (file) {
-      const postImagePreview = document.getElementById('post-image-preview'); const reader = new FileReader();
-      postImageInput.addEventListener('change', function() {der.onload = function(e) {
-        const file = this.files[0];magePreview.src = e.target.result;
-        if (file) {ostImagePreview.style.display = 'block';
+      // Post image preview logic
+      const postImageInput = document.getElementById('post-image');
+      const postImagePreview = document.getElementById('post-image-preview');
+      postImageInput.addEventListener('change', function() {
+        const file = this.files[0];
+        if (file) {
           const reader = new FileReader();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</html></body>  </script>    });      });        }          postImagePreview.style.display = 'none';          postImagePreview.src = "https://via.placeholder.com/120x80?text=Preview";        } else {          reader.readAsDataURL(file);          };            postImagePreview.style.display = 'block';            postImagePreview.src = e.target.result;          reader.onload = function(e) {    reader.readAsDataURL(file);
-  } else {
-    postImagePreview.src = "https://via.placeholder.com/120x80?text=Preview";
-    postImagePreview.style.display = 'none';
-  }
-});
+          reader.onload = function(e) {
+            postImagePreview.src = e.target.result;
+            postImagePreview.style.display = 'block';
+          };
+          reader.readAsDataURL(file);
+        } else {
+          postImagePreview.src = "https://via.placeholder.com/120x80?text=Preview";
+          postImagePreview.style.display = 'none';
+        }
+      });
     });
   </script>
 </body>
