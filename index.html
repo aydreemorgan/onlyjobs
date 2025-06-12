@@ -6,7 +6,449 @@
   <title>OnlyJobs</title>
   <style>
     /* ...existing code... */
-    /* (Keep all your previous CSS here) */
+    body {
+      margin: 0;
+      font-family: 'Helvetica Neue', sans-serif;
+      background: #fdfaf5;
+      color: #333;
+    }
+    header {
+      padding: 1rem;
+      background: #fff;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 1.4rem;
+      font-weight: bold;
+      letter-spacing: -0.5px;
+    }
+    .profile-icon {
+      width: 32px;
+      height: 32px;
+      background: #ccc;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+    }
+    .hero-box {
+      background-color: #2f8732;
+      color: white;
+      padding: 2.5rem 1rem 2rem;
+      text-align: center;
+      border-radius: 20px;
+      margin: 1rem;
+    }
+    .hero-box h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+    .hero-box p {
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .hero-box input {
+      padding: 0.75rem 1.25rem;
+      width: 80%;
+      max-width: 400px;
+      border: none;
+      border-radius: 30px;
+      font-size: 1rem;
+      background-color: white;
+      color: #2f8732;
+    }
+    .hero-box input::placeholder {
+      color: #2f8732;
+      opacity: 0.9;
+    }
+    .filters {
+      display: flex;
+      gap: 0.5rem;
+      padding: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .filter-btn {
+      padding: 0.5rem 0.75rem;
+      background: #2f8732;
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+    .card-flip-container {
+      perspective: 1200px;
+      width: 100%;
+      max-width: 400px;
+      margin: 1rem auto;
+    }
+    .card-flip {
+      width: 100%;
+      height: 100%;
+      transition: transform 0.6s cubic-bezier(.4,2,.6,1);
+      transform-style: preserve-3d;
+      position: relative;
+    }
+    .card-flip.flipped {
+      transform: rotateY(180deg);
+    }
+    .card-front, .card-back {
+      position: absolute;
+      width: 100%;
+      backface-visibility: hidden;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #fff;
+      border: 2px solid #2f8732;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      min-height: 350px;
+    }
+    .card-front {
+      z-index: 2;
+    }
+    .card-back {
+      transform: rotateY(180deg);
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      min-height: 350px;
+      padding: 1.5rem 1rem;
+      justify-content: center;
+      align-items: center;
+    }
+    .card-back h3 {
+      margin-top: 0;
+    }
+    .card-back p {
+      margin: 1rem 0;
+      color: #333;
+    }
+    .card-back button {
+      margin-top: 1rem;
+      background: #2f8732;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .card-back .back-btn {
+      background: #ccc;
+      color: #222;
+      margin-top: 0.5rem;
+    }
+    .card-front img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .card-content {
+      padding: 1rem;
+    }
+    .job-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+    .job-details {
+      font-size: 0.9rem;
+      color: #666;
+      margin-top: 0.5rem;
+    }
+    .action-buttons {
+      display: flex;
+      justify-content: space-around;
+      padding: 1rem;
+    }
+    .action-buttons button {
+      background: #f5f5f5;
+      border: none;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .action-buttons button:nth-child(2) {
+      background-color: #2f8732;
+      color: #fff;
+    }
+    .side-buttons {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      display: flex;
+      flex-direction: row;
+      gap: 0.5rem;
+      z-index: 4001;
+      pointer-events: auto;
+    }
+    .side-btn {
+      background-color: #2f8732;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 1.25rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: background 0.2s;
+    }
+    .side-btn:hover {
+      background-color: #256b27;
+    }
+    .post-type-filters {
+      display: flex;
+      gap: 0.5rem;
+      padding: 0 1rem 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .post-type-btn {
+      padding: 0.5rem 1rem;
+      border: 1px solid #2f8732;
+      border-radius: 20px;
+      background: white;
+      color: #2f8732;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .post-type-btn:hover,
+    .post-type-btn.active {
+      background: #2f8732;
+      color: white;
+    }
+    .job-extra {
+      display: none;
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #444;
+      background-color: #fdfdfb;
+      border-top: 1px solid #eee;
+      animation: fadeIn 0.3s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .modal.show {
+      display: flex;
+      opacity: 1;
+      pointer-events: all;
+    }
+    .modal-content {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      width: 90%;
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .modal-content input,
+    .modal-content textarea,
+    .modal-content select {
+      padding: 0.6rem;
+      font-size: 0.95rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      width: 100%;
+    }
+    .modal-content button {
+      padding: 0.6rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+    }
+    #submit-post {
+      background-color: #2f8732;
+      color: white;
+    }
+    #close-post-modal {
+      background-color: #ccc;
+      color: black;
+    }
+    .welcome-modal {
+      position: fixed;
+      top: -100%;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 4000;
+      transition: top 0.5s ease;
+    }
+    .welcome-modal.show {
+      top: 0;
+    }
+    .welcome-content {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+    }
+    .welcome-btn {
+      background-color: transparent;
+      border: 2px solid #2f8732;
+      color: #2f8732;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 12px;
+      cursor: pointer;
+      width: 180px;
+      transition: background 0.3s ease;
+    }
+    .welcome-btn:hover {
+      background-color: #2f8732;
+      color: white;
+    }
+    .close-btn {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: #2f8732;
+      cursor: pointer;
+    }
+    /* Profile page styles */
+    .profile-header {
+      background: #2f8732;
+      color: #fff;
+      padding: 2rem 1rem 1rem;
+      text-align: center;
+    }
+    .profile-pic-preview {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #fff;
+      margin-bottom: 1rem;
+      background: #eee;
+    }
+    .profile-form {
+      max-width: 500px;
+      margin: 2rem auto;
+      background: #fff;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .profile-form label {
+      font-weight: bold;
+      margin-bottom: 0.25rem;
+    }
+    .profile-form input,
+    .profile-form textarea {
+      width: 100%;
+      padding: 0.7rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    .profile-form button {
+      padding: 0.7rem 1.5rem;
+      border-radius: 8px;
+      border: none;
+      background: #2f8732;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+    .profile-form .back-btn {
+      background: #ccc;
+      color: #222;
+      margin-left: 1rem;
+    }
+    .profile-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+    }
+    .settings-section {
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid #eee;
+    }
+    .settings-section label {
+      font-weight: normal;
+      margin-right: 1rem;
+    }
+    /* Sidebar styles for profile */
+    .profile-container {
+      display: flex;
+      max-width: 900px;
+      margin: 2rem auto 0;
+    }
+    #profile-sidebar {
+      width: 70px;
+      min-width: 50px;
+      background: #f3f3f3;
+      border-radius: 16px 0 0 16px;
+      padding: 2rem 0.5rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+    }
+    .sidebar-btn {
+      width: 48px;
+      height: 48px;
+      background: #fff;
+      border: none;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      color: #2f8732;
+      text-align: center;
+      cursor: pointer;
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0;
+    }
+    .sidebar-btn:hover {
+      background: #e6f5e6;
+    }
+    @media (max-width: 700px) {
+      .profile-container { flex-direction: column; }
+      #profile-sidebar { display: none; }
+      .profile-header, .profile-form { border-radius: 16px !important; }
+    }
     /* Calendar Modal Styles */
     #calendar-modal {
       display: none;
@@ -139,8 +581,96 @@
   </style>
 </head>
 <body>
-  <!-- ...existing code... -->
-  <!-- (Keep all your previous HTML here) -->
+  <header>
+    <div class="logo">OnlyJobs</div>
+    <button class="profile-icon" id="header-profile-btn" aria-label="Profile"></button>
+  </header>
+  <div class="side-buttons">
+    <button class="side-btn" id="post-btn">➕</button>
+    <button class="side-btn" id="profile-btn">👤</button>
+  </div>
+  <div class="hero-box">
+    <h1>Swipe. Match. Hustle.</h1>
+    <p>Find gigs, tasks, and local work — in seconds.</p>
+    <input type="text" placeholder="Enter your location" />
+  </div>
+  <div class="filters">
+    <button class="filter-btn">5 mi</button>
+    <button class="filter-btn">25 mi</button>
+    <button class="filter-btn">50+ mi</button>
+    <button class="filter-btn">Virtual</button>
+    <button class="filter-btn">Local</button>
+  </div>
+  <div class="post-type-filters">
+    <button class="post-type-btn" data-type="available">I'm available</button>
+    <button class="post-type-btn" data-type="looking">I'm looking for</button>
+    <button class="post-type-btn" data-type="hiring">Hiring help</button>
+  </div>
+
+  <!-- Card Flip Container -->
+  <div class="card-flip-container">
+    <div class="card-flip" id="card-flip">
+      <!-- Front Side -->
+      <div class="card card-front" id="swipe-card" data-swipeable="true">
+        <img id="job-img" src="https://via.placeholder.com/400x200" alt="Job Preview">
+        <div class="card-content">
+          <div class="job-title" id="job-title">Part-Time Dog Walker</div>
+          <div class="job-details" id="job-details">Salt Lake City • $20/hr • Local</div>
+        </div>
+        <div class="job-extra" id="job-extra">
+          Must love dogs! Flexible hours. Experience with pets preferred. Available weekends.
+        </div>
+        <div class="action-buttons">
+          <button id="pass-btn">❌ Pass</button>
+          <button id="match-btn">✅ Match</button>
+        </div>
+      </div>
+      <!-- Back Side -->
+      <div class="card card-back" id="card-back">
+        <h3 id="job-title-back">Part-Time Dog Walker</h3>
+        <p id="job-details-back">Salt Lake City • $20/hr • Local</p>
+        <div id="job-extra-back">Must love dogs! Flexible hours. Experience with pets preferred. Available weekends.</div>
+        <button id="apply-btn">Apply</button>
+        <button class="back-btn" id="flip-back-btn">Back</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="post-modal" class="modal">
+    <div class="modal-content">
+      <h2>Post</h2>
+      <label for="post-image">Add Photo</label>
+      <input type="file" id="post-image" accept="image/*" />
+      <input type="text" id="post-title" placeholder="Title (e.g: developer, florist, nail artist, personal job)" />
+      <textarea id="post-description" placeholder="Describe the job, task, offer"></textarea>
+      <label for="post-type">Post Type</label>
+      <select id="post-type">
+        <option value="available">I'm Available</option>
+        <option value="looking">I'm Looking For</option>
+        <option value="hiring">Hiring Help</option>
+      </select>
+      <label for="price-type">Price Type</label>
+      <select id="price-type">
+        <option value="set">Set Price</option>
+        <option value="hourly">Hourly</option>
+        <option value="weekly">Weekly</option>
+        <option value="one-time">One Time</option>
+      </select>
+      <input type="text" id="post-price" placeholder="Enter price (e.g. 20, 50/hr)" />
+      <input type="text" id="post-location" placeholder="Location (or 'Virtual')" />
+      <button id="submit-post">Submit</button>
+      <button id="close-post-modal">Cancel</button>
+    </div>
+  </div>
+
+  <div id="welcome-modal" class="welcome-modal">
+    <div class="welcome-content">
+      <button class="close-btn" id="close-welcome">✕</button>
+      <button class="welcome-btn" id="login-btn">Log In</button>
+      <button class="welcome-btn" id="signup-btn">Sign Up</button>
+      <button class="welcome-btn" id="skip-btn">Skip</button>
+    </div>
+  </div>
 
   <!-- Profile Section (in-page, not a popup) -->
   <div class="profile-container" id="profile-container" style="display:none;">
@@ -228,7 +758,306 @@
 
   <script>
     window.addEventListener('DOMContentLoaded', () => {
-      // ...existing code...
+      // Post modal logic
+      const postBtn = document.getElementById('post-btn');
+      const postModal = document.getElementById('post-modal');
+      const closeModal = document.getElementById('close-post-modal');
+      const submitPost = document.getElementById('submit-post');
+
+      function openPostModal() {
+        postModal.classList.add('show');
+      }
+      function closePostModal() {
+        postModal.classList.remove('show');
+      }
+
+      postBtn.addEventListener('click', openPostModal);
+      closeModal.addEventListener('click', closePostModal);
+
+      submitPost.addEventListener('click', () => {
+        const post = {
+          image: document.getElementById('post-image').files[0],
+          title: document.getElementById('post-title').value,
+          description: document.getElementById('post-description').value,
+          type: document.getElementById('post-type').value,
+          priceType: document.getElementById('price-type').value,
+          price: document.getElementById('post-price').value,
+          location: document.getElementById('post-location').value
+        };
+        console.log("📝 New Post:", post);
+        closePostModal();
+      });
+
+      // Card swipe and flip logic
+      const cardFlip = document.getElementById("card-flip");
+      const card = document.getElementById("swipe-card");
+      const cardBack = document.getElementById("card-back");
+      const jobImg = document.getElementById("job-img");
+      const jobTitle = document.getElementById("job-title");
+      const jobDetails = document.getElementById("job-details");
+      const jobExtra = document.getElementById("job-extra");
+      const jobTitleBack = document.getElementById("job-title-back");
+      const jobDetailsBack = document.getElementById("job-details-back");
+      const jobExtraBack = document.getElementById("job-extra-back");
+      const passBtn = document.getElementById("pass-btn");
+      const matchBtn = document.getElementById("match-btn");
+      const applyBtn = document.getElementById("apply-btn");
+      const flipBackBtn = document.getElementById("flip-back-btn");
+
+      const jobs = [
+        {
+          title: "Part-Time Dog Walker",
+          details: "Salt Lake City • $20/hr • Local",
+          img: "https://via.placeholder.com/400x200?text=Dog+Walker",
+          extra: "Must love dogs! Flexible hours. Experience with pets preferred. Available weekends."
+        },
+        {
+          title: "Event Assistant",
+          details: "Virtual • $18/hr • Weekend Work",
+          img: "https://via.placeholder.com/400x200?text=Event+Assistant",
+          extra: "Help with virtual events. Good communication skills required. Flexible schedule."
+        },
+        {
+          title: "Yard Cleanup Crew",
+          details: "West Valley • $22/hr • 1-day Gig",
+          img: "https://via.placeholder.com/400x200?text=Yard+Cleanup",
+          extra: "Outdoor work. Must be able to lift 30 lbs. One day only."
+        }
+      ];
+
+      let jobIndex = 0;
+      let startX = 0, startY = 0, currentX = 0, currentY = 0, isDragging = false;
+      const swipeThreshold = 100;
+      const swipeUpThreshold = 80;
+
+      function setTransform(x, y) {
+        card.style.transform = `translate(${x}px, ${y}px) rotate(${x * 0.05}deg)`;
+      }
+
+      function resetCard() {
+        card.style.transition = 'transform 0.3s ease';
+        setTransform(0, 0);
+        setTimeout(() => { card.style.transition = ''; }, 300);
+      }
+
+      function loadJob(idx) {
+        const job = jobs[idx];
+        jobTitle.textContent = job.title;
+        jobDetails.textContent = job.details;
+        jobImg.src = job.img;
+        jobExtra.textContent = job.extra;
+        jobTitleBack.textContent = job.title;
+        jobDetailsBack.textContent = job.details;
+        jobExtraBack.textContent = job.extra;
+        resetCard();
+        cardFlip.classList.remove('flipped');
+      }
+
+      function loadNextJob() {
+        jobIndex++;
+        if (jobIndex >= jobs.length) {
+          jobTitle.textContent = "No more jobs!";
+          jobDetails.textContent = "Check back later!";
+          jobImg.src = "https://via.placeholder.com/400x200?text=No+More+Jobs";
+          jobExtra.textContent = "";
+          jobTitleBack.textContent = "No more jobs!";
+          jobDetailsBack.textContent = "Check back later!";
+          jobExtraBack.textContent = "";
+          cardFlip.classList.remove('flipped');
+          return;
+        }
+        loadJob(jobIndex);
+      }
+
+      function handleSwipe(endX, endY) {
+        if (endY < -swipeUpThreshold && Math.abs(endX) < swipeThreshold / 2) {
+          card.style.transform = 'translateY(-100vh)';
+          setTimeout(() => {
+            alert('You applied to this job!');
+            loadNextJob();
+          }, 300);
+        } else if (endX < -swipeThreshold) {
+          card.style.transform = 'translateX(-100vw) rotate(-15deg)';
+          setTimeout(loadNextJob, 300);
+        } else if (endX > swipeThreshold) {
+          card.style.transform = 'translateX(100vw) rotate(15deg)';
+          setTimeout(loadNextJob, 300);
+        } else {
+          resetCard();
+        }
+      }
+
+      matchBtn.addEventListener("click", () => {
+        card.style.transform = 'translateX(100vw) rotate(15deg)';
+        setTimeout(loadNextJob, 300);
+      });
+
+      passBtn.addEventListener("click", () => {
+        card.style.transform = 'translateX(-100vw) rotate(-15deg)';
+        setTimeout(loadNextJob, 300);
+      });
+
+      // Flip to back on click
+      card.addEventListener("click", (e) => {
+        if (Math.abs(currentX) > 10 || Math.abs(currentY) > 10) return;
+        cardFlip.classList.add('flipped');
+      });
+
+      // Flip back to front
+      flipBackBtn.addEventListener("click", () => {
+        cardFlip.classList.remove('flipped');
+      });
+
+      // Apply button on back
+      applyBtn.addEventListener("click", () => {
+        alert('You applied to this job!');
+        loadNextJob();
+      });
+
+      // Mouse events
+      card.addEventListener("mousedown", (e) => {
+        startX = e.clientX;
+        startY = e.clientY;
+        isDragging = true;
+      });
+
+      document.addEventListener("mousemove", (e) => {
+        if (!isDragging) return;
+        currentX = e.clientX - startX;
+        currentY = e.clientY - startY;
+        setTransform(currentX, currentY);
+      });
+
+      document.addEventListener("mouseup", () => {
+        if (!isDragging) return;
+        isDragging = false;
+        handleSwipe(currentX, currentY);
+        currentX = 0;
+        currentY = 0;
+      });
+
+      // Touch events
+      card.addEventListener("touchstart", (e) => {
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        isDragging = true;
+      });
+
+      card.addEventListener("touchmove", (e) => {
+        if (!isDragging) return;
+        currentX = e.touches[0].clientX - startX;
+        currentY = e.touches[0].clientY - startY;
+        setTransform(currentX, currentY);
+      });
+
+      card.addEventListener("touchend", () => {
+        isDragging = false;
+        handleSwipe(currentX, currentY);
+        currentX = 0;
+        currentY = 0;
+      });
+
+      // Load first job
+      loadJob(jobIndex);
+
+      // Welcome modal logic
+      const welcomeModal = document.getElementById('welcome-modal');
+      const closeBtn = document.getElementById('close-welcome');
+      const loginBtn = document.getElementById('login-btn');
+      const signupBtn = document.getElementById('signup-btn');
+      const skipBtn = document.getElementById('skip-btn');
+
+      setTimeout(() => {
+        welcomeModal.style.display = 'flex';
+        requestAnimationFrame(() => {
+          welcomeModal.classList.add('show');
+        });
+      }, 10000); // 10 seconds
+
+      function closeWelcomeModal() {
+        welcomeModal.classList.remove('show');
+        setTimeout(() => {
+          welcomeModal.style.display = 'none';
+        }, 500); // Match your CSS transition duration
+      }
+
+      closeBtn.addEventListener('click', closeWelcomeModal);
+      skipBtn.addEventListener('click', closeWelcomeModal);
+
+      loginBtn.addEventListener('click', () => {
+        alert('Login clicked');
+        closeWelcomeModal();
+      });
+
+      signupBtn.addEventListener('click', () => {
+        alert('Sign up clicked');
+        closeWelcomeModal();
+      });
+
+      // Profile section logic (in-page)
+      const profileBtn = document.getElementById('profile-btn');
+      const profileContainer = document.getElementById('profile-container');
+      const profileHeader = document.getElementById('profile-header');
+      const profileForm = document.getElementById('profile-form');
+      const profileBackBtn = document.getElementById('profile-back-btn');
+      const mainSections = [
+        document.querySelector('.hero-box'),
+        document.querySelector('.filters'),
+        document.querySelector('.post-type-filters'),
+        document.querySelector('.card-flip-container'),
+        document.getElementById('post-modal'),
+        document.getElementById('welcome-modal')
+      ];
+
+      profileBtn.addEventListener('click', () => {
+        // Hide main sections
+        mainSections.forEach(sec => { if(sec) sec.style.display = 'none'; });
+        profileContainer.style.display = 'flex';
+        window.scrollTo(0,0);
+      });
+
+      profileBackBtn.addEventListener('click', () => {
+        // Show main sections
+        mainSections.forEach(sec => { if(sec) sec.style.display = ''; });
+        profileContainer.style.display = 'none';
+      });
+
+      // Profile picture preview
+      const profilePicInput = document.getElementById('profile-pic');
+      const profilePicPreview = document.getElementById('profile-pic-preview');
+      profilePicInput.addEventListener('change', function() {
+        const file = this.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            profilePicPreview.src = e.target.result;
+          };
+          reader.readAsDataURL(file);
+        } else {
+          profilePicPreview.src = "https://via.placeholder.com/100?text=Photo";
+        }
+      });
+
+      // PDF Resume Upload/Preview
+      const profileResumeInput = document.getElementById('profile-resume');
+      const resumeLinkDiv = document.getElementById('resume-link');
+      const resumeDownload = document.getElementById('resume-download');
+      let resumeFileURL = null;
+
+      profileResumeInput.addEventListener('change', function() {
+        const file = this.files[0];
+        if (file && file.type === "application/pdf") {
+          if (resumeFileURL) URL.revokeObjectURL(resumeFileURL);
+          resumeFileURL = URL.createObjectURL(file);
+          resumeDownload.href = resumeFileURL;
+          resumeDownload.textContent = "View Uploaded Resume";
+          resumeLinkDiv.style.display = "block";
+        } else {
+          resumeLinkDiv.style.display = "none";
+          if (resumeFileURL) URL.revokeObjectURL(resumeFileURL);
+          resumeFileURL = null;
+        }
+      });
 
       // Calendar logic
       const calendarModal = document.getElementById('calendar-modal');
@@ -245,7 +1074,6 @@
 
       let calendarDate = new Date();
       let selectedDay = null;
-      // Example events: { '2025-06-13': [{title:'Interview',type:'interview',time:'14:00'}] }
       let calendarEvents = JSON.parse(localStorage.getItem('calendarEvents') || '{}');
 
       function pad(n) { return n < 10 ? '0'+n : n; }
@@ -363,14 +1191,29 @@
         calendarModal.classList.remove('show');
       };
 
-      // ...existing sidebar button demo actions...
+      // Sidebar button demo actions
       document.getElementById('sidebar-settings').onclick = () => alert('Settings clicked!');
       document.getElementById('sidebar-notifications').onclick = () => alert('Notifications clicked!');
       document.getElementById('sidebar-messages').onclick = () => alert('Messaging clicked!');
       document.getElementById('sidebar-likes').onclick = () => alert('Likes clicked!');
 
-      // ...existing profile logic, post modal logic, etc...
-      // (Keep all your previous JS code here)
+      // Save profile (demo: just alert and prevent reload)
+      document.getElementById('profile-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const name = document.getElementById('profile-name').value.trim();
+        const bio = document.getElementById('profile-bio').value.trim();
+        const experience = document.getElementById('profile-experience').value.trim();
+        const emailNotifications = document.getElementById('email-notifications').checked;
+        const showProfilePublic = document.getElementById('show-profile-public').checked;
+        const profilePic = profilePicPreview.src;
+        alert('Profile saved!\n\n' +
+          'Name: ' + name + '\n' +
+          'About: ' + bio + '\n' +
+          'Experience: ' + experience + '\n' +
+          'Email Notifications: ' + (emailNotifications ? 'On' : 'Off') + '\n' +
+          'Show Public: ' + (showProfilePublic ? 'Yes' : 'No')
+        );
+      });
     });
   </script>
 </body>
