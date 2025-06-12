@@ -1269,8 +1269,11 @@
         settingsModal.classList.remove('show');
       };
 
+      // REMOVE or comment out this line:
+      // document.getElementById('sidebar-settings').onclick = () => alert('Settings clicked!');
+
       // Sidebar button demo actions
-      document.getElementById('sidebar-settings').onclick = () => alert('Settings clicked!');
+      
       document.getElementById('sidebar-notifications').onclick = () => alert('Notifications clicked!');
       document.getElementById('sidebar-messages').onclick = () => alert('Messaging clicked!');
       document.getElementById('sidebar-likes').onclick = () => alert('Likes clicked!');
