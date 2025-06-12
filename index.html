@@ -898,10 +898,10 @@
             </select>
           </div>
         </div>
-        <input type="text" id="post-price" class="post-input" placeholder="Enter price (e.g. 20, 50/hr)" />
         <input type="text" id="post-location" class="post-input" placeholder="Location (or 'Virtual')" />
         <button id="submit-post" class="post-submit-btn">Submit</button>
-      </div>
+        <button type="button" id="exit-post-modal" class="post-submit-btn" style="background:#ccc;color:#222;margin-top:0.5rem;">Exit</button>
+        <!-- ...existing code... -->
     </div>
   </div>
 
@@ -1204,6 +1204,7 @@
        const postModal = document.getElementById('post-modal');
        const closeModal = document.getElementById('close-post-modal');
        const submitPost = document.getElementById('submit-post');
+       const exitPostModal = document.getElementById('exit-post-modal');
 
       function openPostModal() {
         postModal.classList.add('show');
@@ -1214,6 +1215,7 @@
 
       postBtn.addEventListener('click', openPostModal);
       closeModal.addEventListener('click', closePostModal);
+      exitPostModal.addEventListener('click', closePostModal);
 
       submitPost.addEventListener('click', () => {
         const post = {
@@ -1462,6 +1464,15 @@
         mainSections.forEach(sec => { if(sec) sec.style.display = ''; });
         profileContainer.style.display = 'none';
       });
+
+      // Home button in sidebar
+      const sidebarHomeBtn = document.getElementById('sidebar-home');
+      sidebarHomeBtn.onclick = () => {
+        // Show main sections, hide profile
+        mainSections.forEach(sec => { if(sec) sec.style.display = ''; });
+        profileContainer.style.display = 'none';
+        window.scrollTo(0,0);
+      };
 
       // Profile picture preview
       const profilePicInput = document.getElementById('profile-pic');
@@ -1741,6 +1752,7 @@ closeNotificationsBtn.onclick = () => {
 
 markAllReadBtn.onclick = () => {
   notifications.forEach(n => n.read = true);
+ 
   localStorage.setItem('notifications', JSON.stringify(notifications));
   renderNotifications();
 };
