@@ -594,7 +594,12 @@
      }
      #conversations-list div:hover {
       background: #f3f3f3;
-}
+     
+    
+      .post-modal-content {
+     background: linear-gradient(135deg, #fdfaf5 80%, #e6f5e6 100%);
+     border: 1.5px solid #e0e0e0;
+     }}
     
   /* Post Modal Pretty Styles */
   .post-modal-content {
@@ -744,6 +749,7 @@
       <div class="post-modal-fields">
         <label for="post-image" class="post-label">Add Photo</label>
         <input type="file" id="post-image" accept="image/*" class="post-input" />
+        <img id="post-image-preview" src="https://via.placeholder.com/120x80?text=Preview" style="display:none;width:100%;max-width:220px;margin:0.5rem auto 0.5rem;border-radius:12px;object-fit:cover;" alt="Preview">
         <input type="text" id="post-title" class="post-input" placeholder="Title (e.g: developer, florist, nail artist, personal job)" />
         <textarea id="post-description" class="post-input" placeholder="Describe the job, task, offer"></textarea>
         <div class="post-row">
@@ -1677,6 +1683,23 @@ sendMessageForm.onsubmit = (e) => {
   messageInput.value = '';
   renderMessages();
 };
+
+const postImageInput = document.getElementById('post-image');
+const postImagePreview = document.getElementById('post-image-preview');
+postImageInput.addEventListener('change', function() {
+  const file = this.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      postImagePreview.src = e.target.result;
+      postImagePreview.style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+  } else {
+    postImagePreview.src = "https://via.placeholder.com/120x80?text=Preview";
+    postImagePreview.style.display = 'none';
+  }
+});
     });
   </script>
 </body>
