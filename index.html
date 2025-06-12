@@ -193,6 +193,14 @@
       justify-content: center;
       align-items: center;
       z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .modal.show {
+      display: flex;
+      opacity: 1;
+      pointer-events: all;
     }
     .modal-content {
       background: white;
@@ -229,96 +237,127 @@
       color: black;
     }
     .profile-screen {
-   position: fixed;
-   top: 0; left: 0;
-   width: 100vw;
-   height: 100vh;
-   background-color: #fff;
-   z-index: 9999;
-   padding: 2rem;
-   box-sizing: border-box;
-   overflow-y: auto;
-   opacity: 0;
-   pointer-events: none;
-   transition: opacity 0.3s ease;
-   }
-
-   .profile-screen.show {
-   opacity: 1;
-   pointer-events: all;
-   }
-
-    
-    .profile-content {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: #fff;
+      z-index: 9999;
+      padding: 2rem;
+      box-sizing: border-box;
+      overflow-y: auto;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      display: none;
+    }
+    .profile-screen.show {
+      opacity: 1;
+      pointer-events: all;
+      display: block;
+    }
+    .profile-card {
       max-width: 600px;
       margin: 0 auto;
       font-size: 1rem;
       color: #333;
-
-      .welcome-modal {
-  position: fixed;
-  top: -100%;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.9);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 3000;
-  transition: top 0.5s ease;
-}
-
-.welcome-modal.show {
-  top: 0;
-}
-
-.welcome-content {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  align-items: center;
-}
-
-.welcome-btn {
-  background-color: transparent;
-  border: 2px solid #2f8732;
-  color: #2f8732;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-  border-radius: 12px;
-  cursor: pointer;
-  width: 180px;
-  transition: background 0.3s ease;
-}
-
-.welcome-btn:hover {
-  background-color: #2f8732;
-  color: white;
-}
-
-.close-btn {
-  position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  color: #2f8732;
-  cursor: pointer;
-}
-
-
-   @keyframes popupFadeIn {
-   from {
-    transform: translateY(30px);
-    opacity: 0;
-   }
-   to {
-    transform: translateY(0);
-    opacity: 1;
-   }
-  }
+      background: #f8f8f8;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+    }
+    .profile-card label {
+      font-weight: bold;
+      margin-top: 1rem;
+      display: block;
+    }
+    .profile-card input,
+    .profile-card textarea {
+      width: 100%;
+      margin-top: 0.25rem;
+      margin-bottom: 1rem;
+      padding: 0.6rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+    .profile-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: flex-end;
+    }
+    .profile-actions button {
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    #save-profile {
+      background-color: #2f8732;
+      color: white;
+    }
+    #close-profile {
+      background-color: #ccc;
+      color: black;
+    }
+    .welcome-modal {
+      position: fixed;
+      top: -100%;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 3000;
+      transition: top 0.5s ease;
+    }
+    .welcome-modal.show {
+      top: 0;
+    }
+    .welcome-content {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+    }
+    .welcome-btn {
+      background-color: transparent;
+      border: 2px solid #2f8732;
+      color: #2f8732;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 12px;
+      cursor: pointer;
+      width: 180px;
+      transition: background 0.3s ease;
+    }
+    .welcome-btn:hover {
+      background-color: #2f8732;
+      color: white;
+    }
+    .close-btn {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: #2f8732;
+      cursor: pointer;
+    }
+    @keyframes popupFadeIn {
+      from {
+        transform: translateY(30px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
   </style>
 </head>
 <body>
@@ -387,253 +426,241 @@
       <button id="submit-post">Submit</button>
       <button id="close-post-modal">Cancel</button>
     </div>
-   </div>
-
-   <div id="profile-screen" class="profile-screen" style="display: none;">
-   <div class="profile-card">
-    <h2>Edit Your Profile</h2>
-
-    <label for="profile-name">Name</label>
-    <input type="text" id="profile-name" placeholder="Enter your name" />
-
-    <label for="profile-bio">Bio / About</label>
-    <textarea id="profile-bio" placeholder="Tell us about yourself..."></textarea>
-
-    <label for="profile-experience">Past Experience / Resume</label>
-    <textarea id="profile-experience" placeholder="Example: Freelance Designer – 3 years"></textarea>
-
-    <div class="profile-actions">
-      <button id="save-profile">Save</button>
-      <button id="close-profile">Close</button>
-    </div>
-   </div>
-   </div>
-
-   <div id="welcome-modal" class="welcome-modal">
-  <div class="welcome-content">
-    <button class="close-btn" id="close-welcome">✕</button>
-    <button class="welcome-btn" id="login-btn">Log In</button>
-    <button class="welcome-btn" id="signup-btn">Sign Up</button>
-    <button class="welcome-btn" id="skip-btn">Skip</button>
   </div>
-</div>
 
+  <div id="profile-screen" class="profile-screen">
+    <div class="profile-card">
+      <h2>Edit Your Profile</h2>
+      <label for="profile-name">Name</label>
+      <input type="text" id="profile-name" placeholder="Enter your name" />
+      <label for="profile-bio">Bio / About</label>
+      <textarea id="profile-bio" placeholder="Tell us about yourself..."></textarea>
+      <label for="profile-experience">Past Experience / Resume</label>
+      <textarea id="profile-experience" placeholder="Example: Freelance Designer – 3 years"></textarea>
+      <div class="profile-actions">
+        <button id="save-profile">Save</button>
+        <button id="close-profile">Close</button>
+      </div>
+    </div>
+  </div>
 
+  <div id="welcome-modal" class="welcome-modal">
+    <div class="welcome-content">
+      <button class="close-btn" id="close-welcome">✕</button>
+      <button class="welcome-btn" id="login-btn">Log In</button>
+      <button class="welcome-btn" id="signup-btn">Sign Up</button>
+      <button class="welcome-btn" id="skip-btn">Skip</button>
+    </div>
+  </div>
 
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      // Post modal logic
+      const postBtn = document.getElementById('post-btn');
+      const postModal = document.getElementById('post-modal');
+      const closeModal = document.getElementById('close-post-modal');
+      const submitPost = document.getElementById('submit-post');
 
-   <script>
-    // Post modal logic
-    const postBtn = document.getElementById('post-btn');
-    const postModal = document.getElementById('post-modal');
-    const closeModal = document.getElementById('close-post-modal');
-    const submitPost = document.getElementById('submit-post');
-
-    postBtn.addEventListener('click', () => {
-      postModal.style.display = 'flex';
-    });
-
-    closeModal.addEventListener('click', () => {
-      postModal.style.display = 'none';
-    });
-
-    submitPost.addEventListener('click', () => {
-      const post = {
-        image: document.getElementById('post-image').files[0],
-        title: document.getElementById('post-title').value,
-        description: document.getElementById('post-description').value,
-        type: document.getElementById('post-type').value,
-        priceType: document.getElementById('price-type').value,
-        price: document.getElementById('post-price').value,
-        location: document.getElementById('post-location').value
-      };
-      console.log("📝 New Post:", post);
-      postModal.style.display = 'none';
-    });
-
-    // Card swipe logic
-    const card = document.getElementById("swipe-card");
-    const jobImg = document.getElementById("job-img");
-    const jobTitle = document.getElementById("job-title");
-    const jobDetails = document.getElementById("job-details");
-    const jobExtra = document.getElementById("job-extra");
-    const passBtn = document.getElementById("pass-btn");
-    const matchBtn = document.getElementById("match-btn");
-
-    const jobs = [
-      { title: "Part-Time Dog Walker", details: "Salt Lake City • $20/hr • Local", img: "https://via.placeholder.com/400x200?text=Dog+Walker" },
-      { title: "Event Assistant", details: "Virtual • $18/hr • Weekend Work", img: "https://via.placeholder.com/400x200?text=Event+Assistant" },
-      { title: "Yard Cleanup Crew", details: "West Valley • $22/hr • 1-day Gig", img: "https://via.placeholder.com/400x200?text=Yard+Cleanup" }
-    ];
-
-    let jobIndex = 0;
-    let startX = 0;
-    let currentX = 0;
-    let isDragging = false;
-    const swipeThreshold = 100;
-
-    function setTransform(x) {
-      card.style.transform = `translateX(${x}px) rotate(${x * 0.05}deg)`;
-    }
-
-    function resetCard() {
-      card.style.transition = 'transform 0.3s ease';
-      setTransform(0);
-      setTimeout(() => { card.style.transition = ''; }, 300);
-    }
-
-    function loadNextJob() {
-      jobIndex++;
-      if (jobIndex >= jobs.length) {
-        jobTitle.textContent = "No more jobs!";
-        jobDetails.textContent = "Check back later!";
-        jobImg.src = "https://via.placeholder.com/400x200?text=No+More+Jobs";
-        return;
+      function openPostModal() {
+        postModal.classList.add('show');
       }
-      const nextJob = jobs[jobIndex];
-      jobTitle.textContent = nextJob.title;
-      jobDetails.textContent = nextJob.details;
-      jobImg.src = nextJob.img;
-      resetCard();
-    }
+      function closePostModal() {
+        postModal.classList.remove('show');
+      }
 
-    function handleSwipe(endX) {
-      if (endX < -swipeThreshold) {
-        card.style.transform = 'translateX(-100vw) rotate(-15deg)';
-        setTimeout(loadNextJob, 300);
-      } else if (endX > swipeThreshold) {
-        card.style.transform = 'translateX(100vw) rotate(15deg)';
-        setTimeout(loadNextJob, 300);
-      } else {
+      postBtn.addEventListener('click', openPostModal);
+      closeModal.addEventListener('click', closePostModal);
+
+      submitPost.addEventListener('click', () => {
+        const post = {
+          image: document.getElementById('post-image').files[0],
+          title: document.getElementById('post-title').value,
+          description: document.getElementById('post-description').value,
+          type: document.getElementById('post-type').value,
+          priceType: document.getElementById('price-type').value,
+          price: document.getElementById('post-price').value,
+          location: document.getElementById('post-location').value
+        };
+        console.log("📝 New Post:", post);
+        closePostModal();
+      });
+
+      // Card swipe logic
+      const card = document.getElementById("swipe-card");
+      const jobImg = document.getElementById("job-img");
+      const jobTitle = document.getElementById("job-title");
+      const jobDetails = document.getElementById("job-details");
+      const jobExtra = document.getElementById("job-extra");
+      const passBtn = document.getElementById("pass-btn");
+      const matchBtn = document.getElementById("match-btn");
+
+      const jobs = [
+        { title: "Part-Time Dog Walker", details: "Salt Lake City • $20/hr • Local", img: "https://via.placeholder.com/400x200?text=Dog+Walker" },
+        { title: "Event Assistant", details: "Virtual • $18/hr • Weekend Work", img: "https://via.placeholder.com/400x200?text=Event+Assistant" },
+        { title: "Yard Cleanup Crew", details: "West Valley • $22/hr • 1-day Gig", img: "https://via.placeholder.com/400x200?text=Yard+Cleanup" }
+      ];
+
+      let jobIndex = 0;
+      let startX = 0;
+      let currentX = 0;
+      let isDragging = false;
+      const swipeThreshold = 100;
+
+      function setTransform(x) {
+        card.style.transform = `translateX(${x}px) rotate(${x * 0.05}deg)`;
+      }
+
+      function resetCard() {
+        card.style.transition = 'transform 0.3s ease';
+        setTransform(0);
+        setTimeout(() => { card.style.transition = ''; }, 300);
+      }
+
+      function loadNextJob() {
+        jobIndex++;
+        if (jobIndex >= jobs.length) {
+          jobTitle.textContent = "No more jobs!";
+          jobDetails.textContent = "Check back later!";
+          jobImg.src = "https://via.placeholder.com/400x200?text=No+More+Jobs";
+          return;
+        }
+        const nextJob = jobs[jobIndex];
+        jobTitle.textContent = nextJob.title;
+        jobDetails.textContent = nextJob.details;
+        jobImg.src = nextJob.img;
         resetCard();
       }
-    }
 
-    matchBtn.addEventListener("click", () => {
-      card.style.transform = 'translateX(100vw) rotate(15deg)';
-      setTimeout(loadNextJob, 300);
+      function handleSwipe(endX) {
+        if (endX < -swipeThreshold) {
+          card.style.transform = 'translateX(-100vw) rotate(-15deg)';
+          setTimeout(loadNextJob, 300);
+        } else if (endX > swipeThreshold) {
+          card.style.transform = 'translateX(100vw) rotate(15deg)';
+          setTimeout(loadNextJob, 300);
+        } else {
+          resetCard();
+        }
+      }
+
+      matchBtn.addEventListener("click", () => {
+        card.style.transform = 'translateX(100vw) rotate(15deg)';
+        setTimeout(loadNextJob, 300);
+      });
+
+      passBtn.addEventListener("click", () => {
+        card.style.transform = 'translateX(-100vw) rotate(-15deg)';
+        setTimeout(loadNextJob, 300);
+      });
+
+      card.addEventListener("click", () => {
+        if (Math.abs(currentX) > 10) return;
+        jobExtra.style.display = jobExtra.style.display === "block" ? "none" : "block";
+      });
+
+      card.addEventListener("mousedown", (e) => {
+        startX = e.clientX;
+        isDragging = true;
+      });
+
+      document.addEventListener("mousemove", (e) => {
+        if (!isDragging) return;
+        currentX = e.clientX - startX;
+        setTransform(currentX);
+      });
+
+      document.addEventListener("mouseup", () => {
+        if (!isDragging) return;
+        isDragging = false;
+        handleSwipe(currentX);
+        currentX = 0;
+      });
+
+      card.addEventListener("touchstart", (e) => {
+        startX = e.touches[0].clientX;
+        isDragging = true;
+      });
+
+      card.addEventListener("touchmove", (e) => {
+        if (!isDragging) return;
+        currentX = e.touches[0].clientX - startX;
+        setTransform(currentX);
+      });
+
+      card.addEventListener("touchend", () => {
+        isDragging = false;
+        handleSwipe(currentX);
+        currentX = 0;
+      });
+
+      // Profile screen logic
+      const profileBtn = document.getElementById('profile-btn');
+      const headerProfileBtn = document.getElementById('header-profile-btn');
+      const profileScreen = document.getElementById('profile-screen');
+      const closeProfileBtn = document.getElementById('close-profile');
+      const saveProfileBtn = document.getElementById('save-profile');
+
+      function openProfile() {
+        profileScreen.style.display = 'block';
+        requestAnimationFrame(() => {
+          profileScreen.classList.add('show');
+        });
+      }
+      function closeProfile() {
+        profileScreen.classList.remove('show');
+        setTimeout(() => {
+          profileScreen.style.display = 'none';
+        }, 300);
+      }
+
+      profileBtn.addEventListener('click', openProfile);
+      headerProfileBtn.addEventListener('click', openProfile);
+      closeProfileBtn.addEventListener('click', closeProfile);
+
+      saveProfileBtn.addEventListener('click', () => {
+        const name = document.getElementById('profile-name').value.trim();
+        const bio = document.getElementById('profile-bio').value.trim();
+        const experience = document.getElementById('profile-experience').value.trim();
+
+        if (!name || !bio) {
+          alert('Please complete at least your name and bio.');
+          return;
+        }
+
+        console.log('✅ Saved Profile:', { name, bio, experience });
+
+        alert('Profile saved!');
+        closeProfile();
+      });
+
+      // Welcome modal logic
+      const welcomeModal = document.getElementById('welcome-modal');
+      const closeBtn = document.getElementById('close-welcome');
+      const loginBtn = document.getElementById('login-btn');
+      const signupBtn = document.getElementById('signup-btn');
+      const skipBtn = document.getElementById('skip-btn');
+
+      setTimeout(() => {
+        welcomeModal.classList.add('show');
+      }, 10000); // 10 seconds
+
+      function closeWelcomeModal() {
+        welcomeModal.classList.remove('show');
+      }
+
+      closeBtn.addEventListener('click', closeWelcomeModal);
+      skipBtn.addEventListener('click', closeWelcomeModal);
+
+      loginBtn.addEventListener('click', () => {
+        alert('Login clicked');
+        closeWelcomeModal();
+      });
+
+      signupBtn.addEventListener('click', () => {
+        alert('Sign up clicked');
+        closeWelcomeModal();
+      });
     });
-
-    passBtn.addEventListener("click", () => {
-      card.style.transform = 'translateX(-100vw) rotate(-15deg)';
-      setTimeout(loadNextJob, 300);
-    });
-
-    card.addEventListener("click", () => {
-      if (Math.abs(currentX) > 10) return;
-      jobExtra.style.display = jobExtra.style.display === "block" ? "none" : "block";
-    });
-
-    card.addEventListener("mousedown", (e) => {
-      startX = e.clientX;
-      isDragging = true;
-    });
-
-    document.addEventListener("mousemove", (e) => {
-      if (!isDragging) return;
-      currentX = e.clientX - startX;
-      setTransform(currentX);
-    });
-
-    document.addEventListener("mouseup", () => {
-      if (!isDragging) return;
-      isDragging = false;
-      handleSwipe(currentX);
-      currentX = 0;
-    });
-
-    card.addEventListener("touchstart", (e) => {
-      startX = e.touches[0].clientX;
-      isDragging = true;
-    });
-
-    card.addEventListener("touchmove", (e) => {
-      if (!isDragging) return;
-      currentX = e.touches[0].clientX - startX;
-      setTransform(currentX);
-    });
-
-    card.addEventListener("touchend", () => {
-      isDragging = false;
-      handleSwipe(currentX);
-      currentX = 0;
-    });
-
-    // Profile screen logic
-    const profileBtn = document.getElementById('profile-btn');
-    const headerProfileBtn = document.getElementById('header-profile-btn');
-    const profileScreen = document.getElementById('profile-screen');
-    const closeProfileBtn = document.getElementById('close-profile');
-    const saveProfileBtn = document.getElementById('save-profile');
-
-    [profileBtn, headerProfileBtn].forEach(btn => {
-     btn.addEventListener('click', () => {
-    profileScreen.style.display = 'block';
-    requestAnimationFrame(() => {
-   profileScreen.classList.add('show');
-    });
-     });
-    });
-   
-
-   
-
-    closeProfileBtn.addEventListener('click', () => {
-   profileScreen.classList.remove('show');
-   setTimeout(() => {
-    profileScreen.style.display = 'none';
-   }, 300); // matches the 0.3s CSS transition
-   });
-    saveProfileBtn.addEventListener('click', () => {
-   const name = document.getElementById('profile-name').value.trim();
-   const bio = document.getElementById('profile-bio').value.trim();
-   const experience = document.getElementById('profile-experience').value.trim();
-
-   if (!name || !bio) {
-    alert('Please complete at least your name and bio.');
-    return;
-   }
-
-   console.log('✅ Saved Profile:', { name, bio, experience });
-
-   alert('Profile saved!');
-   profileScreen.classList.remove('show');
-   });
-   
-   window.addEventListener('DOMContentLoaded', () => {
-  const welcomeModal = document.getElementById('welcome-modal');
-  const closeBtn = document.getElementById('close-welcome');
-  const loginBtn = document.getElementById('login-btn');
-  const signupBtn = document.getElementById('signup-btn');
-  const skipBtn = document.getElementById('skip-btn');
-
-  // Show after 5 seconds
-  setTimeout(() => {
-    welcomeModal.classList.add('show');
-  }, 5000);
-
-  function closeModal() {
-    welcomeModal.classList.remove('show');
-  }
-
-  closeBtn.addEventListener('click', closeModal);
-  skipBtn.addEventListener('click', closeModal);
-
-  loginBtn.addEventListener('click', () => {
-    alert('Login clicked');
-    closeModal();
-  });
-
-  signupBtn.addEventListener('click', () => {
-    alert('Sign up clicked');
-    closeModal();
-  });
-});
-
-
-   skipBtn.addEventListener('click', () => {
-    welcomeModal.classList.remove('show');
-   });
-  });
   </script>
 </body>
 </html>
