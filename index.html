@@ -596,6 +596,89 @@
       background: #f3f3f3;
 }
     
+  /* Post Modal Pretty Styles */
+  .post-modal-content {
+    position: relative;
+    max-width: 420px;
+    width: 95vw;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(47,135,50,0.10), 0 1.5px 8px rgba(0,0,0,0.06);
+    padding: 2.2rem 1.5rem 1.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    animation: fadeIn 0.3s;
+  }
+
+  .post-modal-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .post-label {
+    font-weight: 600;
+    color: #2f8732;
+    margin-bottom: 0.25rem;
+    display: block;
+  }
+
+  .post-input, .post-modal-content select, .post-modal-content textarea {
+    width: 100%;
+    padding: 0.7rem 1rem;
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+    font-size: 1rem;
+    margin-bottom: 0.2rem;
+    background: #f9f9f9;
+    transition: border 0.2s;
+  }
+
+  .post-input:focus, .post-modal-content select:focus, .post-modal-content textarea:focus {
+    border: 1.5px solid #2f8732;
+    outline: none;
+    background: #fff;
+  }
+
+  .post-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .post-row > div {
+    flex: 1 1 0;
+    min-width: 120px;
+  }
+
+  .post-submit-btn {
+    background: linear-gradient(90deg, #2f8732 60%, #4caf50 100%);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 0.9rem 0;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    transition: background 0.2s;
+    box-shadow: 0 2px 8px rgba(47,135,50,0.08);
+  }
+
+  .post-submit-btn:hover {
+    background: linear-gradient(90deg, #256b27 60%, #388e3c 100%);
+  }
+
+  @media (max-width: 500px) {
+    .post-modal-content {
+      padding: 1.2rem 0.5rem 1rem 0.5rem;
+    }
+    .post-row {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }
   </style>
 </head>
 <body>
@@ -655,29 +738,37 @@
   </div>
 
   <div id="post-modal" class="modal">
-    <div class="modal-content">
-      <h2>Post</h2>
-      <label for="post-image">Add Photo</label>
-      <input type="file" id="post-image" accept="image/*" />
-      <input type="text" id="post-title" placeholder="Title (e.g: developer, florist, nail artist, personal job)" />
-      <textarea id="post-description" placeholder="Describe the job, task, offer"></textarea>
-      <label for="post-type">Post Type</label>
-      <select id="post-type">
-        <option value="available">I'm Available</option>
-        <option value="looking">I'm Looking For</option>
-        <option value="hiring">Hiring Help</option>
-      </select>
-      <label for="price-type">Price Type</label>
-      <select id="price-type">
-        <option value="set">Set Price</option>
-        <option value="hourly">Hourly</option>
-        <option value="weekly">Weekly</option>
-        <option value="one-time">One Time</option>
-      </select>
-      <input type="text" id="post-price" placeholder="Enter price (e.g. 20, 50/hr)" />
-      <input type="text" id="post-location" placeholder="Location (or 'Virtual')" />
-      <button id="submit-post">Submit</button>
-      <button id="close-post-modal">Cancel</button>
+    <div class="modal-content post-modal-content">
+      <button id="close-post-modal" class="close-btn" style="position:absolute;top:1rem;right:1rem;">✕</button>
+      <h2 style="margin-bottom:0.5rem;text-align:center;">Create a New Post</h2>
+      <div class="post-modal-fields">
+        <label for="post-image" class="post-label">Add Photo</label>
+        <input type="file" id="post-image" accept="image/*" class="post-input" />
+        <input type="text" id="post-title" class="post-input" placeholder="Title (e.g: developer, florist, nail artist, personal job)" />
+        <textarea id="post-description" class="post-input" placeholder="Describe the job, task, offer"></textarea>
+        <div class="post-row">
+          <div>
+            <label for="post-type" class="post-label">Post Type</label>
+            <select id="post-type" class="post-input">
+              <option value="available">I'm Available</option>
+              <option value="looking">I'm Looking For</option>
+              <option value="hiring">Hiring Help</option>
+            </select>
+          </div>
+          <div>
+            <label for="price-type" class="post-label">Price Type</label>
+            <select id="price-type" class="post-input">
+              <option value="set">Set Price</option>
+              <option value="hourly">Hourly</option>
+              <option value="weekly">Weekly</option>
+              <option value="one-time">One Time</option>
+            </select>
+          </div>
+        </div>
+        <input type="text" id="post-price" class="post-input" placeholder="Enter price (e.g. 20, 50/hr)" />
+        <input type="text" id="post-location" class="post-input" placeholder="Location (or 'Virtual')" />
+        <button id="submit-post" class="post-submit-btn">Submit</button>
+      </div>
     </div>
   </div>
 
