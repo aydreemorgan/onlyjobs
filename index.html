@@ -255,34 +255,37 @@
       font-size: 1rem;
       color: #333;
 
-    }#welcome-modal {
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   position: fixed;
-   top: 0; left: 0;
-   width: 100vw;
-   height: 100vh;
-   background-color: rgba(0,0,0,0.4);
-   opacity: 0;
-   pointer-events: none;
-   transition: opacity 0.4s ease;
-   z-index: 2000;
-   }
+      .welcome-popup {
+  position: fixed;
+  bottom: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #2f8732;
+  color: white;
+  padding: 2rem;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  z-index: 3000;
+  transition: bottom 0.5s ease;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
 
-   #welcome-modal.show {
-   opacity: 1;
-   pointer-events: all;
-   }
+.welcome-popup.show {
+  bottom: 50%;
+  transform: translate(-50%, 50%);
+}
 
-   #welcome-modal .modal-content {
-   background: white;
-   border-radius: 12px;
-   padding: 2rem;
-   width: 90%;
-   max-width: 400px;
-   text-align: center;
-   animation: popupFadeIn 0.5s ease;
+.welcome-popup button {
+  margin: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: white;
+  color: #2f8732;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
    }
 
    @keyframes popupFadeIn {
@@ -385,8 +388,8 @@
    </div>
    </div>
 
-   <div id="welcome-modal" class="modal" style="display: none;">
-  <div class="modal-content">
+   <div id="welcome-modal" class="welcome-popup">
+  <div class="popup-content">
     <h2>Welcome to OnlyJobs</h2>
     <p>Would you like to log in, sign up, or skip and start swiping?</p>
     <button id="login-btn">Log In</button>
