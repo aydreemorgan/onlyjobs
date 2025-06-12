@@ -76,19 +76,69 @@
       font-size: 0.85rem;
       cursor: pointer;
     }
-    .card {
-      background: #fff;
-      margin: 1rem auto;
+    .card-flip-container {
+      perspective: 1200px;
+      width: 100%;
       max-width: 400px;
-      border: 2px solid #2f8732;
-      border-radius: 16px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-      overflow: hidden;
-      transition: transform 0.25s ease;
-      touch-action: pan-y;
-      user-select: none;
+      margin: 1rem auto;
     }
-    .card img {
+    .card-flip {
+      width: 100%;
+      height: 100%;
+      transition: transform 0.6s cubic-bezier(.4,2,.6,1);
+      transform-style: preserve-3d;
+      position: relative;
+    }
+    .card-flip.flipped {
+      transform: rotateY(180deg);
+    }
+    .card-front, .card-back {
+      position: absolute;
+      width: 100%;
+      backface-visibility: hidden;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #fff;
+      border: 2px solid #2f8732;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      min-height: 350px;
+    }
+    .card-front {
+      z-index: 2;
+    }
+    .card-back {
+      transform: rotateY(180deg);
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      min-height: 350px;
+      padding: 1.5rem 1rem;
+      justify-content: center;
+      align-items: center;
+    }
+    .card-back h3 {
+      margin-top: 0;
+    }
+    .card-back p {
+      margin: 1rem 0;
+      color: #333;
+    }
+    .card-back button {
+      margin-top: 1rem;
+      background: #2f8732;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .card-back .back-btn {
+      background: #ccc;
+      color: #222;
+      margin-top: 0.5rem;
+    }
+    .card-front img {
       width: 100%;
       height: 200px;
       object-fit: cover;
@@ -129,7 +179,7 @@
       display: flex;
       flex-direction: row;
       gap: 0.5rem;
-      z-index: 4001; /* Make sure buttons are always above welcome modal */
+      z-index: 4001;
       pointer-events: auto;
     }
     .side-btn {
@@ -312,7 +362,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 4000; /* Lower than .side-buttons */
+      z-index: 4000;
       transition: top 0.5s ease;
     }
     .welcome-modal.show {
@@ -348,6 +398,16 @@
       font-size: 1.5rem;
       color: #2f8732;
       cursor: pointer;
+    }
+    /* Profile picture preview style */
+    .profile-pic-preview {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid #ccc;
+      margin-bottom: 1rem;
+      display: block;
     }
     @keyframes popupFadeIn {
       from {
@@ -387,18 +447,33 @@
     <button class="post-type-btn" data-type="looking">I'm looking for</button>
     <button class="post-type-btn" data-type="hiring">Hiring help</button>
   </div>
-  <div class="card" id="swipe-card" data-swipeable="true">
-    <img id="job-img" src="https://via.placeholder.com/400x200" alt="Job Preview">
-    <div class="card-content">
-      <div class="job-title" id="job-title">Part-Time Dog Walker</div>
-      <div class="job-details" id="job-details">Salt Lake City • $20/hr • Local</div>
-    </div>
-    <div class="job-extra" id="job-extra">
-      Must love dogs! Flexible hours. Experience with pets preferred. Available weekends.
-    </div>
-    <div class="action-buttons">
-      <button id="pass-btn">❌ Pass</button>
-      <button id="match-btn">✅ Match</button>
+
+  <!-- Card Flip Container -->
+  <div class="card-flip-container">
+    <div class="card-flip" id="card-flip">
+      <!-- Front Side -->
+      <div class="card card-front" id="swipe-card" data-swipeable="true">
+        <img id="job-img" src="https://via.placeholder.com/400x200" alt="Job Preview">
+        <div class="card-content">
+          <div class="job-title" id="job-title">Part-Time Dog Walker</div>
+          <div class="job-details" id="job-details">Salt Lake City • $20/hr • Local</div>
+        </div>
+        <div class="job-extra" id="job-extra">
+          Must love dogs! Flexible hours. Experience with pets preferred. Available weekends.
+        </div>
+        <div class="action-buttons">
+          <button id="pass-btn">❌ Pass</button>
+          <button id="match-btn">✅ Match</button>
+        </div>
+      </div>
+      <!-- Back Side -->
+      <div class="card card-back" id="card-back">
+        <h3 id="job-title-back">Part-Time Dog Walker</h3>
+        <p id="job-details-back">Salt Lake City • $20/hr • Local</p>
+        <div id="job-extra-back">Must love dogs! Flexible hours. Experience with pets preferred. Available weekends.</div>
+        <button id="apply-btn">Apply</button>
+        <button class="back-btn" id="flip-back-btn">Back</button>
+      </div>
     </div>
   </div>
 
@@ -432,6 +507,9 @@
   <div id="profile-screen" class="profile-screen">
     <div class="profile-card">
       <h2>Edit Your Profile</h2>
+      <label for="profile-pic">Profile Picture</label>
+      <input type="file" id="profile-pic" accept="image/*" />
+      <img id="profile-pic-preview" class="profile-pic-preview" src="https://via.placeholder.com/80?text=Photo" alt="Profile Preview">
       <label for="profile-name">Name</label>
       <input type="text" id="profile-name" placeholder="Enter your name" />
       <label for="profile-bio">Bio / About</label>
@@ -486,35 +564,69 @@
         closePostModal();
       });
 
-      // Card swipe logic
+      // Card swipe and flip logic
+      const cardFlip = document.getElementById("card-flip");
       const card = document.getElementById("swipe-card");
+      const cardBack = document.getElementById("card-back");
       const jobImg = document.getElementById("job-img");
       const jobTitle = document.getElementById("job-title");
       const jobDetails = document.getElementById("job-details");
       const jobExtra = document.getElementById("job-extra");
+      const jobTitleBack = document.getElementById("job-title-back");
+      const jobDetailsBack = document.getElementById("job-details-back");
+      const jobExtraBack = document.getElementById("job-extra-back");
       const passBtn = document.getElementById("pass-btn");
       const matchBtn = document.getElementById("match-btn");
+      const applyBtn = document.getElementById("apply-btn");
+      const flipBackBtn = document.getElementById("flip-back-btn");
 
       const jobs = [
-        { title: "Part-Time Dog Walker", details: "Salt Lake City • $20/hr • Local", img: "https://via.placeholder.com/400x200?text=Dog+Walker" },
-        { title: "Event Assistant", details: "Virtual • $18/hr • Weekend Work", img: "https://via.placeholder.com/400x200?text=Event+Assistant" },
-        { title: "Yard Cleanup Crew", details: "West Valley • $22/hr • 1-day Gig", img: "https://via.placeholder.com/400x200?text=Yard+Cleanup" }
+        {
+          title: "Part-Time Dog Walker",
+          details: "Salt Lake City • $20/hr • Local",
+          img: "https://via.placeholder.com/400x200?text=Dog+Walker",
+          extra: "Must love dogs! Flexible hours. Experience with pets preferred. Available weekends."
+        },
+        {
+          title: "Event Assistant",
+          details: "Virtual • $18/hr • Weekend Work",
+          img: "https://via.placeholder.com/400x200?text=Event+Assistant",
+          extra: "Help with virtual events. Good communication skills required. Flexible schedule."
+        },
+        {
+          title: "Yard Cleanup Crew",
+          details: "West Valley • $22/hr • 1-day Gig",
+          img: "https://via.placeholder.com/400x200?text=Yard+Cleanup",
+          extra: "Outdoor work. Must be able to lift 30 lbs. One day only."
+        }
       ];
 
       let jobIndex = 0;
-      let startX = 0;
-      let currentX = 0;
-      let isDragging = false;
+      let startX = 0, startY = 0, currentX = 0, currentY = 0, isDragging = false;
       const swipeThreshold = 100;
+      const swipeUpThreshold = 80;
 
-      function setTransform(x) {
-        card.style.transform = `translateX(${x}px) rotate(${x * 0.05}deg)`;
+      function setTransform(x, y) {
+        card.style.transform = `translate(${x}px, ${y}px) rotate(${x * 0.05}deg)`;
       }
 
       function resetCard() {
         card.style.transition = 'transform 0.3s ease';
-        setTransform(0);
+        setTransform(0, 0);
         setTimeout(() => { card.style.transition = ''; }, 300);
+      }
+
+      function loadJob(idx) {
+        const job = jobs[idx];
+        jobTitle.textContent = job.title;
+        jobDetails.textContent = job.details;
+        jobImg.src = job.img;
+        jobExtra.textContent = job.extra;
+        jobTitleBack.textContent = job.title;
+        jobDetailsBack.textContent = job.details;
+        jobExtraBack.textContent = job.extra;
+        resetCard();
+        cardFlip.classList.remove('flipped');
       }
 
       function loadNextJob() {
@@ -523,17 +635,24 @@
           jobTitle.textContent = "No more jobs!";
           jobDetails.textContent = "Check back later!";
           jobImg.src = "https://via.placeholder.com/400x200?text=No+More+Jobs";
+          jobExtra.textContent = "";
+          jobTitleBack.textContent = "No more jobs!";
+          jobDetailsBack.textContent = "Check back later!";
+          jobExtraBack.textContent = "";
+          cardFlip.classList.remove('flipped');
           return;
         }
-        const nextJob = jobs[jobIndex];
-        jobTitle.textContent = nextJob.title;
-        jobDetails.textContent = nextJob.details;
-        jobImg.src = nextJob.img;
-        resetCard();
+        loadJob(jobIndex);
       }
 
-      function handleSwipe(endX) {
-        if (endX < -swipeThreshold) {
+      function handleSwipe(endX, endY) {
+        if (endY < -swipeUpThreshold && Math.abs(endX) < swipeThreshold / 2) {
+          card.style.transform = 'translateY(-100vh)';
+          setTimeout(() => {
+            alert('You applied to this job!');
+            loadNextJob();
+          }, 300);
+        } else if (endX < -swipeThreshold) {
           card.style.transform = 'translateX(-100vw) rotate(-15deg)';
           setTimeout(loadNextJob, 300);
         } else if (endX > swipeThreshold) {
@@ -554,45 +673,68 @@
         setTimeout(loadNextJob, 300);
       });
 
-      card.addEventListener("click", () => {
-        if (Math.abs(currentX) > 10) return;
-        jobExtra.style.display = jobExtra.style.display === "block" ? "none" : "block";
+      // Flip to back on click
+      card.addEventListener("click", (e) => {
+        if (Math.abs(currentX) > 10 || Math.abs(currentY) > 10) return;
+        cardFlip.classList.add('flipped');
       });
 
+      // Flip back to front
+      flipBackBtn.addEventListener("click", () => {
+        cardFlip.classList.remove('flipped');
+      });
+
+      // Apply button on back
+      applyBtn.addEventListener("click", () => {
+        alert('You applied to this job!');
+        loadNextJob();
+      });
+
+      // Mouse events
       card.addEventListener("mousedown", (e) => {
         startX = e.clientX;
+        startY = e.clientY;
         isDragging = true;
       });
 
       document.addEventListener("mousemove", (e) => {
         if (!isDragging) return;
         currentX = e.clientX - startX;
-        setTransform(currentX);
+        currentY = e.clientY - startY;
+        setTransform(currentX, currentY);
       });
 
       document.addEventListener("mouseup", () => {
         if (!isDragging) return;
         isDragging = false;
-        handleSwipe(currentX);
+        handleSwipe(currentX, currentY);
         currentX = 0;
+        currentY = 0;
       });
 
+      // Touch events
       card.addEventListener("touchstart", (e) => {
         startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
         isDragging = true;
       });
 
       card.addEventListener("touchmove", (e) => {
         if (!isDragging) return;
         currentX = e.touches[0].clientX - startX;
-        setTransform(currentX);
+        currentY = e.touches[0].clientY - startY;
+        setTransform(currentX, currentY);
       });
 
       card.addEventListener("touchend", () => {
         isDragging = false;
-        handleSwipe(currentX);
+        handleSwipe(currentX, currentY);
         currentX = 0;
+        currentY = 0;
       });
+
+      // Load first job
+      loadJob(jobIndex);
 
       // Profile screen logic
       const profileBtn = document.getElementById('profile-btn');
@@ -600,6 +742,22 @@
       const profileScreen = document.getElementById('profile-screen');
       const closeProfileBtn = document.getElementById('close-profile');
       const saveProfileBtn = document.getElementById('save-profile');
+      const profilePicInput = document.getElementById('profile-pic');
+      const profilePicPreview = document.getElementById('profile-pic-preview');
+
+      // Show preview when user selects a profile picture
+      profilePicInput.addEventListener('change', function() {
+        const file = this.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            profilePicPreview.src = e.target.result;
+          };
+          reader.readAsDataURL(file);
+        } else {
+          profilePicPreview.src = "https://via.placeholder.com/80?text=Photo";
+        }
+      });
 
       function openProfile() {
         profileScreen.style.display = 'block';
@@ -622,13 +780,14 @@
         const name = document.getElementById('profile-name').value.trim();
         const bio = document.getElementById('profile-bio').value.trim();
         const experience = document.getElementById('profile-experience').value.trim();
+        const profilePic = profilePicPreview.src;
 
         if (!name || !bio) {
           alert('Please complete at least your name and bio.');
           return;
         }
 
-        console.log('✅ Saved Profile:', { name, bio, experience });
+        console.log('✅ Saved Profile:', { name, bio, experience, profilePic });
 
         alert('Profile saved!');
         closeProfile();
