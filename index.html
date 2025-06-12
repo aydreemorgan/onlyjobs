@@ -29,6 +29,8 @@
       height: 32px;
       background: #ccc;
       border-radius: 50%;
+      border: none;
+      cursor: pointer;
     }
     .hero-box {
       background-color: #2f8732;
@@ -287,71 +289,6 @@
       background-color: #ccc;
       color: black;
     }
-    .profile-screen {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: #fff;
-      z-index: 9999;
-      padding: 2rem;
-      box-sizing: border-box;
-      overflow-y: auto;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-      display: none;
-    }
-    .profile-screen.show {
-      opacity: 1;
-      pointer-events: all;
-      display: block;
-    }
-    .profile-card {
-      max-width: 600px;
-      margin: 0 auto;
-      font-size: 1rem;
-      color: #333;
-      background: #f8f8f8;
-      border-radius: 16px;
-      padding: 2rem;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
-    }
-    .profile-card label {
-      font-weight: bold;
-      margin-top: 1rem;
-      display: block;
-    }
-    .profile-card input,
-    .profile-card textarea {
-      width: 100%;
-      margin-top: 0.25rem;
-      margin-bottom: 1rem;
-      padding: 0.6rem;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 1rem;
-    }
-    .profile-actions {
-      display: flex;
-      gap: 1rem;
-      justify-content: flex-end;
-    }
-    .profile-actions button {
-      padding: 0.6rem 1.2rem;
-      border-radius: 8px;
-      border: none;
-      font-size: 1rem;
-      cursor: pointer;
-    }
-    #save-profile {
-      background-color: #2f8732;
-      color: white;
-    }
-    #close-profile {
-      background-color: #ccc;
-      color: black;
-    }
     .welcome-modal {
       position: fixed;
       top: -100%;
@@ -399,32 +336,81 @@
       color: #2f8732;
       cursor: pointer;
     }
-    /* Profile picture preview style */
+    /* Profile page styles */
+    .profile-header {
+      background: #2f8732;
+      color: #fff;
+      padding: 2rem 1rem 1rem;
+      text-align: center;
+    }
     .profile-pic-preview {
-      width: 80px;
-      height: 80px;
+      width: 100px;
+      height: 100px;
       border-radius: 50%;
       object-fit: cover;
-      border: 1px solid #ccc;
+      border: 2px solid #fff;
       margin-bottom: 1rem;
-      display: block;
+      background: #eee;
     }
-    @keyframes popupFadeIn {
-      from {
-        transform: translateY(30px);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
+    .profile-form {
+      max-width: 500px;
+      margin: 2rem auto;
+      background: #fff;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .profile-form label {
+      font-weight: bold;
+      margin-bottom: 0.25rem;
+    }
+    .profile-form input,
+    .profile-form textarea {
+      width: 100%;
+      padding: 0.7rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    .profile-form button {
+      padding: 0.7rem 1.5rem;
+      border-radius: 8px;
+      border: none;
+      background: #2f8732;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+    .profile-form .back-btn {
+      background: #ccc;
+      color: #222;
+      margin-left: 1rem;
+    }
+    .profile-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+    }
+    .settings-section {
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid #eee;
+    }
+    .settings-section label {
+      font-weight: normal;
+      margin-right: 1rem;
     }
   </style>
 </head>
 <body>
   <header>
     <div class="logo">OnlyJobs</div>
-    <button id="header-profile-btn" class="profile-icon" aria-label="Profile"></button>
+    <button class="profile-icon" id="header-profile-btn" aria-label="Profile"></button>
   </header>
   <div class="side-buttons">
     <button class="side-btn" id="post-btn">➕</button>
@@ -504,25 +490,6 @@
     </div>
   </div>
 
-  <div id="profile-screen" class="profile-screen">
-    <div class="profile-card">
-      <h2>Edit Your Profile</h2>
-      <label for="profile-pic">Profile Picture</label>
-      <input type="file" id="profile-pic" accept="image/*" />
-      <img id="profile-pic-preview" class="profile-pic-preview" src="https://via.placeholder.com/80?text=Photo" alt="Profile Preview">
-      <label for="profile-name">Name</label>
-      <input type="text" id="profile-name" placeholder="Enter your name" />
-      <label for="profile-bio">Bio / About</label>
-      <textarea id="profile-bio" placeholder="Tell us about yourself..."></textarea>
-      <label for="profile-experience">Past Experience / Resume</label>
-      <textarea id="profile-experience" placeholder="Example: Freelance Designer – 3 years"></textarea>
-      <div class="profile-actions">
-        <button id="save-profile">Save</button>
-        <button id="close-profile">Close</button>
-      </div>
-    </div>
-  </div>
-
   <div id="welcome-modal" class="welcome-modal">
     <div class="welcome-content">
       <button class="close-btn" id="close-welcome">✕</button>
@@ -531,6 +498,41 @@
       <button class="welcome-btn" id="skip-btn">Skip</button>
     </div>
   </div>
+
+  <!-- Profile Section (in-page, not a popup) -->
+  <div class="profile-header" id="profile-header" style="display:none;">
+    <h1>Your Profile</h1>
+    <img id="profile-pic-preview" class="profile-pic-preview" src="https://via.placeholder.com/100?text=Photo" alt="Profile Picture">
+    <div>
+      <input type="file" id="profile-pic" accept="image/*" style="margin-top:1rem;">
+    </div>
+  </div>
+  <form class="profile-form" id="profile-form" style="display:none;">
+    <label for="profile-name">Name</label>
+    <input type="text" id="profile-name" placeholder="Enter your name" />
+
+    <label for="profile-bio">About Me</label>
+    <textarea id="profile-bio" placeholder="Tell us about yourself..."></textarea>
+
+    <label for="profile-experience">Resume / Experience</label>
+    <textarea id="profile-experience" placeholder="Example: Freelance Designer – 3 years"></textarea>
+
+    <div class="settings-section">
+      <h3>Settings</h3>
+      <label>
+        <input type="checkbox" id="email-notifications" />
+        Email Notifications
+      </label>
+      <label>
+        <input type="checkbox" id="show-profile-public" />
+        Show Profile Publicly
+      </label>
+    </div>
+    <div class="profile-actions">
+      <button type="submit">Save</button>
+      <button type="button" class="back-btn" id="profile-back-btn">Back</button>
+    </div>
+  </form>
 
   <script>
     window.addEventListener('DOMContentLoaded', () => {
@@ -736,63 +738,6 @@
       // Load first job
       loadJob(jobIndex);
 
-      // Profile screen logic
-      const profileBtn = document.getElementById('profile-btn');
-      const headerProfileBtn = document.getElementById('header-profile-btn');
-      const profileScreen = document.getElementById('profile-screen');
-      const closeProfileBtn = document.getElementById('close-profile');
-      const saveProfileBtn = document.getElementById('save-profile');
-      const profilePicInput = document.getElementById('profile-pic');
-      const profilePicPreview = document.getElementById('profile-pic-preview');
-
-      // Show preview when user selects a profile picture
-      profilePicInput.addEventListener('change', function() {
-        const file = this.files[0];
-        if (file) {
-          const reader = new FileReader();
-          reader.onload = function(e) {
-            profilePicPreview.src = e.target.result;
-          };
-          reader.readAsDataURL(file);
-        } else {
-          profilePicPreview.src = "https://via.placeholder.com/80?text=Photo";
-        }
-      });
-
-      function openProfile() {
-        profileScreen.style.display = 'block';
-        requestAnimationFrame(() => {
-          profileScreen.classList.add('show');
-        });
-      }
-      function closeProfile() {
-        profileScreen.classList.remove('show');
-        setTimeout(() => {
-          profileScreen.style.display = 'none';
-        }, 300);
-      }
-
-      profileBtn.addEventListener('click', openProfile);
-      headerProfileBtn.addEventListener('click', openProfile);
-      closeProfileBtn.addEventListener('click', closeProfile);
-
-      saveProfileBtn.addEventListener('click', () => {
-        const name = document.getElementById('profile-name').value.trim();
-        const bio = document.getElementById('profile-bio').value.trim();
-        const experience = document.getElementById('profile-experience').value.trim();
-        const profilePic = profilePicPreview.src;
-
-        if (!name || !bio) {
-          alert('Please complete at least your name and bio.');
-          return;
-        }
-
-        console.log('✅ Saved Profile:', { name, bio, experience, profilePic });
-
-        alert('Profile saved!');
-        closeProfile();
-      });
-
       // Welcome modal logic
       const welcomeModal = document.getElementById('welcome-modal');
       const closeBtn = document.getElementById('close-welcome');
@@ -825,6 +770,69 @@
       signupBtn.addEventListener('click', () => {
         alert('Sign up clicked');
         closeWelcomeModal();
+      });
+
+      // Profile section logic (in-page)
+      const profileBtn = document.getElementById('profile-btn');
+      const profileHeader = document.getElementById('profile-header');
+      const profileForm = document.getElementById('profile-form');
+      const profileBackBtn = document.getElementById('profile-back-btn');
+      const mainSections = [
+        document.querySelector('.hero-box'),
+        document.querySelector('.filters'),
+        document.querySelector('.post-type-filters'),
+        document.querySelector('.card-flip-container'),
+        document.getElementById('post-modal'),
+        document.getElementById('welcome-modal')
+      ];
+
+      profileBtn.addEventListener('click', () => {
+        // Hide main sections
+        mainSections.forEach(sec => { if(sec) sec.style.display = 'none'; });
+        profileHeader.style.display = 'block';
+        profileForm.style.display = 'flex';
+        window.scrollTo(0,0);
+      });
+
+      profileBackBtn.addEventListener('click', () => {
+        // Show main sections
+        mainSections.forEach(sec => { if(sec) sec.style.display = ''; });
+        profileHeader.style.display = 'none';
+        profileForm.style.display = 'none';
+      });
+
+      // Profile picture preview
+      const profilePicInput = document.getElementById('profile-pic');
+      const profilePicPreview = document.getElementById('profile-pic-preview');
+      profilePicInput.addEventListener('change', function() {
+        const file = this.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            profilePicPreview.src = e.target.result;
+          };
+          reader.readAsDataURL(file);
+        } else {
+          profilePicPreview.src = "https://via.placeholder.com/100?text=Photo";
+        }
+      });
+
+      // Save profile (demo: just alert and prevent reload)
+      document.getElementById('profile-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const name = document.getElementById('profile-name').value.trim();
+        const bio = document.getElementById('profile-bio').value.trim();
+        const experience = document.getElementById('profile-experience').value.trim();
+        const emailNotifications = document.getElementById('email-notifications').checked;
+        const showProfilePublic = document.getElementById('show-profile-public').checked;
+        const profilePic = profilePicPreview.src;
+        alert('Profile saved!\n\n' +
+          'Name: ' + name + '\n' +
+          'About: ' + bio + '\n' +
+          'Experience: ' + experience + '\n' +
+          'Email Notifications: ' + (emailNotifications ? 'On' : 'Off') + '\n' +
+          'Show Public: ' + (showProfilePublic ? 'Yes' : 'No')
+        );
       });
     });
   </script>
