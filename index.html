@@ -255,38 +255,59 @@
       font-size: 1rem;
       color: #333;
 
-      .welcome-popup {
+      .welcome-modal {
   position: fixed;
-  bottom: -100%;
-  left: 50%;
-  transform: translateX(-50%);
+  top: -100%;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;
+  transition: top 0.5s ease;
+}
+
+.welcome-modal.show {
+  top: 0;
+}
+
+.welcome-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+.welcome-btn {
+  background-color: transparent;
+  border: 2px solid #2f8732;
+  color: #2f8732;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 12px;
+  cursor: pointer;
+  width: 180px;
+  transition: background 0.3s ease;
+}
+
+.welcome-btn:hover {
   background-color: #2f8732;
   color: white;
-  padding: 2rem;
-  border-radius: 20px;
-  width: 90%;
-  max-width: 400px;
-  text-align: center;
-  z-index: 3000;
-  transition: bottom 0.5s ease;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
-.welcome-popup.show {
-  bottom: 50%;
-  transform: translate(-50%, 50%);
-}
-
-.welcome-popup button {
-  margin: 0.5rem;
-  padding: 0.5rem 1rem;
-  background: white;
-  color: #2f8732;
+.close-btn {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: none;
   border: none;
-  border-radius: 8px;
+  font-size: 1.5rem;
+  color: #2f8732;
   cursor: pointer;
 }
-   }
+
 
    @keyframes popupFadeIn {
    from {
@@ -388,13 +409,12 @@
    </div>
    </div>
 
-   <div id="welcome-modal" class="welcome-popup">
-  <div class="popup-content">
-    <h2>Welcome to OnlyJobs</h2>
-    <p>Would you like to log in, sign up, or skip and start swiping?</p>
-    <button id="login-btn">Log In</button>
-    <button id="signup-btn">Sign Up</button>
-    <button id="skip-btn">Skip and Get Swiping</button>
+   <div id="welcome-modal" class="welcome-modal">
+  <div class="welcome-content">
+    <button class="close-btn" id="close-welcome">✕</button>
+    <button class="welcome-btn" id="login-btn">Log In</button>
+    <button class="welcome-btn" id="signup-btn">Sign Up</button>
+    <button class="welcome-btn" id="skip-btn">Skip</button>
   </div>
 </div>
 
@@ -578,30 +598,37 @@
    alert('Profile saved!');
    profileScreen.classList.remove('show');
    });
+   
    window.addEventListener('DOMContentLoaded', () => {
-   const profileScreen = document.getElementById('profile-screen');
-   profileScreen.classList.remove('show');
-   profileScreen.style.display = 'none';
+  const welcomeModal = document.getElementById('welcome-modal');
+  const closeBtn = document.getElementById('close-welcome');
+  const loginBtn = document.getElementById('login-btn');
+  const signupBtn = document.getElementById('signup-btn');
+  const skipBtn = document.getElementById('skip-btn');
 
-   const welcomeModal = document.getElementById('welcome-modal');
-   const loginBtn = document.getElementById('login-btn');
-   const signupBtn = document.getElementById('signup-btn');
-   const skipBtn = document.getElementById('skip-btn');
-
-   // Wait 10 seconds then show the welcome modal
-   setTimeout(() => {
+  // Show after 5 seconds
+  setTimeout(() => {
     welcomeModal.classList.add('show');
-   }, 10000);
+  }, 5000);
 
-   loginBtn.addEventListener('click', () => {
-    alert('Login clicked (add login logic)');
+  function closeModal() {
     welcomeModal.classList.remove('show');
-   });
+  }
 
-   signupBtn.addEventListener('click', () => {
-    alert('Sign up clicked (add signup logic)');
-    welcomeModal.classList.remove('show');
-   });
+  closeBtn.addEventListener('click', closeModal);
+  skipBtn.addEventListener('click', closeModal);
+
+  loginBtn.addEventListener('click', () => {
+    alert('Login clicked');
+    closeModal();
+  });
+
+  signupBtn.addEventListener('click', () => {
+    alert('Sign up clicked');
+    closeModal();
+  });
+});
+
 
    skipBtn.addEventListener('click', () => {
     welcomeModal.classList.remove('show');
