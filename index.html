@@ -774,7 +774,7 @@
     }
 
     .post-row {
-     mdisplay: flex;
+     display: flex;
      gap: 1rem;
      flex-wrap: wrap;
     }
@@ -1251,18 +1251,25 @@
    const googleAuthBtn = document.getElementById('google-auth-btn');
    const closeAuthModal = document.getElementById('close-auth-modal');
    const authEmail = document.getElementById('auth-email');
-   const authPassword = document.getElementById('auth-password');
+  const authPassword = document.getElementById('auth-password');
 
-   // Show auth modal when profile is clicked and not logged in
+   if (profileBtn) {
    profileBtn.addEventListener('click', () => {
-   if (!auth.currentUser) {
-     showModal(authModal);
-     return;
-   }
-   hideAllModals();
-   showProfileSection();
-   window.scrollTo(0,0);
+    hideAllModals();
+
+    // TEMPORARY: Always show profile section for now
+    showProfileSection();
+    window.scrollTo(0, 0);
+
+    // OPTIONAL: Show login modal if user not logged in (only visual, doesn’t block profile)
+    if (!auth.currentUser) {
+      const authModal = document.getElementById('auth-modal');
+      if (authModal) showModal(authModal);
+    }
   });
+}
+
+
 
    // Email login
    loginEmailBtn.onclick = () => {
