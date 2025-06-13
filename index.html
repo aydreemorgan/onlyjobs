@@ -947,7 +947,8 @@
           <path d="M3 12L12 3l9 9"/>
           <path d="M9 21V12h6v9"/>
         </svg>
-        
+        <button id="back-from-profile" style="margin-top: 1rem; padding: 0.5rem 1rem; background: #fff; border: 1px solid #2f8732; color: #2f8732; border-radius: 6px;">⬅ Back</button>
+
       </button>
     </nav>
     <div style="flex:1;">
@@ -1486,6 +1487,8 @@ const mainSections = [
   document.querySelector('.filters'),
   document.querySelector('.post-type-filters'),
   document.querySelector('.card-flip-container')
+  document.getElementById('post-modal'),
+  document.getElementById('welcome-modal')
 ];
 
 // Helper functions for showing/hiding sections
@@ -1504,7 +1507,14 @@ profileBtn.addEventListener('click', () => {
   showProfileSection();
   window.scrollTo(0,0);
 });
+ const backFromProfileBtn = document.getElementById('back-from-profile');
 
+ backFromProfileBtn.addEventListener('click', () => {
+  // Show main UI sections again
+  mainSections.forEach(sec => { if(sec) sec.style.display = ''; });
+  profileHeader.style.display = 'none';
+  profileForm.style.display = 'none';
+});
 // Sidebar home button logic
 sidebarHomeBtn.onclick = () => {
   hideAllModals();
