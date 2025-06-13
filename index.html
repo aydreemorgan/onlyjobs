@@ -394,6 +394,7 @@
   <!-- Firebase Scripts -->
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
   <script>
     // Firebase Configuration
@@ -408,6 +409,8 @@
     };
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
+    const db = firebase.firestore();
+
 
     // Modal Helper Functions
     function showModal(modal) {
@@ -489,18 +492,27 @@
     exitPostModal.addEventListener('click', () => hideModal(postModal));
 
     submitPost.addEventListener('click', () => {
-      const post = {
-        image: document.getElementById('post-image').files[0],
-        title: document.getElementById('post-title').value,
-        description: document.getElementById('post-description').value,
-        type: document.getElementById('post-type').value,
-        price: document.getElementById('post-price').value,
-        location: document.getElementById('post-location').value
-      };
-      console.log("📝 New Post:", post);
-      alert("Post created successfully!");
+  const post = {
+    title: document.getElementById('post-title').value,
+    description: document.getElementById('post-description').value,
+    type: document.getElementById('post-type').value,
+    price: document.getElementById('post-price').value,
+    location: document.getElementById('post-location').value,
+    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    userId: auth.currentUser ? auth.currentUser.uid : null,
+    userEmail: auth.currentUser ? auth.currentUser.email : null
+  };
+
+  db.collection('posts').add(post)
+    .then(() => {
+      alert("✅ Post created and saved!");
       hideModal(postModal);
+    })
+    .catch(err => {
+      alert("Error saving post: " + err.message);
     });
+});
+
 
     // Card Swipe and Flip Logic
     const cardFlip = document.getElementById("card-flip");
