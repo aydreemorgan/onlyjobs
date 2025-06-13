@@ -911,8 +911,16 @@
       <button class="welcome-btn" id="login-btn">Log In</button>
       <button class="welcome-btn" id="signup-btn">Sign Up</button>
       <button class="welcome-btn" id="skip-btn">Skip</button>
+      <button class="welcome-btn" id="google-login-btn" style="display:flex;align-items:center;gap:0.5rem;justify-content:center;">
+  <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" style="width:20px;height:20px;"> Sign in with Google
+</button>
     </div>
   </div>
+  <div id="user-info" style="display:none;align-items:center;gap:0.7rem;margin-top:1rem;">
+  <img id="user-photo" src="" alt="User Photo" style="width:32px;height:32px;border-radius:50%;object-fit:cover;">
+  <span id="user-name" style="font-weight:600;"></span>
+  <button id="logout-btn" class="welcome-btn" style="background:#eee;color:#222;padding:0.3rem 1rem;">Log Out</button>
+</div>
 
   <!-- Profile Section (in-page, not a popup) -->
   <div class="profile-container" id="profile-container" style="display:none;">
@@ -1197,8 +1205,26 @@
     </div>
   </div>
 </div>
+      
+  <!-- Firebase App (core) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+ <!-- Firebase Auth -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
   <script>
     window.addEventListener('DOMContentLoaded', () => {
+      // TODO: Replace with your Firebase project config
+const firebaseConfig = {
+  apiKey: "AIzaSyAxbccDQ0iiZlM8xQMYRMNQdJlC2ImVeQ0",
+  authDomain: "onlyjobs-6424e.firebaseapp.com",
+  projectId: "onlyjobs-6424e",
+  storageBucket: "onlyjobs-6424e.appspot.com",
+  messagingSenderId: "660645282144",
+  appId: "1:660645282144:web:de0864d9cecc4f9ac61e05",
+  measurementId: "G-W9K18Q5SJC"
+};
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+
       // Post modal logic
        const postBtn = document.getElementById('post-btn');
        const postModal = document.getElementById('post-modal');
@@ -1428,14 +1454,26 @@
       skipBtn.addEventListener('click', closeWelcomeModal);
 
       loginBtn.addEventListener('click', () => {
-        alert('Login clicked');
-        closeWelcomeModal();
-      });
+      const email = prompt("Enter your email:");
+      const password = prompt("Enter your password:");
+      logInWithEmail(email, password)
+     .then(() => {
+      alert("Logged in!");
+      closeWelcomeModal();
+    })
+    .catch(err => alert(err.message));
+});
 
       signupBtn.addEventListener('click', () => {
-        alert('Sign up clicked');
-        closeWelcomeModal();
-      });
+     const email = prompt("Enter your email:");
+    const password = prompt("Enter your password:");
+      signUpWithEmail(email, password)
+     .then(() => {
+      alert("Account created!");
+      closeWelcomeModal();
+    })
+    .catch(err => alert(err.message));
+});
 
       // Profile section logic (in-page)
       const profileBtn = document.getElementById('profile-btn');
@@ -1510,7 +1548,53 @@
           resumeFileURL = null;
         }
       });
+const googleLoginBtn = document.getElementById('google-login-btn');
+const userInfo = document.getElementById('user-info');
+const userPhoto = document.getElementById('user-photo');
+const userName = document.getElementById('user-name');
+const logoutBtn = document.getElementById('logout-btn');
 
+// Google login
+googleLoginBtn.addEventListener('click', () => {
+  const provider = new firebase.auth.GoogleAuthProvider();
+  auth.signInWithPopup(provider)
+    .then(result => {
+      alert("Logged in as " + result.user.displayName);
+      closeWelcomeModal();
+    })
+    .catch(err => alert(err.message));
+});
+
+// Show/hide buttons and user info based on auth state
+auth.onAuthStateChanged(user => {
+  if (user) {
+    // Hide login/signup/google buttons
+    googleLoginBtn.style.display = 'none';
+    if (loginBtn) loginBtn.style.display = 'none';
+    if (signupBtn) signupBtn.style.display = 'none';
+    if (skipBtn) skipBtn.style.display = 'none';
+    // Show user info
+    userInfo.style.display = 'flex';
+    userPhoto.src = user.photoURL || "https://via.placeholder.com/32?text=U";
+    userName.textContent = user.displayName || user.email;
+  } else {
+    // Show login/signup/google buttons
+    googleLoginBtn.style.display = '';
+    if (loginBtn) loginBtn.style.display = '';
+    if (signupBtn) signupBtn.style.display = '';
+    if (skipBtn) skipBtn.style.display = '';
+    // Hide user info
+    userInfo.style.display = 'none';
+    userPhoto.src = '';
+    userName.textContent = '';
+  }
+});
+
+// Logout
+logoutBtn.addEventListener('click', () => {
+  auth.signOut();
+  alert("Logged out!");
+});
       // Calendar logic
       const calendarModal = document.getElementById('calendar-modal');
       const calendarCloseBtn = document.getElementById('calendar-close-btn');
@@ -1674,14 +1758,35 @@
         );
         settingsModal.classList.remove('show');
       };
+      // Sign Up
+function signUpWithEmail(email, password) {
+  return auth.createUserWithEmailAndPassword(email, password);
+}
 
+// Log In
+function logInWithEmail(email, password) {
+  return auth.signInWithEmailAndPassword(email, password);
+}
+
+// Log Out
+function logOut() {
+  return auth.signOut();
+}
+
+// Listen for auth state changes
+auth.onAuthStateChanged(user => {
+  if (user) {
+    console.log("Logged in as:", user.email);
+    // You can update your UI here (e.g., hide/show buttons)
+  } else {
+    console.log("Logged out");
+  }
+});
       // REMOVE or comment out this line:
       // document.getElementById('sidebar-settings').onclick = () => alert('Settings clicked!');
 
       // Sidebar button demo actions
-      
-
-      
+      document.getElementById('sidebar-messages').onclick = () => alert('Messages clicked!');
       document.getElementById('sidebar-likes').onclick = () => alert('Likes clicked!');
 
       // Save profile (demo: just alert and prevent reload)
@@ -1695,9 +1800,6 @@
         const profilePic = profilePicPreview.src;
         alert('Profile saved!\n\n' +
           'Name: ' + name + '\n' +
-          'About: ' + bio + '\n' +
-          'Experience: ' + experience + '\n' +
-          'Email Notifications: ' + (emailNotifications ? 'On' : 'Off') + '\n' +
           'Show Public: ' + (showProfilePublic ? 'Yes' : 'No')
         );
         
