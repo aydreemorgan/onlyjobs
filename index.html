@@ -25,14 +25,7 @@
       font-weight: bold;
       letter-spacing: -0.5px;
     }
-    .profile-icon {
-      width: 32px;
-      height: 32px;
-      background: #ccc;
-      border-radius: 50%;
-      border: none;
-      cursor: pointer;
-    }
+
     .hero-box {
       background-color: #2f8732;
       color: white;
@@ -175,34 +168,7 @@
       background-color: #2f8732;
       color: #fff;
     }
-    .side-buttons {
-      position: fixed;
-      top: 1rem;
-      right: 1rem;
-      display: flex;
-      flex-direction: row;
-      gap: 0.5rem;
-      z-index: 4001;
-      pointer-events: auto;
-    }
-    .side-btn {
-      background-color: #2f8732;
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      font-size: 1.25rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      transition: background 0.2s;
-    }
-    .side-btn:hover {
-      background-color: #256b27;
-    }
+    
     .post-type-filters {
       display: flex;
       gap: 0.5rem;
@@ -243,18 +209,18 @@
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background-color: rgba(0, 0, 0, 0.4);
+      background-color: rgba(0,0,0,0.4);
       justify-content: center;
       align-items: center;
       z-index: 1000;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.3s;
     }
     .modal.show {
       display: flex;
-      opacity: 1;
-      pointer-events: all;
+     opacity: 1;
+     pointer-events: all;
     }
     .modal-content {
       background: white;
@@ -440,10 +406,8 @@
 <body>
 
     <div class="logo">OnlyJobs</div>
-    <button class="profile-icon" id="header-profile-btn" aria-label="Profile"></button>
   <div class="side-buttons">
     <button class="side-btn" id="post-btn">➕</button>
-    <button class="side-btn" id="profile-btn">👤</button>
   </div>
   <div class="hero-box">
     <h1>Swipe. Match. Hustle.</h1>
@@ -641,7 +605,18 @@
     </button>
     <button id="close-auth-modal" style="background:#ccc;color:#222;margin-top:1rem;">Close</button>
    </div>
+   </div>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics-compat.js"></script> <div id="welcome-modal" class="modal">
+  <div class="modal-content" style="max-width:350px;text-align:center;">
+    <h3>Welcome to OnlyJobs!</h3>
+    <p>Would you like to log in or sign up?</p>
+    <div style="display:flex;flex-direction:column;gap:0.5rem;">
+      <button id="welcome-login-btn">Log In</button>
+      <button id="welcome-signup-btn">Sign Up</button>
+      <button id="welcome-skip-btn" style="background:#ccc;color:#222;">Skip</button>
+    </div>
   </div>
+</div>
    <script>
     window.addEventListener('DOMContentLoaded', () => {
       // TODO: Replace with your Firebase project config
@@ -971,7 +946,36 @@
    }
 
  
+    // Show welcome modal after 5 seconds
+  window.addEventListener('DOMContentLoaded', () => {
+    const welcomeModal = document.getElementById('welcome-modal');
+    const loginBtn = document.getElementById('welcome-login-btn');
+    const signupBtn = document.getElementById('welcome-signup-btn');
+    const skipBtn = document.getElementById('welcome-skip-btn');
 
+   function showModal(modal) {
+    modal.classList.add('show');
+   }
+   function hideModal(modal) {
+    modal.classList.remove('show');
+   }
+
+   setTimeout(() => {
+    showModal(welcomeModal);
+   } , 5000);
+
+  loginBtn.onclick = () => {
+    hideModal(welcomeModal);
+    // Show your login modal here, e.g. showModal(authModal);
+  };
+  signupBtn.onclick = () => {
+    hideModal(welcomeModal);
+    // Show your signup modal here, e.g. showModal(authModal);
+  };
+  skipBtn.onclick = () => {
+    hideModal(welcomeModal);
+  };
+});
   
 
    // Make sure hideAllModals does NOT hide profileContainer
