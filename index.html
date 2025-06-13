@@ -497,7 +497,8 @@
   <span id="user-name" style="font-weight:600;"></span>
   <button id="logout-btn" class="welcome-btn" style="background:#eee;color:#222;padding:0.3rem 1rem;">Log Out</button>
  </div>
-
+<div class="logo">OnlyJobs</div>
+<button id="login-top-btn" style="margin:1rem;float:right;background:#2f8732;color:#fff;border:none;padding:0.6rem 1.2rem;border-radius:8px;cursor:pointer;">Log In</button>
     <!-- 5. Privacy & Security -->
     <section>
       <h3>Privacy & Security</h3>
@@ -661,7 +662,15 @@
     })
     .catch(err => alert(err.message));
  };
-
+  const loginTopBtn = document.getElementById('login-top-btn');
+  loginTopBtn.onclick = () => {
+  const provider = new firebase.auth.GoogleAuthProvider();
+  firebase.auth().signInWithPopup(provider)
+    .then(result => {
+      alert("Logged in as " + (result.user.displayName || result.user.email));
+    })
+    .catch(err => alert(err.message));
+  };
   closeAuthModal.onclick = () => hideModal(authModal);
 
       // Post modal logic
