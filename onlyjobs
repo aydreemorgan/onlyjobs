@@ -401,6 +401,20 @@
       gap: 0.5rem;
     }
     }
+    <script>
+  // Replace the values below with your actual Firebase project config
+  const firebaseConfig = {
+    apiKey: "AIzaSyAxbccDQ0iiZlM8xQMYRMNQdJlC2ImVeQ0",
+    authDomain: "onlyjobs-6424e.firebaseapp.com",
+    projectId: "onlyjobs-6424e",
+    storageBucket: "onlyjobs-6424e.appspot.com",
+    messagingSenderId: "660645282144",
+    appId: "1:660645282144:web:de0864d9cecc4f9ac61e05",
+    measurementId: "G-W9K18Q5SJC"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
     </style>
   </head>
 <body>
@@ -499,7 +513,6 @@
   <button id="logout-btn" class="welcome-btn" style="background:#eee;color:#222;padding:0.3rem 1rem;">Log Out</button>
  </div>
 <div class="logo">OnlyJobs</div>
-<button id="login-top-btn" style="margin:1rem;float:right;background:#2f8732;color:#fff;border:none;padding:0.6rem 1.2rem;border-radius:8px;cursor:pointer;">Log In</button>
     <!-- 5. Privacy & Security -->
     <section>
       <h3>Privacy & Security</h3>
@@ -1037,7 +1050,7 @@ window.addEventListener('DOMContentLoaded', () => {
     userInfo.style.display = 'flex';
     userPhoto.src = user.photoURL || "https://via.placeholder.com/32?text=U";
     userName.textContent = user.displayName || user.email;
-   } else {
+   }
     // Show login/signup/google buttons
     googleLoginBtn.style.display = '';
     if (loginBtn) loginBtn.style.display = '';
@@ -1185,9 +1198,8 @@ window.addEventListener('DOMContentLoaded', () => {
    if (user) {
     console.log("Logged in as:", user.email);
     // You can update your UI here (e.g., hide/show buttons)
-   } else {
-    console.log("Logged out");
    }
+    console.log("Logged out");
    });
      
 
