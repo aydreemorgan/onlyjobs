@@ -555,7 +555,7 @@
       margin-right: 1rem;
       color: #333;
     }
-    @media (max-width: 900px) {
+    
       .profile-container {
         flex-direction: column;
         border-radius: 20px;
@@ -574,7 +574,7 @@
       .profile-header, .profile-form {
         border-radius: 16px !important;
       }
-    }
+    
     /* Calendar Modal Styles */
     #calendar-modal {
       display: none;
@@ -727,82 +727,82 @@
        border: 1.5px solid #e0e0e0;
      }
 
-  /* Post Modal Pretty Styles */
-  .post-modal-content {
-  position: relative;
-  max-width: 420px;
-  width: 95vw;
-  background: linear-gradient(135deg, #fdfaf5 80%, #e6f5e6 100%);
-  border: 1.5px solid #e0e0e0;
-  border-radius: 18px;
-  box-shadow: 0 8px 32px rgba(47,135,50,0.10), 0 1.5px 8px rgba(0,0,0,0.06);
-  padding: 2.2rem 1.5rem 1.5rem 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  animation: fadeIn 0.3s;
-}
+      /* Post Modal Pretty Styles */
+    .post-modal-content {
+      position: relative;
+      max-width: 420px;
+      width: 95vw;
+      background: linear-gradient(135deg, #fdfaf5 80%, #e6f5e6 100%);
+      border: 1.5px solid #e0e0e0;
+      border-radius: 18px;
+      box-shadow: 0 8px 32px rgba(47,135,50,0.10), 0 1.5px 8px rgba(0,0,0,0.06);
+      padding: 2.2rem 1.5rem 1.5rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      animation: fadeIn 0.3s;
+    }
 
-  .post-modal-fields {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
+   .post-modal-fields {
+     display: flex;
+     flex-direction: column;
+     gap: 1rem;
+   }
 
-  .post-label {
-    font-weight: 600;
-    color: #2f8732;
-    margin-bottom: 0.25rem;
-    display: block;
-  }
+    .post-label {
+     font-weight: 600;
+     color: #2f8732;
+     margin-bottom: 0.25rem;
+     display: block;
+    }
 
-  .post-input, .post-modal-content select, .post-modal-content textarea {
-    width: 100%;
-    padding: 0.7rem 1rem;
-    border-radius: 10px;
-    border: 1px solid #e0e0e0;
-    font-size: 1rem;
-    margin-bottom: 0.2rem;
-    background: #f9f9f9;
-    transition: border 0.2s;
-  }
+    .post-input, .post-modal-content select, .post-modal-content textarea {
+      width: 100%;
+      padding: 0.7rem 1rem;
+      border-radius: 10px;
+     border: 1px solid #e0e0e0;
+     font-size: 1rem;
+     margin-bottom: 0.2rem;
+     background: #f9f9f9;
+     transition: border 0.2s;
+    }
 
-  .post-input:focus, .post-modal-content select:focus, .post-modal-content textarea:focus {
-    border: 1.5px solid #2f8732;
-    outline: none;
-    background: #fff;
-  }
+    .post-input:focus, .post-modal-content select:focus, .post-modal-content textarea:focus {
+      border: 1.5px solid #2f8732;
+      outline: none;
+      background: #fff;
+    }
 
-  .post-row {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
+    .post-row {
+     mdisplay: flex;
+     gap: 1rem;
+     flex-wrap: wrap;
+    }
 
-  .post-row > div {
-    flex: 1 1 0;
-    min-width: 120px;
-  }
+    .post-row > div {
+     flex: 1 1 0;
+     min-width: 120px;
+    }
 
-  .post-submit-btn {
-    background: linear-gradient(90deg, #2f8732 60%, #4caf50 100%);
-    color: #fff;
-    border: none;
-    border-radius: 10px;
-    padding: 0.9rem 0;
-    font-size: 1.1rem;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 0.5rem;
-    transition: background 0.2s;
-    box-shadow: 0 2px 8px rgba(47,135,50,0.08);
-  }
+    .post-submit-btn {
+     background: linear-gradient(90deg, #2f8732 60%, #4caf50 100%);
+     color: #fff;
+     border: none;
+     border-radius: 10px;
+     padding: 0.9rem 0;
+     font-size: 1.1rem;
+     font-weight: bold;
+     cursor: pointer;
+     margin-top: 0.5rem;
+     transition: background 0.2s;
+     box-shadow: 0 2px 8px rgba(47,135,50,0.08);
+    }
 
-  .post-submit-btn:hover {
-    background: linear-gradient(90deg, #256b27 60%, #388e3c 100%);
-  }
+    .post-submit-btn:hover {
+     background: linear-gradient(90deg, #256b27 60%, #388e3c 100%);
+   }
 
-  @media (max-width: 500px) {
+    @media (max-width: 500px) {
     .post-modal-content {
       padding: 1.2rem 0.5rem 1rem 0.5rem;
     }
@@ -810,14 +810,13 @@
       flex-direction: column;
       gap: 0.5rem;
     }
-  }
-  </style>
-</head>
+    }
+    </style>
+  </head>
 <body>
-  <header>
+
     <div class="logo">OnlyJobs</div>
     <button class="profile-icon" id="header-profile-btn" aria-label="Profile"></button>
-  </header>
   <div class="side-buttons">
     <button class="side-btn" id="post-btn">➕</button>
     <button class="side-btn" id="profile-btn">👤</button>
@@ -914,14 +913,14 @@
       <button class="welcome-btn" id="skip-btn">Skip</button>
       <button class="welcome-btn" id="google-login-btn" style="display:flex;align-items:center;gap:0.5rem;justify-content:center;">
   <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" style="width:20px;height:20px;"> Sign in with Google
-</button>
+ </button>
     </div>
   </div>
   <div id="user-info" style="display:none;align-items:center;gap:0.7rem;margin-top:1rem;">
   <img id="user-photo" src="" alt="User Photo" style="width:32px;height:32px;border-radius:50%;object-fit:cover;">
   <span id="user-name" style="font-weight:600;"></span>
   <button id="logout-btn" class="welcome-btn" style="background:#eee;color:#222;padding:0.3rem 1rem;">Log Out</button>
-</div>
+ </div>
 
   <!-- Profile Section (in-page, not a popup) -->
   <div class="profile-container" id="profile-container" style="display:none;">
@@ -993,7 +992,7 @@
       </form>
     </div>
   </div>
-<!-- Messaging Modal -->
+ <!-- Messaging Modal -->
  <div id="messaging-modal" class="modal">
   <div class="modal-content" style="max-width:500px;min-height:350px;display:flex;flex-direction:column;">
     <h3>Messages</h3>
@@ -1043,7 +1042,7 @@
     </div>
   </div>
   <!-- Settings Modal -->
-<div id="settings-modal" class="modal">
+ <div id="settings-modal" class="modal">
   <div class="modal-content" style="max-width:500px;overflow-y:auto;max-height:90vh;">
     <h2>Settings</h2>
     <!-- 1. Profile Preferences -->
@@ -1171,9 +1170,9 @@
       <button id="settings-close-btn" style="background:#ccc;color:#222;">Close</button>
     </div>
   </div>
-</div>
-<!-- Change Password Modal -->
-<div id="change-password-modal" class="modal">
+ </div>
+ <!-- Change Password Modal -->
+ <div id="change-password-modal" class="modal">
   <div class="modal-content" style="max-width:350px;">
     <h3>Change Password</h3>
     <input type="password" id="old-password" placeholder="Old Password" />
@@ -1184,9 +1183,9 @@
       <button id="change-password-close-btn" style="background:#ccc;color:#222;">Cancel</button>
     </div>
   </div>
-</div>
-<!-- Delete Account Modal -->
-<div id="delete-account-modal" class="modal">
+ </div>
+ <!-- Delete Account Modal -->
+ <div id="delete-account-modal" class="modal">
   <div class="modal-content" style="max-width:350px;">
     <h3>Delete Account</h3>
     <p>Are you sure you want to delete your account? This cannot be undone.</p>
@@ -1195,9 +1194,9 @@
       <button id="delete-account-cancel-btn" style="background:#ccc;color:#222;">Cancel</button>
     </div>
   </div>
-</div>
-<!-- Notifications Modal -->
-<div id="notifications-modal" class="modal">
+ </div>
+ <!-- Notifications Modal -->
+ <div id="notifications-modal" class="modal">
   <div class="modal-content" style="max-width:400px;">
     <h3>Notifications</h3>
     <ul id="notifications-list" style="list-style:none;padding:0;margin:0 0 1rem 0;"></ul>
@@ -1206,18 +1205,18 @@
       <button id="clear-notifications-btn" style="background:#f44336;color:#fff;">Clear All</button>
       <button id="close-notifications-btn" style="background:#ccc;color:#222;">Close</button>
     </div>
+   </div>
   </div>
-</div>
       
-  <!-- Firebase App (core) -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
- <!-- Firebase Auth -->
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-  <!-- Add this just before your closing </body> tag -->
+   <!-- Firebase App (core) -->
+   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+   <!-- Firebase Auth -->
+   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+    <!-- Add this just before your closing </body> tag -->
 
-<!-- Login/Signup Modal -->
-<div id="auth-modal" class="modal">
-  <div class="modal-content" style="max-width:350px;">
+   <!-- Login/Signup Modal -->
+  <div id="auth-modal" class="modal">
+   <div class="modal-content" style="max-width:350px;">
     <h3>Log In or Sign Up</h3>
     <input type="email" id="auth-email" placeholder="Email" style="margin-bottom:0.5rem;">
     <input type="password" id="auth-password" placeholder="Password" style="margin-bottom:0.5rem;">
@@ -1229,74 +1228,74 @@
       <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" style="width:20px;height:20px;"> Sign in with Google
     </button>
     <button id="close-auth-modal" style="background:#ccc;color:#222;margin-top:1rem;">Close</button>
+   </div>
   </div>
-</div>
-  <script>
+   <script>
     window.addEventListener('DOMContentLoaded', () => {
       // TODO: Replace with your Firebase project config
-const firebaseConfig = {
-  apiKey: "AIzaSyAxbccDQ0iiZlM8xQMYRMNQdJlC2ImVeQ0",
-  authDomain: "onlyjobs-6424e.firebaseapp.com",
-  projectId: "onlyjobs-6424e",
-  storageBucket: "onlyjobs-6424e.appspot.com",
-  messagingSenderId: "660645282144",
-  appId: "1:660645282144:web:de0864d9cecc4f9ac61e05",
-  measurementId: "G-W9K18Q5SJC"
-};
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-// --- Auth Modal Logic ---
-const authModal = document.getElementById('auth-modal');
-const loginEmailBtn = document.getElementById('login-email-btn');
-const signupEmailBtn = document.getElementById('signup-email-btn');
-const googleAuthBtn = document.getElementById('google-auth-btn');
-const closeAuthModal = document.getElementById('close-auth-modal');
-const authEmail = document.getElementById('auth-email');
-const authPassword = document.getElementById('auth-password');
+   const firebaseConfig = {
+    apiKey: "AIzaSyAxbccDQ0iiZlM8xQMYRMNQdJlC2ImVeQ0",
+   authDomain: "onlyjobs-6424e.firebaseapp.com",
+   projectId: "onlyjobs-6424e",
+   storageBucket: "onlyjobs-6424e.appspot.com",
+   messagingSenderId: "660645282144",
+   appId: "1:660645282144:web:de0864d9cecc4f9ac61e05",
+   measurementId: "G-W9K18Q5SJC"
+   };
+   firebase.initializeApp(firebaseConfig);
+   const auth = firebase.auth();
+   // --- Auth Modal Logic ---
+   const authModal = document.getElementById('auth-modal');
+   const loginEmailBtn = document.getElementById('login-email-btn');
+   const signupEmailBtn = document.getElementById('signup-email-btn');
+   const googleAuthBtn = document.getElementById('google-auth-btn');
+   const closeAuthModal = document.getElementById('close-auth-modal');
+   const authEmail = document.getElementById('auth-email');
+   const authPassword = document.getElementById('auth-password');
 
-// Show auth modal when profile is clicked and not logged in
-profileBtn.addEventListener('click', () => {
-  if (!auth.currentUser) {
-    showModal(authModal);
-    return;
-  }
-  hideAllModals();
-  showProfileSection();
-  window.scrollTo(0,0);
-});
+   // Show auth modal when profile is clicked and not logged in
+   profileBtn.addEventListener('click', () => {
+   if (!auth.currentUser) {
+     showModal(authModal);
+     return;
+   }
+   hideAllModals();
+   showProfileSection();
+   window.scrollTo(0,0);
+  });
 
-// Email login
-loginEmailBtn.onclick = () => {
-  auth.signInWithEmailAndPassword(authEmail.value, authPassword.value)
+   // Email login
+   loginEmailBtn.onclick = () => {
+   auth.signInWithEmailAndPassword(authEmail.value, authPassword.value)
     .then(() => {
       hideModal(authModal);
       alert('Logged in!');
     })
     .catch(err => alert(err.message));
-};
+ };
 
-// Email signup
-signupEmailBtn.onclick = () => {
-  auth.createUserWithEmailAndPassword(authEmail.value, authPassword.value)
+   // Email signup
+   signupEmailBtn.onclick = () => {
+    auth.createUserWithEmailAndPassword(authEmail.value, authPassword.value)
     .then(() => {
       hideModal(authModal);
       alert('Account created!');
     })
     .catch(err => alert(err.message));
-};
+ };
 
-// Google login
-googleAuthBtn.onclick = () => {
-  const provider = new firebase.auth.GoogleAuthProvider();
-  auth.signInWithPopup(provider)
-    .then(() => {
+   // Google login
+  googleAuthBtn.onclick = () => {
+   const provider = new firebase.auth.GoogleAuthProvider();
+   auth.signInWithPopup(provider)
+     .then(() => {
       hideModal(authModal);
       alert('Logged in with Google!');
     })
     .catch(err => alert(err.message));
-};
+ };
 
-closeAuthModal.onclick = () => hideModal(authModal);
+  closeAuthModal.onclick = () => hideModal(authModal);
 
       // Post modal logic
        const postBtn = document.getElementById('post-btn');
@@ -1306,11 +1305,11 @@ closeAuthModal.onclick = () => hideModal(authModal);
        const exitPostModal = document.getElementById('exit-post-modal');
 
       function openPostModal() {
-  showModal(postModal);
-}
-function closePostModal() {
-  hideModal(postModal);
-}
+   showModal(postModal);
+   }
+   function closePostModal() {
+   hideModal(postModal);
+  }
 
      // ...existing code...
        postBtn.addEventListener('click', () => {
@@ -1534,7 +1533,7 @@ function closePostModal() {
       closeWelcomeModal();
     })
     .catch(err => alert(err.message));
-});
+   });
 
       signupBtn.addEventListener('click', () => {
      const email = prompt("Enter your email:");
@@ -1545,61 +1544,61 @@ function closePostModal() {
       closeWelcomeModal();
     })
     .catch(err => alert(err.message));
-});
-// Profile section logic (in-page)
-const profileBtn = document.getElementById('profile-btn');
-const profileContainer = document.getElementById('profile-container');
-const sidebarHomeBtn = document.getElementById('sidebar-home');
+  });
+ // Profile section logic (in-page)
+   const profileBtn = document.getElementById('profile-btn');
+   const profileContainer = document.getElementById('profile-container');
+   const sidebarHomeBtn = document.getElementById('sidebar-home');
 
-// mainSections does NOT include profileContainer
-const mainSections = [
-  document.querySelector('.hero-box'),
-  document.querySelector('.filters'),
-  document.querySelector('.post-type-filters'),
-  document.querySelector('.card-flip-container')
+ // mainSections does NOT include profileContainer
+   const mainSections = [
+   document.querySelector('.hero-box'),
+   document.querySelector('.filters'),
+   document.querySelector('.post-type-filters'),
+   document.querySelector('.card-flip-container')
   
-];
+  ];
 
-// Helper functions for showing/hiding sections
-function showMainSections() {
-  mainSections.forEach(sec => { if(sec) sec.style.display = ''; });
-  profileContainer.style.display = 'none';
-}
-function showProfileSection() {
-  mainSections.forEach(sec => { if(sec) sec.style.display = 'none'; });
-  profileContainer.style.display = 'flex';
-}
+ // Helper functions for showing/hiding sections
+   function showMainSections() {
+   mainSections.forEach(sec => { if(sec) sec.style.display = ''; });
+   profileContainer.style.display = 'none';
+  }
+   function showProfileSection() {
+   mainSections.forEach(sec => { if(sec) sec.style.display = 'none'; });
+   profileContainer.style.display = 'flex';
+   }
 
-// Profile button logic
-profileBtn.addEventListener('click', () => {
-  hideAllModals();
-  showProfileSection();
-  window.scrollTo(0,0);
-});
- const backFromProfileBtn = document.getElementById('back-from-profile');
+ // Profile button logic
+   profileBtn.addEventListener('click', () => {
+   hideAllModals();
+   showProfileSection();
+   window.scrollTo(0,0);
+  });
+   const backFromProfileBtn = document.getElementById('back-from-profile');
 
- backFromProfileBtn.addEventListener('click', () => {
+   backFromProfileBtn.addEventListener('click', () => {
   // Show main UI sections again
-  mainSections.forEach(sec => { if(sec) sec.style.display = ''; });
-  profileHeader.style.display = 'none';
-  profileForm.style.display = 'none';
-});
-// Sidebar home button logic
-sidebarHomeBtn.onclick = () => {
-  hideAllModals();
-  showMainSections();
-  window.scrollTo(0,0);
-};
+   mainSections.forEach(sec => { if(sec) sec.style.display = ''; });
+   profileHeader.style.display = 'none';
+   profileForm.style.display = 'none';
+   });
+  // Sidebar home button logic
+   sidebarHomeBtn.onclick = () => {
+   hideAllModals();
+   showMainSections();
+   window.scrollTo(0,0);
+   };
 
-// Make sure hideAllModals does NOT hide profileContainer
-function hideAllModals() {
-  document.querySelectorAll('.modal, .welcome-modal').forEach(modal => {
+   // Make sure hideAllModals does NOT hide profileContainer
+   function hideAllModals() {
+   document.querySelectorAll('.modal, .welcome-modal').forEach(modal => {
     modal.classList.remove('show');
     modal.style.display = 'none';
   });
   // Do NOT hide profileContainer here!
-}
-});
+  }
+  });
 
       // Home button in sidebar
       const sidebarHomeBtn = document.getElementById('sidebar-home');
@@ -1646,26 +1645,26 @@ function hideAllModals() {
           resumeFileURL = null;
         }
       });
-const googleLoginBtn = document.getElementById('google-login-btn');
-const userInfo = document.getElementById('user-info');
-const userPhoto = document.getElementById('user-photo');
-const userName = document.getElementById('user-name');
-const logoutBtn = document.getElementById('logout-btn');
+   const googleLoginBtn = document.getElementById('google-login-btn');
+   const userInfo = document.getElementById('user-info');
+   const userPhoto = document.getElementById('user-photo');
+   const userName = document.getElementById('user-name');
+   const logoutBtn = document.getElementById('logout-btn');
 
-// Google login
-googleLoginBtn.addEventListener('click', () => {
-  const provider = new firebase.auth.GoogleAuthProvider();
-  auth.signInWithPopup(provider)
+  // Google login
+    googleLoginBtn.addEventListener('click', () => {
+   const provider = new firebase.auth.GoogleAuthProvider();
+   auth.signInWithPopup(provider)
     .then(result => {
       alert("Logged in as " + result.user.displayName);
       closeWelcomeModal();
     })
     .catch(err => alert(err.message));
-});
+   });
 
-// Show/hide buttons and user info based on auth state
-auth.onAuthStateChanged(user => {
-  if (user) {
+ // Show/hide buttons and user info based on auth state
+   auth.onAuthStateChanged(user => {
+   if (user) {
     // Hide login/signup/google buttons
     googleLoginBtn.style.display = 'none';
     if (loginBtn) loginBtn.style.display = 'none';
@@ -1675,7 +1674,7 @@ auth.onAuthStateChanged(user => {
     userInfo.style.display = 'flex';
     userPhoto.src = user.photoURL || "https://via.placeholder.com/32?text=U";
     userName.textContent = user.displayName || user.email;
-  } else {
+   } else {
     // Show login/signup/google buttons
     googleLoginBtn.style.display = '';
     if (loginBtn) loginBtn.style.display = '';
@@ -1685,14 +1684,14 @@ auth.onAuthStateChanged(user => {
     userInfo.style.display = 'none';
     userPhoto.src = '';
     userName.textContent = '';
-  }
-});
+   }
+   });
 
-// Logout
-logoutBtn.addEventListener('click', () => {
-  auth.signOut();
-  alert("Logged out!");
-});
+ // Logout
+   logoutBtn.addEventListener('click', () => {
+    auth.signOut();
+    alert("Logged out!");
+   });
       // Calendar logic
       const calendarModal = document.getElementById('calendar-modal');
       const calendarCloseBtn = document.getElementById('calendar-close-btn');
@@ -1837,9 +1836,9 @@ logoutBtn.addEventListener('click', () => {
      sidebarSettingsBtn.onclick = () => {
      hideAllModals();
      showModal(settingsModal);
-    };
+     };
 
-settingsCloseBtn.onclick = () => hideModal(settingsModal);
+     settingsCloseBtn.onclick = () => hideModal(settingsModal);
 
        settingsSaveBtn.onclick = () => {
         // Example: read settings values
@@ -1855,29 +1854,29 @@ settingsCloseBtn.onclick = () => hideModal(settingsModal);
         hideModal(settingsModal);
       };
       // Sign Up
-function signUpWithEmail(email, password) {
-  return auth.createUserWithEmailAndPassword(email, password);
-}
+   function signUpWithEmail(email, password) {
+   return auth.createUserWithEmailAndPassword(email, password);
+  }
 
-// Log In
-function logInWithEmail(email, password) {
-  return auth.signInWithEmailAndPassword(email, password);
-}
+ // Log In
+   function logInWithEmail(email, password) {
+   return auth.signInWithEmailAndPassword(email, password);
+  }
 
-// Log Out
-function logOut() {
-  return auth.signOut();
-}
+ // Log Out
+   function logOut() {
+   return auth.signOut();
+  }
 
-// Listen for auth state changes
-auth.onAuthStateChanged(user => {
-  if (user) {
+ // Listen for auth state changes
+   auth.onAuthStateChanged(user => {
+   if (user) {
     console.log("Logged in as:", user.email);
     // You can update your UI here (e.g., hide/show buttons)
-  } else {
+   } else {
     console.log("Logged out");
-  }
-});
+   }
+   });
       // REMOVE or comment out this line:
       // document.getElementById('sidebar-settings').onclick = () => alert('Settings clicked!');
 
@@ -1902,31 +1901,31 @@ auth.onAuthStateChanged(user => {
       });
 
       // --- Notifications Modal Logic ---
-const notificationsModal = document.getElementById('notifications-modal');
-const notificationsList = document.getElementById('notifications-list');
-const markAllReadBtn = document.getElementById('mark-all-read-btn');
-const clearNotificationsBtn = document.getElementById('clear-notifications-btn');
-const closeNotificationsBtn = document.getElementById('close-notifications-btn');
-const sidebarNotificationsBtn = document.getElementById('sidebar-notifications');
+   const notificationsModal = document.getElementById('notifications-modal');
+   const notificationsList = document.getElementById('notifications-list');
+   const markAllReadBtn = document.getElementById('mark-all-read-btn');
+   const clearNotificationsBtn = document.getElementById('clear-notifications-btn');
+   const closeNotificationsBtn = document.getElementById('close-notifications-btn');
+   const sidebarNotificationsBtn = document.getElementById('sidebar-notifications');
 
-// Example notifications data (replace with real data as needed)
-let notifications = JSON.parse(localStorage.getItem('notifications') || '[]');
-if (!notifications.length) {
-  notifications = [
+   // Example notifications data (replace with real data as needed)
+   let notifications = JSON.parse(localStorage.getItem('notifications') || '[]');
+   if (!notifications.length) {
+   notifications = [
     { id: 1, type: 'like', text: 'Someone liked your post.', read: false },
     { id: 2, type: 'match', text: 'You have a new job match!', read: false },
     { id: 3, type: 'interview', text: 'Interview request for Friday 2pm.', read: false }
   ];
   localStorage.setItem('notifications', JSON.stringify(notifications));
-}
+  }
 
-function renderNotifications() {
-  notificationsList.innerHTML = '';
-  if (!notifications.length) {
+  function renderNotifications() {
+   notificationsList.innerHTML = '';
+   if (!notifications.length) {
     notificationsList.innerHTML = '<li style="text-align:center;color:#888;">No notifications.</li>';
     return;
   }
-  notifications.forEach((notif, idx) => {
+   notifications.forEach((notif, idx) => {
     const li = document.createElement('li');
     li.textContent = notif.text;
     li.className = notif.read ? '' : 'unread';
@@ -1936,43 +1935,43 @@ function renderNotifications() {
       renderNotifications();
     };
     notificationsList.appendChild(li);
-  });
-}
+   });
+  }
 
-sidebarNotificationsBtn.onclick = () => {
-  notificationsModal.classList.add('show');
-  renderNotifications();
-};
+   sidebarNotificationsBtn.onclick = () => {
+   notificationsModal.classList.add('show');
+   renderNotifications();
+  };
 
-closeNotificationsBtn.onclick = () => hideModal(notificationsModal);
+   closeNotificationsBtn.onclick = () => hideModal(notificationsModal);
 
 
-markAllReadBtn.onclick = () => {
-  notifications.forEach(n => n.read = true);
+   markAllReadBtn.onclick = () => {
+   notifications.forEach(n => n.read = true);
  
-  localStorage.setItem('notifications', JSON.stringify(notifications));
-  renderNotifications();
-};
+   localStorage.setItem('notifications', JSON.stringify(notifications));
+   renderNotifications();
+  };
 
-clearNotificationsBtn.onclick = () => {
-  notifications = [];
-  localStorage.setItem('notifications', JSON.stringify(notifications));
-  renderNotifications();
-};
+   clearNotificationsBtn.onclick = () => {
+   notifications = [];
+   localStorage.setItem('notifications', JSON.stringify(notifications));
+   renderNotifications();
+   };
 
       // --- Messaging Modal Logic ---
-const messagingModal = document.getElementById('messaging-modal');
-const sidebarMessagesBtn = document.getElementById('sidebar-messages');
-const closeMessagingBtn = document.getElementById('close-messaging-btn');
-const conversationsList = document.getElementById('conversations-list');
-const messagesList = document.getElementById('messages-list');
-const sendMessageForm = document.getElementById('send-message-form');
-const messageInput = document.getElementById('message-input');
+   const messagingModal = document.getElementById('messaging-modal');
+   const sidebarMessagesBtn = document.getElementById('sidebar-messages');
+   const closeMessagingBtn = document.getElementById('close-messaging-btn');
+   const conversationsList = document.getElementById('conversations-list');
+   const messagesList = document.getElementById('messages-list');
+   const sendMessageForm = document.getElementById('send-message-form');
+   const messageInput = document.getElementById('message-input');
 
-// Example conversations/messages (replace with real data as needed)
-let conversations = JSON.parse(localStorage.getItem('conversations') || '[]');
-if (!conversations.length) {
-  conversations = [
+ // Example conversations/messages (replace with real data as needed)
+   let conversations = JSON.parse(localStorage.getItem('conversations') || '[]');
+   if (!conversations.length) {
+   conversations = [
     { id: 1, name: "Jane Doe", messages: [
       { from: "Jane Doe", text: "Hi! Are you available for a gig?" },
       { from: "Me", text: "Yes, tell me more!" }
@@ -1981,13 +1980,13 @@ if (!conversations.length) {
       { from: "Mike Recruiter", text: "Interview request for Thursday?" }
     ]}
   ];
-  localStorage.setItem('conversations', JSON.stringify(conversations));
-}
-let selectedConversation = 0;
+   localStorage.setItem('conversations', JSON.stringify(conversations));
+  }
+   let selectedConversation = 0;
 
-function renderConversations() {
-  conversationsList.innerHTML = '';
-  conversations.forEach((conv, idx) => {
+  function renderConversations() {
+    conversationsList.innerHTML = '';
+    conversations.forEach((conv, idx) => {
     const div = document.createElement('div');
     div.textContent = conv.name;
     div.style.padding = '0.5rem';
@@ -2000,40 +1999,40 @@ function renderConversations() {
     };
     conversationsList.appendChild(div);
   });
-}
+  }
 
-function renderMessages() {
-  messagesList.innerHTML = '';
-  const conv = conversations[selectedConversation];
-  if (!conv) return;
-  conv.messages.forEach(msg => {
+   function renderMessages() {
+   messagesList.innerHTML = '';
+   const conv = conversations[selectedConversation];
+   if (!conv) return;
+   conv.messages.forEach(msg => {
     const div = document.createElement('div');
     div.textContent = (msg.from === "Me" ? "You: " : msg.from + ": ") + msg.text;
     div.style.margin = '0.2rem 0';
     div.style.textAlign = msg.from === "Me" ? 'right' : 'left';
     messagesList.appendChild(div);
   });
-  messagesList.scrollTop = messagesList.scrollHeight;
-}
+   messagesList.scrollTop = messagesList.scrollHeight;
+  }
 
-sidebarMessagesBtn.onclick = () => {
-  messagingModal.classList.add('show');
-  renderConversations();
-  renderMessages();
-};
+   sidebarMessagesBtn.onclick = () => {
+   messagingModal.classList.add('show');
+   renderConversations();
+   renderMessages();
+  };
 
-closeMessagingBtn.onclick = () => hideModal(messagingModal);
-;
+   closeMessagingBtn.onclick = () => hideModal(messagingModal);
+  ;
 
-sendMessageForm.onsubmit = (e) => {
-  e.preventDefault();
-  const text = messageInput.value.trim();
-  if (!text) return;
-  conversations[selectedConversation].messages.push({ from: "Me", text });
-  localStorage.setItem('conversations', JSON.stringify(conversations));
-  renderMessages();
-  messageInput.value = '';
-};
+   sendMessageForm.onsubmit = (e) => {
+   e.preventDefault();
+   const text = messageInput.value.trim();
+   if (!text) return;
+   conversations[selectedConversation].messages.push({ from: "Me", text });
+   localStorage.setItem('conversations', JSON.stringify(conversations));
+   renderMessages();
+   messageInput.value = '';
+  };
 
       // Post image preview logic
       const postImageInput = document.getElementById('post-image');
