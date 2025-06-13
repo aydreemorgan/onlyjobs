@@ -637,6 +637,10 @@
   </div>
 </div>
 
+
+      
+    
+    
 <script>
   // Sign Up
   function signUpWithEmail(email, password) {
@@ -678,32 +682,45 @@
    const authEmail = document.getElementById('auth-email');
   const authPassword = document.getElementById('auth-password');
 
-   window.addEventListener('DOMContentLoaded', () => {
-  const modal = document.getElementById('entry-modal');
-  const skipBtn = document.getElementById('skip-btn');
+ 
+  window.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('entry-modal');
+    const skipBtn = document.getElementById('skip-btn');
+    const loginBtn = document.getElementById('login-btn');
+    const signupBtn = document.getElementById('signup-btn');
 
-  if (modal) {
-    modal.style.display = 'flex';
+    if (modal) {
+      modal.style.display = 'flex';
 
-    skipBtn.addEventListener('click', () => {
-      modal.style.display = 'none';
-    });
-  }
-});
+      skipBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+      });
+
+      loginBtn.addEventListener('click', () => {
+        alert("Login form coming soon!");
+      });
+
+      signupBtn.addEventListener('click', () => {
+        alert("Signup form coming soon!");
+      });
+    }
+  });
+
+
 
 }
-
-   // Email login
-   loginEmailBtn.onclick = () => {
-   auth.signInWithEmailAndPassword(authEmail.value, authPassword.value)
-    .then(() => {
-      hideModal(authModal);
-      alert('Logged in!');
-    })
-    .catch(err => alert(err.message));
- };
-
-   // Email signup
+ <script>
+  // Email login
+  loginEmailBtn.onclick = () => {
+    auth.signInWithEmailAndPassword(authEmail.value, authPassword.value)
+      .then(() => {
+        hideModal(authModal);
+        alert('Logged in!');
+      })
+      .catch(err => alert(err.message));
+  };
+</script>
+// Email signup
    signupEmailBtn.onclick = () => {
     auth.createUserWithEmailAndPassword(authEmail.value, authPassword.value)
     .then(() => {
