@@ -1213,6 +1213,24 @@
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
  <!-- Firebase Auth -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <!-- Add this just before your closing </body> tag -->
+
+<!-- Login/Signup Modal -->
+<div id="auth-modal" class="modal">
+  <div class="modal-content" style="max-width:350px;">
+    <h3>Log In or Sign Up</h3>
+    <input type="email" id="auth-email" placeholder="Email" style="margin-bottom:0.5rem;">
+    <input type="password" id="auth-password" placeholder="Password" style="margin-bottom:0.5rem;">
+    <div style="display:flex;gap:0.5rem;margin-bottom:0.5rem;">
+      <button id="login-email-btn">Log In</button>
+      <button id="signup-email-btn">Sign Up</button>
+    </div>
+    <button id="google-auth-btn" style="background:#fff;color:#222;border:1px solid #ccc;display:flex;align-items:center;gap:0.5rem;justify-content:center;">
+      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" style="width:20px;height:20px;"> Sign in with Google
+    </button>
+    <button id="close-auth-modal" style="background:#ccc;color:#222;margin-top:1rem;">Close</button>
+  </div>
+</div>
   <script>
     window.addEventListener('DOMContentLoaded', () => {
       // TODO: Replace with your Firebase project config
@@ -1227,6 +1245,58 @@ const firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
+// --- Auth Modal Logic ---
+const authModal = document.getElementById('auth-modal');
+const loginEmailBtn = document.getElementById('login-email-btn');
+const signupEmailBtn = document.getElementById('signup-email-btn');
+const googleAuthBtn = document.getElementById('google-auth-btn');
+const closeAuthModal = document.getElementById('close-auth-modal');
+const authEmail = document.getElementById('auth-email');
+const authPassword = document.getElementById('auth-password');
+
+// Show auth modal when profile is clicked and not logged in
+profileBtn.addEventListener('click', () => {
+  if (!auth.currentUser) {
+    showModal(authModal);
+    return;
+  }
+  hideAllModals();
+  showProfileSection();
+  window.scrollTo(0,0);
+});
+
+// Email login
+loginEmailBtn.onclick = () => {
+  auth.signInWithEmailAndPassword(authEmail.value, authPassword.value)
+    .then(() => {
+      hideModal(authModal);
+      alert('Logged in!');
+    })
+    .catch(err => alert(err.message));
+};
+
+// Email signup
+signupEmailBtn.onclick = () => {
+  auth.createUserWithEmailAndPassword(authEmail.value, authPassword.value)
+    .then(() => {
+      hideModal(authModal);
+      alert('Account created!');
+    })
+    .catch(err => alert(err.message));
+};
+
+// Google login
+googleAuthBtn.onclick = () => {
+  const provider = new firebase.auth.GoogleAuthProvider();
+  auth.signInWithPopup(provider)
+    .then(() => {
+      hideModal(authModal);
+      alert('Logged in with Google!');
+    })
+    .catch(err => alert(err.message));
+};
+
+closeAuthModal.onclick = () => hideModal(authModal);
 
       // Post modal logic
        const postBtn = document.getElementById('post-btn');
