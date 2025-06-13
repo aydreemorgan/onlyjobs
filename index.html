@@ -484,7 +484,10 @@
 <body>
   <header>
     <div class="logo">OnlyJobs</div>
-    <button id="auth-btn" style="background:#2f8732;color:#fff;border:none;padding:0.6rem 1.2rem;border-radius:8px;cursor:pointer;">Log In</button>
+    <div style="display: flex; gap: 0.5rem; align-items: center;">
+      <button id="profile-btn" class="profile-btn" style="background:#2f8732;color:#fff;border:none;padding:0.6rem 1.2rem;border-radius:8px;cursor:pointer;">Profile</button>
+      <button id="auth-btn" style="background:#2f8732;color:#fff;border:none;padding:0.6rem 1.2rem;border-radius:8px;cursor:pointer;">Log In</button>
+    </div>
   </header>
 
   <div class="side-buttons">
@@ -678,6 +681,7 @@
 
     // Global elements
     const authBtn = document.getElementById('auth-btn');
+    const profileBtn = document.getElementById('profile-btn');
     const mainContent = document.getElementById('main-content');
     const profilePage = document.getElementById('profile-page');
 
@@ -735,11 +739,20 @@
 
     profileBackBtn.onclick = hideProfilePage;
 
+    // Profile Button Handler (always available)
+    profileBtn.onclick = () => {
+      showProfilePage();
+    };
+
     // Auth Button Handler
     authBtn.onclick = () => {
       if (auth.currentUser) {
-        showProfilePage();
+        // If logged in, logout
+        auth.signOut().then(() => {
+          alert('Logged out successfully');
+        });
       } else {
+        // If logged out, show login modal
         showModal(authModal);
       }
     };
@@ -803,6 +816,13 @@
     let experienceCount = 0;
 
     function addExperienceItem() {
+      const user = auth.currentUser;
+      if (!user) {
+        alert('Please log in to add work experience');
+        showModal(authModal);
+        return;
+      }
+
       experienceCount++;
       const experienceItem = document.createElement('div');
       experienceItem.className = 'experience-item';
@@ -840,7 +860,45 @@
     // Load User Profile
     async function loadUserProfile() {
       const user = auth.currentUser;
-      if (!user) return;
+      
+      if (!user) {
+        // Show logged out state
+        profileEmail.value = 'Please log in to edit profile';
+        profileEmail.disabled = true;
+        profileName.value = '';
+        profileName.disabled = true;
+        profilePhone.disabled = true;
+        profileLocation.disabled = true;
+        profileAbout.disabled = true;
+        profilePhotoInput.disabled = true;
+        resumeUpload.disabled = true;
+        saveProfileBtn.disabled = true;
+        saveProfileBtn.textContent = 'Log in to save profile';
+        
+        // Show placeholder avatar
+        profilePhotoLarge.classList.add('placeholder');
+        profilePhotoLarge.innerHTML = '?';
+        
+        // Clear experience list
+        experienceList.innerHTML = '<p style="color: #666; text-align: center;">Log in to add work experience</p>';
+        addExperienceBtn.disabled = true;
+        addExperienceBtn.textContent = 'Log in to add experience';
+        
+        return;
+      }
+
+      // User is logged in - enable all fields
+      profileEmail.disabled = false;
+      profileName.disabled = false;
+      profilePhone.disabled = false;
+      profileLocation.disabled = false;
+      profileAbout.disabled = false;
+      profilePhotoInput.disabled = false;
+      resumeUpload.disabled = false;
+      saveProfileBtn.disabled = false;
+      saveProfileBtn.textContent = 'Save Profile';
+      addExperienceBtn.disabled = false;
+      addExperienceBtn.textContent = '+ Add Experience';
 
       profileEmail.value = user.email;
       profileName.value = user.displayName || '';
@@ -877,7 +935,11 @@
               inputs[2].value = exp.duration || '';
               inputs[3].value = exp.description || '';
             });
+          } else {
+            experienceList.innerHTML = '';
           }
+        } else {
+          experienceList.innerHTML = '';
         }
       } catch (error) {
         console.error('Error loading profile:', error);
@@ -887,7 +949,11 @@
     // Save User Profile
     saveProfileBtn.onclick = async () => {
       const user = auth.currentUser;
-      if (!user) return;
+      if (!user) {
+        alert('Please log in to save your profile');
+        showModal(authModal);
+        return;
+      }
 
       try {
         saveProfileBtn.textContent = 'Saving...';
@@ -963,19 +1029,13 @@
     // Update Auth Button Based on Login State
     auth.onAuthStateChanged(user => {
       if (user) {
-        // User is logged in - show profile button
-        if (user.photoURL) {
-          authBtn.innerHTML = `<img src="${user.photoURL}" class="profile-avatar" alt="Profile">`;
-        } else {
-          authBtn.innerHTML = `<div class="profile-avatar placeholder">${(user.displayName || user.email).charAt(0).toUpperCase()}</div>`;
-        }
-        authBtn.style.background = 'none';
-        authBtn.style.padding = '0.3rem';
+        // User is logged in
+        authBtn.textContent = 'Logout';
+        authBtn.style.background = '#ff4444';
       } else {
-        // User is logged out - show login button
-        authBtn.innerHTML = 'Log In';
+        // User is logged out
+        authBtn.textContent = 'Log In';
         authBtn.style.background = '#2f8732';
-        authBtn.style.padding = '0.6rem 1.2rem';
       }
     });
 
