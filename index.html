@@ -168,6 +168,26 @@
       background-color: #2f8732;
       color: #fff;
     }
+    .popup-modal {
+     position: fixed;
+     top: 0; left: 0;
+     width: 100vw; height: 100vh;
+     background: rgba(0, 0, 0, 0.6);
+     display: none;
+     justify-content: center;
+     align-items: center;
+     z-index: 1000;
+    }
+
+  .popup-content {
+     background: #fff;
+     padding: 2rem;
+     border-radius: 12px;
+     text-align: center;
+     max-width: 90%;
+     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
     
     .post-type-filters {
       display: flex;
@@ -402,7 +422,8 @@
     }
     }
     </style>
-  </head>
+  </style>
+</head>
 <body>
 
     <div class="logo">OnlyJobs</div>
@@ -606,11 +627,20 @@
     </div>
   </div>
 </div>
-    };
+    <div class="popup-modal" id="entry-modal">
+  <div class="popup-content">
+    <h2>Welcome to OnlyJobs</h2>
+    <p>Let’s get you started</p>
+    <button id="login-btn">Log In</button>
+    <button id="signup-btn">Sign Up</button>
+    <button id="skip-btn">Skip – Let’s Swipe</button>
+  </div>
+</div>
+
 
         hideModal(settingsModal);
     
-      <!-- No <prompt> tag! -->
+    
 <script>
   // Sign Up
   function signUpWithEmail(email, password) {
@@ -652,7 +682,19 @@
    const authEmail = document.getElementById('auth-email');
   const authPassword = document.getElementById('auth-password');
 
-  
+   window.addEventListener('DOMContentLoaded', () => {
+  const modal = document.getElementById('entry-modal');
+  const skipBtn = document.getElementById('skip-btn');
+
+  if (modal) {
+    modal.style.display = 'flex';
+
+    skipBtn.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+  }
+});
+
 }
 
    // Email login
@@ -924,6 +966,7 @@
      // ...existing code...
 
       loginBtn.addEventListener('click', () => {
+      <div class="popup-modal"> ... </div>
       const email = prompt("Enter your email:");
       const password = prompt("Enter your password:");
       logInWithEmail(email, password)
@@ -935,7 +978,9 @@
    });
 
       signupBtn.addEventListener('click', () => {
-     const email = prompt("Enter your email:");
+    <div class="popup-modal"> ... </div>
+      const email = prompt("Enter your email:");
+      if (!email) return alert("Email is required!");
     const password = prompt("Enter your password:");
       signUpWithEmail(email, password)
      .then(() => {
@@ -1239,7 +1284,6 @@ window.addEventListener('DOMContentLoaded', () => {
           postImagePreview.style.display = 'none';
         }
       });
-    ;
   </script>
 </body>
 </html>
