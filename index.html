@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>OnlyJobs</title>
   <style>
-    /* ...existing code... */
     body {
       margin: 0;
       font-family: 'Helvetica Neue', sans-serif;
@@ -188,7 +187,6 @@
      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
 
-    
     .post-type-filters {
       display: flex;
       gap: 0.5rem;
@@ -276,166 +274,43 @@
       background-color: #ccc;
       color: black;
     }
-    .welcome-modal {
+    .side-buttons {
       position: fixed;
-      top: -100%;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: rgba(0, 0, 0, 0.9);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 4000;
-      transition: top 0.5s ease;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 100;
     }
-    .welcome-modal.show {
-      top: 0;
-    }
-    .welcome-content {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      align-items: center;
-    }
-    .welcome-btn {
-      background-color: transparent;
-      border: 2px solid #2f8732;
-      color: #2f8732;
-      padding: 0.75rem 1.5rem;
-      font-size: 1rem;
-      border-radius: 12px;
-      cursor: pointer;
-      width: 180px;
-      transition: background 0.3s ease;
-    }
-    .welcome-btn:hover {
-      background-color: #2f8732;
+    .side-btn {
+      background: #2f8732;
       color: white;
-    }
-    .close-btn {
-      position: absolute;
-      top: 1.5rem;
-      right: 1.5rem;
-      background: none;
       border: none;
-      font-size: 1.5rem;
-      color: #2f8732;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 1.2rem;
       cursor: pointer;
+      margin-bottom: 0.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     }
-    
-   
-     #conversations-list div {
-     border-bottom: 1px solid #f3f3f3;
-     }
-     #conversations-list div:hover {
-      background: #f3f3f3;
-     }
-    
-      .post-modal-content {
-       background: linear-gradient(135deg, #fdfaf5 80%, #e6f5e6 100%);
-       border: 1.5px solid #e0e0e0;
-     }
-
-      /* Post Modal Pretty Styles */
-    .post-modal-content {
-      position: relative;
-      max-width: 420px;
-      width: 95vw;
-      background: linear-gradient(135deg, #fdfaf5 80%, #e6f5e6 100%);
-      border: 1.5px solid #e0e0e0;
-      border-radius: 18px;
-      box-shadow: 0 8px 32px rgba(47,135,50,0.10), 0 1.5px 8px rgba(0,0,0,0.06);
-      padding: 2.2rem 1.5rem 1.5rem 1.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      animation: fadeIn 0.3s;
-    }
-
-   .post-modal-fields {
-     display: flex;
-     flex-direction: column;
-     gap: 1rem;
-   }
-
-    .post-label {
-     font-weight: 600;
-     color: #2f8732;
-     margin-bottom: 0.25rem;
-     display: block;
-    }
-
-    .post-input, .post-modal-content select, .post-modal-content textarea {
-      width: 100%;
-      padding: 0.7rem 1rem;
-      border-radius: 10px;
-     border: 1px solid #e0e0e0;
-     font-size: 1rem;
-     margin-bottom: 0.2rem;
-     background: #f9f9f9;
-     transition: border 0.2s;
-    }
-
-    .post-input:focus, .post-modal-content select:focus, .post-modal-content textarea:focus {
-      border: 1.5px solid #2f8732;
-      outline: none;
-      background: #fff;
-    }
-
-    .post-row {
-     display: flex;
-     gap: 1rem;
-     flex-wrap: wrap;
-    }
-
-    .post-row > div {
-     flex: 1 1 0;
-     min-width: 120px;
-    }
-
-    .post-submit-btn {
-     background: linear-gradient(90deg, #2f8732 60%, #4caf50 100%);
-     color: #fff;
-     border: none;
-     border-radius: 10px;
-     padding: 0.9rem 0;
-     font-size: 1.1rem;
-     font-weight: bold;
-     cursor: pointer;
-     margin-top: 0.5rem;
-     transition: background 0.2s;
-     box-shadow: 0 2px 8px rgba(47,135,50,0.08);
-    }
-
-    .post-submit-btn:hover {
-     background: linear-gradient(90deg, #256b27 60%, #388e3c 100%);
-   }
-
-    @media (max-width: 500px) {
-    .post-modal-content {
-      padding: 1.2rem 0.5rem 1rem 0.5rem;
-    }
-    .post-row {
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-    }
-    </style>
   </style>
 </head>
 <body>
-
+  <header>
     <div class="logo">OnlyJobs</div>
-    <button id="login-top-btn" style="margin:1rem;float:right;background:#2f8732;color:#fff;border:none;padding:0.6rem 1.2rem;border-radius:8px;cursor:pointer;">Log In</button>
+    <button id="login-top-btn" style="background:#2f8732;color:#fff;border:none;padding:0.6rem 1.2rem;border-radius:8px;cursor:pointer;">Log In</button>
+  </header>
+
   <div class="side-buttons">
     <button class="side-btn" id="post-btn">➕</button>
   </div>
+
   <div class="hero-box">
     <h1>Swipe. Match. Hustle.</h1>
     <p>Find gigs, tasks, and local work — in seconds.</p>
     <input type="text" placeholder="Enter your location" />
   </div>
+
   <div class="filters">
     <button class="filter-btn">5 mi</button>
     <button class="filter-btn">25 mi</button>
@@ -443,6 +318,7 @@
     <button class="filter-btn">Virtual</button>
     <button class="filter-btn">Local</button>
   </div>
+
   <div class="post-type-filters">
     <button class="post-type-btn" data-type="available">I'm available</button>
     <button class="post-type-btn" data-type="looking">I'm looking for</button>
@@ -453,7 +329,7 @@
   <div class="card-flip-container">
     <div class="card-flip" id="card-flip">
       <!-- Front Side -->
-      <div class="card card-front" id="swipe-card" data-swipeable="true">
+      <div class="card card-front" id="swipe-card">
         <img id="job-img" src="https://via.placeholder.com/400x200" alt="Job Preview">
         <div class="card-content">
           <div class="job-title" id="job-title">Part-Time Dog Walker</div>
@@ -478,175 +354,87 @@
     </div>
   </div>
 
+  <!-- Post Modal -->
   <div id="post-modal" class="modal">
-    <div class="modal-content post-modal-content">
-      <button id="close-post-modal" class="close-btn" style="position:absolute;top:1rem;right:1rem;">✕</button>
+    <div class="modal-content">
+      <button id="close-post-modal" style="position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.5rem;cursor:pointer;">✕</button>
       <h2 style="margin-bottom:0.5rem;text-align:center;">Create a New Post</h2>
-      <div class="post-modal-fields">
-        <label for="post-image" class="post-label">Add Photo</label>
-        <input type="file" id="post-image" accept="image/*" class="post-input" />
-        <img id="post-image-preview" src="https://via.placeholder.com/120x80?text=Preview" style="display:none;width:100%;max-width:220px;margin:0.5rem auto 0.5rem;border-radius:12px;object-fit:cover;" alt="Preview">
-        <input type="text" id="post-title" class="post-input" placeholder="Title (e.g: developer, florist, nail artist, personal job)" />
-        <textarea id="post-description" class="post-input" placeholder="Describe the job, task, offer"></textarea>
-        <input type="text" id="post-price" class="post-input" placeholder="Price (e.g. 20, 50, negotiable)" />
-        <div class="post-row">
-          <div>
-            <label for="post-type" class="post-label">Post Type</label>
-            <select id="post-type" class="post-input">
-              <option value="available">I'm Available</option>
-              <option value="looking">I'm Looking For</option>
-              <option value="hiring">Hiring Help</option>
-            </select>
-          </div>
-          <div>
-            <label for="price-type" class="post-label">Price Type</label>
-            <select id="price-type" class="post-input">
-              <option value="set">Set Price</option>
-              <option value="hourly">Hourly</option>
-              <option value="weekly">Weekly</option>
-              <option value="one-time">One Time</option>
-            </select>
-          </div>
-        </div>
-        <input type="text" id="post-location" class="post-input" placeholder="Location (or 'Virtual')" />
-        <button id="submit-post" class="post-submit-btn">Submit</button>
-        <button type="button" id="exit-post-modal" class="post-submit-btn" style="background:#ccc;color:#222;margin-top:0.5rem;">Exit</button>
-        <!-- ...existing code... -->
+      <input type="file" id="post-image" accept="image/*" />
+      <input type="text" id="post-title" placeholder="Title (e.g: developer, florist, nail artist)" />
+      <textarea id="post-description" placeholder="Describe the job, task, offer"></textarea>
+      <input type="text" id="post-price" placeholder="Price (e.g. 20, 50, negotiable)" />
+      <select id="post-type">
+        <option value="available">I'm Available</option>
+        <option value="looking">I'm Looking For</option>
+        <option value="hiring">Hiring Help</option>
+      </select>
+      <input type="text" id="post-location" placeholder="Location (or 'Virtual')" />
+      <button id="submit-post">Submit</button>
+      <button id="exit-post-modal" style="background:#ccc;color:#222;">Exit</button>
     </div>
   </div>
-  <div id="user-info" style="display:none;align-items:center;gap:0.7rem;margin-top:1rem;">
-  <img id="user-photo" src="" alt="User Photo" style="width:32px;height:32px;border-radius:50%;object-fit:cover;">
-  <span id="user-name" style="font-weight:600;"></span>
-  <button id="logout-btn" class="welcome-btn" style="background:#eee;color:#222;padding:0.3rem 1rem;">Log Out</button>
- </div>
-    <!-- 5. Privacy & Security -->
-    <section>
-      <h3>Privacy & Security</h3>
-      <label><input type="checkbox" id="settings-2fa" /> Two-Factor Authentication</label>
-      <button id="settings-change-password-btn" type="button">Change Password</button>
-      <label>Blocked Users:
-        <textarea id="settings-blocked-users" placeholder="Blocked users (comma separated)"></textarea>
-      </label>
-      <label>Account Visibility:
-        <select id="settings-account-visibility">
-          <option value="employers">Visible to employers</option>
-          <option value="everyone">Visible to everyone</option>
-          <option value="hidden">Hidden from search</option>
-        </select>
-      </label>
-    </section>
-    <hr>
-    <!-- 6. Account Management -->
-    <section>
-      <h3>Account Management</h3>
-      <label>Email: <input type="email" id="settings-email" /></label>
-      <label>Phone: <input type="tel" id="settings-phone" /></label>
-      <label>Connected Accounts:
-        <select id="settings-connected-accounts" multiple>
-          <option value="google">Google</option>
-          <option value="facebook">Facebook</option>
-          <!-- Add more as needed -->
-        </select>
-      </label>
-      <button id="settings-delete-account-btn" type="button" style="background:#f44336;color:#fff;margin-top:0.5rem;">Delete Account</button>
-      <button id="settings-logout-btn" type="button" style="background:#ccc;color:#222;margin-top:0.5rem;">Log Out</button>
-    </section>
-    <hr>
-    <!-- 7. App Preferences -->
-    <section>
-      <h3>App Preferences</h3>
-      <label>Theme:
-        <select id="settings-theme">
-          <option value="light">Light</option>
-          <option value="dark">Dark</option>
-        </select>
-      </label>
-      <label>Language:
-        <select id="settings-language">
-          <option value="en">English</option>
-          <option value="es">Spanish</option>
-          <!-- Add more as needed -->
-        </select>
-      </label>
-      <label>Swipe Sensitivity:
-        <input type="range" id="settings-swipe-sensitivity" min="1" max="10" value="5" />
-      </label>
-    </section>
-    <div style="display:flex;gap:0.5rem;margin-top:1rem;">
-      <button id="settings-save-btn">Save</button>
-      <button id="settings-close-btn" style="background:#ccc;color:#222;">Close</button>
-    </div>
-  </div>
- </div>
- <!-- Change Password Modal -->
- <div id="change-password-modal" class="modal">
-  <div class="modal-content" style="max-width:350px;">
-    <h3>Change Password</h3>
-    <input type="password" id="old-password" placeholder="Old Password" />
-    <input type="password" id="new-password" placeholder="New Password" />
-    <input type="password" id="confirm-password" placeholder="Confirm New Password" />
-    <div style="display:flex;gap:0.5rem;margin-top:1rem;">
-      <button id="change-password-save-btn">Save</button>
-      <button id="change-password-close-btn" style="background:#ccc;color:#222;">Cancel</button>
-    </div>
-  </div>
- </div>
-   
-   <!-- Firebase App (core) -->
-   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-   <!-- Firebase Auth -->
-   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-    <!-- Add this just before your closing </body> tag -->
 
-   <!-- Login/Signup Modal -->
+  <!-- Auth Modal -->
   <div id="auth-modal" class="modal">
-   <div class="modal-content" style="max-width:350px;">
-    <h3>Log In or Sign Up</h3>
-    <input type="email" id="auth-email" placeholder="Email" style="margin-bottom:0.5rem;">
-    <input type="password" id="auth-password" placeholder="Password" style="margin-bottom:0.5rem;">
-    <div style="display:flex;gap:0.5rem;margin-bottom:0.5rem;">
-      <button id="login-email-btn">Log In</button>
-      <button id="signup-email-btn">Sign Up</button>
-    </div>
-    <button id="google-auth-btn" style="background:#fff;color:#222;border:1px solid #ccc;display:flex;align-items:center;gap:0.5rem;justify-content:center;">
-      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" style="width:20px;height:20px;"> Sign in with Google
-    </button>
-    <button id="close-auth-modal" style="background:#ccc;color:#222;margin-top:1rem;">Close</button>
-   </div>
-   </div>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics-compat.js"></script> <div id="welcome-modal" class="modal">
-  <div class="modal-content" style="max-width:350px;text-align:center;">
-    <h3>Welcome to OnlyJobs!</h3>
-    <p>Would you like to log in or sign up?</p>
-    <div style="display:flex;flex-direction:column;gap:0.5rem;">
-      <button id="welcome-login-btn">Log In</button>
-      <button id="welcome-signup-btn">Sign Up</button>
-      <button id="welcome-skip-btn" style="background:#ccc;color:#222;">Skip</button>
+    <div class="modal-content" style="max-width:350px;">
+      <h3>Log In or Sign Up</h3>
+      <input type="email" id="auth-email" placeholder="Email" />
+      <input type="password" id="auth-password" placeholder="Password" />
+      <div style="display:flex;gap:0.5rem;margin-bottom:0.5rem;">
+        <button id="login-email-btn">Log In</button>
+        <button id="signup-email-btn">Sign Up</button>
+      </div>
+      <button id="google-auth-btn" style="background:#fff;color:#222;border:1px solid #ccc;display:flex;align-items:center;gap:0.5rem;justify-content:center;">
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" style="width:20px;height:20px;"> Sign in with Google
+      </button>
+      <button id="close-auth-modal" style="background:#ccc;color:#222;margin-top:1rem;">Close</button>
     </div>
   </div>
-</div>
-    <div class="popup-modal" id="entry-modal">
-  <div class="popup-content">
-    <h2>Welcome to OnlyJobs</h2>
-    <p>Let’s get you started</p>
-    <button id="login-btn">Log In</button>
-    <button id="signup-btn">Sign Up</button>
-    <button id="skip-btn">Skip – Let’s Swipe</button>
-  </div>
-</div>
 
+  <!-- Firebase Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 
-      
-    
-    
-<script>
-  // Sign Up
-  function signUpWithEmail(email, password) {
-    return auth.createUserWithEmailAndPassword(email, password);
-  }
+  <script>
+    // Firebase Configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyAxbccDQ0iiZlM8xQMYRMNQdJlC2ImVeQ0",
+      authDomain: "onlyjobs-6424e.firebaseapp.com",
+      projectId: "onlyjobs-6424e",
+      storageBucket: "onlyjobs-6424e.appspot.com",
+      messagingSenderId: "660645282144",
+      appId: "1:660645282144:web:de0864d9cecc4f9ac61e05",
+      measurementId: "G-W9K18Q5SJC"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
 
-  const loginTopBtn = document.getElementById('login-top-btn');
-  if (loginTopBtn) {
+    // Modal Helper Functions
+    function showModal(modal) {
+      if (modal) {
+        modal.classList.add('show');
+        modal.style.display = 'flex';
+      }
+    }
+
+    function hideModal(modal) {
+      if (modal) {
+        modal.classList.remove('show');
+        modal.style.display = 'none';
+      }
+    }
+
+    // Auth Modal Elements
+    const authModal = document.getElementById('auth-modal');
+    const loginEmailBtn = document.getElementById('login-email-btn');
+    const signupEmailBtn = document.getElementById('signup-email-btn');
+    const googleAuthBtn = document.getElementById('google-auth-btn');
+    const closeAuthModal = document.getElementById('close-auth-modal');
+    const authEmail = document.getElementById('auth-email');
+    const authPassword = document.getElementById('auth-password');
+    const loginTopBtn = document.getElementById('login-top-btn');
+
+    // Top login button - shows Google popup
     loginTopBtn.onclick = () => {
       const provider = new firebase.auth.GoogleAuthProvider();
       firebase.auth().signInWithPopup(provider)
@@ -655,647 +443,291 @@
         })
         .catch(err => alert(err.message));
     };
-  }
-  function showModal(modal) {
-  if (modal) {
-    modal.classList.add('show');
-    modal.style.display = 'flex';
-  }
-}
 
-function hideModal(modal) {
-  if (modal) {
-    modal.classList.remove('show');
-    modal.style.display = 'none';
-  }
-}
-
-</script>
-   <script>
-    window.addEventListener('DOMContentLoaded', () => {
-      // TODO: Replace with your Firebase project config
-   const firebaseConfig = {
-    apiKey: "AIzaSyAxbccDQ0iiZlM8xQMYRMNQdJlC2ImVeQ0",
-   authDomain: "onlyjobs-6424e.firebaseapp.com",
-   projectId: "onlyjobs-6424e",
-   storageBucket: "onlyjobs-6424e.appspot.com",
-   messagingSenderId: "660645282144",
-   appId: "1:660645282144:web:de0864d9cecc4f9ac61e05",
-   measurementId: "G-W9K18Q5SJC"
-   };
-   firebase.initializeApp(firebaseConfig);
-   const auth = firebase.auth();
-   // --- Auth Modal Logic ---
-   const authModal = document.getElementById('auth-modal');
-   const loginEmailBtn = document.getElementById('login-email-btn');
-   const signupEmailBtn = document.getElementById('signup-email-btn');
-   const googleAuthBtn = document.getElementById('google-auth-btn');
-   const closeAuthModal = document.getElementById('close-auth-modal');
-   const authEmail = document.getElementById('auth-email');
-  const authPassword = document.getElementById('auth-password');
-
- 
-  
-    const modal = document.getElementById('entry-modal');
-    const skipBtn = document.getElementById('skip-btn');
-    const loginBtn = document.getElementById('login-btn');
-    const signupBtn = document.getElementById('signup-btn');
-
-    if (modal) {
-      modal.style.display = 'flex';
-
-      skipBtn.addEventListener('click', () => {
-        modal.style.display = 'none';
-      });
-
-      loginBtn.addEventListener('click', () => {
-        alert("Login form coming soon!");
-      });
-
-      signupBtn.addEventListener('click', () => {
-        alert("Signup form coming soon!");
-      });
-    }
-  });
-
-
-
-
- <script>
-  // Email login
-  loginEmailBtn.onclick = () => {
-    auth.signInWithEmailAndPassword(authEmail.value, authPassword.value)
-      .then(() => {
-        hideModal(authModal);
-        alert('Logged in!');
-      })
-      .catch(err => alert(err.message));
-  };
-
-</script>
-// Email signup
-   signupEmailBtn.onclick = () => {
-    auth.createUserWithEmailAndPassword(authEmail.value, authPassword.value)
-    .then(() => {
-      hideModal(authModal);
-      alert('Account created!');
-    })
-    .catch(err => alert(err.message));
- };
-
-   // Google login
-  googleAuthBtn.onclick = () => {
-   const provider = new firebase.auth.GoogleAuthProvider();
-   auth.signInWithPopup(provider)
-     .then(() => {
-      hideModal(authModal);
-      alert('Logged in with Google!');
-    })
-    .catch(err => alert(err.message));
- };
-  const provider = new firebase.auth.GoogleAuthProvider();
-  firebase.auth().signInWithPopup(provider)
-    .then(result => {
-      alert("Logged in as " + (result.user.displayName || result.user.email));
-    })
-    .catch(err => alert(err.message));
-  ;
-  closeAuthModal.onclick = () => hideModal(authModal);
-
-      // Post modal logic
-       const postBtn = document.getElementById('post-btn');
-       const postModal = document.getElementById('post-modal');
-       const closeModal = document.getElementById('close-post-modal');
-       const submitPost = document.getElementById('submit-post');
-       const exitPostModal = document.getElementById('exit-post-modal');
-
-      function openPostModal() {
-   showModal(postModal);
-   }
-   function closePostModal() {
-   hideModal(postModal);
-  }
-
-     // ...existing code...
-       postBtn.addEventListener('click', () => {
-       hideAllModals();
-       showModal(postModal);
-       });
-       closeModal.addEventListener('click', () => hideModal(postModal));
-       exitPostModal.addEventListener('click', () => hideModal(postModal));
-       // ...existing code...
-
-      submitPost.addEventListener('click', () => {
-        const post = {
-          image: document.getElementById('post-image').files[0],
-          title: document.getElementById('post-title').value,
-          description: document.getElementById('post-description').value,
-          type: document.getElementById('post-type').value,
-          priceType: document.getElementById('price-type').value,
-          price: document.getElementById('post-price').value,
-          location: document.getElementById('post-location').value
-        };
-        console.log("📝 New Post:", post);
-        closePostModal();
-      });
-
-      // Card swipe and flip logic
-      const cardFlip = document.getElementById("card-flip");
-      const card = document.getElementById("swipe-card");
-      const cardBack = document.getElementById("card-back");
-      const jobImg = document.getElementById("job-img");
-      const jobTitle = document.getElementById("job-title");
-      const jobDetails = document.getElementById("job-details");
-      const jobExtra = document.getElementById("job-extra");
-      const jobTitleBack = document.getElementById("job-title-back");
-      const jobDetailsBack = document.getElementById("job-details-back");
-      const jobExtraBack = document.getElementById("job-extra-back");
-      const passBtn = document.getElementById("pass-btn");
-      const matchBtn = document.getElementById("match-btn");
-      const applyBtn = document.getElementById("apply-btn");
-      const flipBackBtn = document.getElementById("flip-back-btn");
-
-      const jobs = [
-        {
-          title: "Part-Time Dog Walker",
-          details: "Salt Lake City • $20/hr • Local",
-          img: "https://via.placeholder.com/400x200?text=Dog+Walker",
-          extra: "Must love dogs! Flexible hours. Experience with pets preferred. Available weekends."
-        },
-        {
-          title: "Event Assistant",
-          details: "Virtual • $18/hr • Weekend Work",
-          img: "https://via.placeholder.com/400x200?text=Event+Assistant",
-          extra: "Help with virtual events. Good communication skills required. Flexible schedule."
-        },
-        {
-          title: "Yard Cleanup Crew",
-          details: "West Valley • $22/hr • 1-day Gig",
-          img: "https://via.placeholder.com/400x200?text=Yard+Cleanup",
-          extra: "Outdoor work. Must be able to lift 30 lbs. One day only."
-        }
-      ];
-
-      let jobIndex = 0;
-      let startX = 0, startY = 0, currentX = 0, currentY = 0, isDragging = false;
-      const swipeThreshold = 100;
-      const swipeUpThreshold = 80;
-
-      function setTransform(x, y) {
-        card.style.transform = `translate(${x}px, ${y}px) rotate(${x * 0.05}deg)`;
-      }
-
-      function resetCard() {
-        card.style.transition = 'transform 0.3s ease';
-        setTransform(0, 0);
-        setTimeout(() => { card.style.transition = ''; }, 300);
-      }
-
-      function loadJob(idx) {
-        const job = jobs[idx];
-        jobTitle.textContent = job.title;
-        jobDetails.textContent = job.details;
-        jobImg.src = job.img;
-        jobExtra.textContent = job.extra;
-        jobTitleBack.textContent = job.title;
-        jobDetailsBack.textContent = job.details;
-        jobExtraBack.textContent = job.extra;
-        resetCard();
-        cardFlip.classList.remove('flipped');
-      }
-
-      function loadNextJob() {
-        jobIndex++;
-        if (jobIndex >= jobs.length) {
-          jobTitle.textContent = "No more jobs!";
-          jobDetails.textContent = "Check back later!";
-          jobImg.src = "https://via.placeholder.com/400x200?text=No+More+Jobs";
-          jobExtra.textContent = "";
-          jobTitleBack.textContent = "No more jobs!";
-          jobDetailsBack.textContent = "Check back later!";
-          jobExtraBack.textContent = "";
-          cardFlip.classList.remove('flipped');
-          return;
-        }
-        loadJob(jobIndex);
-      }
-
-      function handleSwipe(endX, endY) {
-        if (endY < -swipeUpThreshold && Math.abs(endX) < swipeThreshold / 2) {
-          card.style.transform = 'translateY(-100vh)';
-          setTimeout(() => {
-            alert('You applied to this job!');
-            loadNextJob();
-          }, 300);
-        } else if (endX < -swipeThreshold) {
-          card.style.transform = 'translateX(-100vw) rotate(-15deg)';
-          setTimeout(loadNextJob, 300);
-        } else if (endX > swipeThreshold) {
-          card.style.transform = 'translateX(100vw) rotate(15deg)';
-          setTimeout(loadNextJob, 300);
-        } else {
-          resetCard();
-        }
-      }
-
-      matchBtn.addEventListener("click", () => {
-        card.style.transform = 'translateX(100vw) rotate(15deg)';
-        setTimeout(loadNextJob, 300);
-      });
-
-      passBtn.addEventListener("click", () => {
-        card.style.transform = 'translateX(-100vw) rotate(-15deg)';
-        setTimeout(loadNextJob, 300);
-      });
-
-      // Flip to back on click
-      card.addEventListener("click", (e) => {
-        if (Math.abs(currentX) > 10 || Math.abs(currentY) > 10) return;
-        cardFlip.classList.add('flipped');
-      });
-
-      // Flip back to front
-      flipBackBtn.addEventListener("click", () => {
-        cardFlip.classList.remove('flipped');
-      });
-
-      // Apply button on back
-      applyBtn.addEventListener("click", () => {
-        alert('You applied to this job!');
-        loadNextJob();
-      });
-
-      // Mouse events
-      card.addEventListener("mousedown", (e) => {
-        startX = e.clientX;
-        startY = e.clientY;
-        isDragging = true;
-      });
-
-      document.addEventListener("mousemove", (e) => {
-        if (!isDragging) return;
-        currentX = e.clientX - startX;
-        currentY = e.clientY - startY;
-        setTransform(currentX, currentY);
-      });
-
-      document.addEventListener("mouseup", () => {
-        if (!isDragging) return;
-        isDragging = false;
-        handleSwipe(currentX, currentY);
-        currentX = 0;
-        currentY = 0;
-      });
-
-      // Touch events
-      card.addEventListener("touchstart", (e) => {
-        startX = e.touches[0].clientX;
-        startY = e.touches[0].clientY;
-        isDragging = true;
-      });
-
-      card.addEventListener("touchmove", (e) => {
-        if (!isDragging) return;
-        currentX = e.touches[0].clientX - startX;
-        currentY = e.touches[0].clientY - startY;
-        setTransform(currentX, currentY);
-      });
-
-      card.addEventListener("touchend", () => {
-        isDragging = false;
-        handleSwipe(currentX, currentY);
-        currentX = 0;
-        currentY = 0;
-      });
-
-      // Load first job
-      loadJob(jobIndex);
-
-      // Welcome modal logic
-      const welcomeModal = document.getElementById('welcome-modal');
-      const closeBtn = document.getElementById('close-welcome');
-      const loginBtn = document.getElementById('login-btn');
-      const signupBtn = document.getElementById('signup-btn');
-      const skipBtn = document.getElementById('skip-btn');
-
-      setTimeout(() => {
-     showModal(welcomeModal);
-     }, 10000);
-
-     function closeWelcomeModal() {
-      hideModal(welcomeModal);
-     }
-      closeBtn.addEventListener('click', closeWelcomeModal);
-     skipBtn.addEventListener('click', closeWelcomeModal);
-     // ...existing code...
-
-      loginBtn.addEventListener('click', () => {
-     const email = prompt("Enter your email:");
-      const password = prompt("Enter your password:");
-      logInWithEmail(email, password)
-     .then(() => {
-      alert("Logged in!");
-      closeWelcomeModal();
-    })
-    .catch(err => alert(err.message));
-   });
-
-      signupBtn.addEventListener('click', () => {
-      const email = prompt("Enter your email:");
-      if (!email) return alert("Email is required!");
-    const password = prompt("Enter your password:");
-      signUpWithEmail(email, password)
-     .then(() => {
-      alert("Account created!");
-      closeWelcomeModal();
-    })
-    .catch(err => alert(err.message));
-  });
-
-
- // mainSections does NOT include profileContainer
-   const mainSections = [
-   document.querySelector('.hero-box'),
-   document.querySelector('.filters'),
-   document.querySelector('.post-type-filters'),
-   document.querySelector('.card-flip-container')
-  
-  ];
-
- // Helper functions for showing/hiding sections
-   function showMainSections() {
-   mainSections.forEach(sec => { if(sec) sec.style.display = ''; });
-
-  }
-   
-
-  const welcomeModal = document.getElementById('welcome-modal');
-  const loginBtn = document.getElementById('welcome-login-btn');
-  const signupBtn = document.getElementById('welcome-signup-btn');
-  const skipBtn = document.getElementById('welcome-skip-btn');
-
-  function showModal(modal) {
-    modal.classList.add('show');
-  }
-  function hideModal(modal) {
-    modal.classList.remove('show');
-  }
-
-  setTimeout(() => {
-    showModal(welcomeModal);
-  }, 5000);
-
-  // Log In with Google when user clicks "Log In"
-  loginBtn.onclick = () => {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup(provider)
-      .then(result => {
-        hideModal(welcomeModal);
-        alert("Logged in as " + (result.user.displayName || result.user.email));
-      })
-      .catch(err => alert(err.message));
-  };
-
-  signupBtn.onclick = () => {
-    // You can show your sign up modal or handle sign up here
-    hideModal(welcomeModal);
-    alert("Sign up flow coming soon!");
-  };
-
-  skipBtn.onclick = () => {
-    hideModal(welcomeModal);
-  };
-// ...existing code...
-
-   // Make sure hideAllModals does NOT hide profileContainer
-   function hideAllModals() {
-   document.querySelectorAll('.modal, .welcome-modal').forEach(modal => {
-    modal.classList.remove('show');
-    modal.style.display = 'none';
-  });
-  }
-  
-
-
-   const googleLoginBtn = document.getElementById('google-login-btn');
-   const userInfo = document.getElementById('user-info');
-   const userPhoto = document.getElementById('user-photo');
-   const userName = document.getElementById('user-name');
-   const logoutBtn = document.getElementById('logout-btn');
-
-  // Google login
-    googleLoginBtn.addEventListener('click', () => {
-   const provider = new firebase.auth.GoogleAuthProvider();
-   auth.signInWithPopup(provider)
-    .then(result => {
-      alert("Logged in as " + result.user.displayName);
-      closeWelcomeModal();
-    })
-    .catch(err => alert(err.message));
-   });
-
- // Show/hide buttons and user info based on auth state
-   auth.onAuthStateChanged(user => {
-   if (user) {
-    // Hide login/signup/google buttons
-    googleLoginBtn.style.display = 'none';
-    if (loginBtn) loginBtn.style.display = 'none';
-    if (signupBtn) signupBtn.style.display = 'none';
-    if (skipBtn) skipBtn.style.display = 'none';
-    // Show user info
-    userInfo.style.display = 'flex';
-    userPhoto.src = user.photoURL || "https://via.placeholder.com/32?text=U";
-    userName.textContent = user.displayName || user.email;
-   } else {
-    // Show login/signup/google buttons
-    googleLoginBtn.style.display = '';
-    if (loginBtn) loginBtn.style.display = '';
-    if (signupBtn) signupBtn.style.display = '';
-    if (skipBtn) skipBtn.style.display = '';
-    // Hide user info
-    userInfo.style.display = 'none';
-    userPhoto.src = '';
-    userName.textContent = '';
-   }
-   });
-
- // Logout
-   logoutBtn.addEventListener('click', () => {
-    auth.signOut();
-    alert("Logged out!");
-   });
-      // Calendar logic
-      const calendarModal = document.getElementById('calendar-modal');
-      const calendarCloseBtn = document.getElementById('calendar-close-btn');
-      const calendarPrev = document.getElementById('calendar-prev');
-      const calendarNext = document.getElementById('calendar-next');
-      const calendarMonthLabel = document.getElementById('calendar-month-label');
-      const calendarBody = document.getElementById('calendar-body');
-      const calendarEventsDiv = document.getElementById('calendar-events');
-      const calendarAddForm = document.getElementById('calendar-add-form');
-      const calendarEventTitle = document.getElementById('calendar-event-title');
-      const calendarEventType = document.getElementById('calendar-event-type');
-      const calendarEventTime = document.getElementById('calendar-event-time');
-
-      let calendarDate = new Date();
-      let selectedDay = null;
-      let calendarEvents = JSON.parse(localStorage.getItem('calendarEvents') || '{}');
-
-      function pad(n) { return n < 10 ? '0'+n : n; }
-      function dateKey(date) {
-        return date.getFullYear() + '-' + pad(date.getMonth()+1) + '-' + pad(date.getDate());
-      }
-
-      function renderCalendar() {
-        const year = calendarDate.getFullYear();
-        const month = calendarDate.getMonth();
-        const today = new Date();
-        calendarMonthLabel.textContent = calendarDate.toLocaleString('default', { month: 'long', year: 'numeric' });
-
-        // First day of month
-        const firstDay = new Date(year, month, 1);
-        const startDay = firstDay.getDay();
-        // Days in month
-        const daysInMonth = new Date(year, month+1, 0).getDate();
-
-        let html = '';
-        let day = 1;
-        for (let i = 0; i < 6; i++) {
-          html += '<tr>';
-          for (let j = 0; j < 7; j++) {
-            if ((i === 0 && j < startDay) || day > daysInMonth) {
-              html += '<td></td>';
-            } else {
-              const thisDate = new Date(year, month, day);
-              const key = dateKey(thisDate);
-              let classes = [];
-              if (
-                today.getFullYear() === year &&
-                today.getMonth() === month &&
-                today.getDate() === day
-              ) classes.push('today');
-              if (calendarEvents[key] && calendarEvents[key].length) classes.push('has-event');
-              // Highlight if any event is an interview
-              if (calendarEvents[key] && calendarEvents[key].some(ev => ev.type === 'interview')) {
-                classes.push('has-interview');
-              }
-              html += `<td class="${classes.join(' ')}" data-date="${key}">${day}</td>`;
-              day++;
-            }
-          }
-          html += '</tr>';
-          if (day > daysInMonth) break;
-        }
-        calendarBody.innerHTML = html;
-      }
-
-      function showEventsFor(dateStr) {
-        selectedDay = dateStr;
-        const events = calendarEvents[dateStr] || [];
-        let html = `<h4>Events for ${dateStr}</h4>`;
-        if (events.length === 0) {
-          html += `<div>No events.</div>`;
-        } else {
-          html += '<ul>';
-          for (const ev of events) {
-            html += `<li><b>${ev.title}</b> (${ev.type}) at ${ev.time}</li>`;
-          }
-          html += '</ul>';
-        }
-        html += `<button id="calendar-add-event-btn" style="margin-top:0.5rem;">Add Event</button>`;
-        calendarEventsDiv.innerHTML = html;
-        calendarAddForm.style.display = 'none';
-
-        // Add event button logic
-        document.getElementById('calendar-add-event-btn').onclick = () => {
-          calendarAddForm.style.display = 'flex';
-          calendarEventTitle.value = '';
-          calendarEventType.value = 'meeting';
-          calendarEventTime.value = '';
-        };
-      }
-
-      // Calendar navigation
-      calendarPrev.onclick = () => {
-        calendarDate.setMonth(calendarDate.getMonth() - 1);
-        renderCalendar();
-      };
-      calendarNext.onclick = () => {
-        calendarDate.setMonth(calendarDate.getMonth() + 1);
-        renderCalendar();
-      };
-
-      // Click on day
-      calendarBody.onclick = (e) => {
-        if (e.target.tagName === 'TD' && e.target.dataset.date) {
-          showEventsFor(e.target.dataset.date);
-        }
-      };
-
-  
-    
-      <!-- No <prompt> tag! -->
-
-
- // Log In
-   function logInWithEmail(email, password) {
-   return auth.signInWithEmailAndPassword(email, password);
-  }
-
- // Log Out
-   function logOut() {
-   return auth.signOut();
-  }
-
- // Listen for auth state changes
-   auth.onAuthStateChanged(user => {
-   if (user) {
-    console.log("Logged in as:", user.email);
-    // You can update your UI here (e.g., hide/show buttons)
-   } else {
-    console.log("Logged out");
-   }
-   });
-     
-
-
-  function renderNotifications() {
-   notificationsList.innerHTML = '';
-   if (!notifications.length) {
-    notificationsList.innerHTML = '<li style="text-align:center;color:#888;">No notifications.</li>';
-    return;
-  }
-   notifications.forEach((notif, idx) => {
-    const li = document.createElement('li');
-    li.textContent = notif.text;
-    li.className = notif.read ? '' : 'unread';
-    li.onclick = () => {
-      notifications[idx].read = true;
-      localStorage.setItem('notifications', JSON.stringify(notifications));
-      renderNotifications();
+    // Email login
+    loginEmailBtn.onclick = () => {
+      auth.signInWithEmailAndPassword(authEmail.value, authPassword.value)
+        .then(() => {
+          hideModal(authModal);
+          alert('Logged in!');
+        })
+        .catch(err => alert(err.message));
     };
-    notificationsList.appendChild(li);
-   });
 
-   };
+    // Email signup
+    signupEmailBtn.onclick = () => {
+      auth.createUserWithEmailAndPassword(authEmail.value, authPassword.value)
+        .then(() => {
+          hideModal(authModal);
+          alert('Account created!');
+        })
+        .catch(err => alert(err.message));
+    };
 
-      // Post image preview logic
-      const postImageInput = document.getElementById('post-image');
-      const postImagePreview = document.getElementById('post-image-preview');
-      postImageInput.addEventListener('change', function() {
-        const file = this.files[0];
-        if (file) {
-          const reader = new FileReader();
-          reader.onload = function(e) {
-            postImagePreview.src = e.target.result;
-            postImagePreview.style.display = 'block';
-          };
-          reader.readAsDataURL(file);
-        } else {
-          postImagePreview.src = "https://via.placeholder.com/120x80?text=Preview";
-          postImagePreview.style.display = 'none';
-        }
-      });
+    // Google login
+    googleAuthBtn.onclick = () => {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      auth.signInWithPopup(provider)
+        .then(() => {
+          hideModal(authModal);
+          alert('Logged in with Google!');
+        })
+        .catch(err => alert(err.message));
+    };
+
+    closeAuthModal.onclick = () => hideModal(authModal);
+
+    // Post Modal Logic
+    const postBtn = document.getElementById('post-btn');
+    const postModal = document.getElementById('post-modal');
+    const closePostModalBtn = document.getElementById('close-post-modal');
+    const submitPost = document.getElementById('submit-post');
+    const exitPostModal = document.getElementById('exit-post-modal');
+
+    postBtn.addEventListener('click', () => showModal(postModal));
+    closePostModalBtn.addEventListener('click', () => hideModal(postModal));
+    exitPostModal.addEventListener('click', () => hideModal(postModal));
+
+    submitPost.addEventListener('click', () => {
+      const post = {
+        image: document.getElementById('post-image').files[0],
+        title: document.getElementById('post-title').value,
+        description: document.getElementById('post-description').value,
+        type: document.getElementById('post-type').value,
+        price: document.getElementById('post-price').value,
+        location: document.getElementById('post-location').value
+      };
+      console.log("📝 New Post:", post);
+      alert("Post created successfully!");
+      hideModal(postModal);
+    });
+
+    // Card Swipe and Flip Logic
+    const cardFlip = document.getElementById("card-flip");
+    const card = document.getElementById("swipe-card");
+    const jobImg = document.getElementById("job-img");
+    const jobTitle = document.getElementById("job-title");
+    const jobDetails = document.getElementById("job-details");
+    const jobExtra = document.getElementById("job-extra");
+    const jobTitleBack = document.getElementById("job-title-back");
+    const jobDetailsBack = document.getElementById("job-details-back");
+    const jobExtraBack = document.getElementById("job-extra-back");
+    const passBtn = document.getElementById("pass-btn");
+    const matchBtn = document.getElementById("match-btn");
+    const applyBtn = document.getElementById("apply-btn");
+    const flipBackBtn = document.getElementById("flip-back-btn");
+
+    const jobs = [
+      {
+        title: "Part-Time Dog Walker",
+        details: "Salt Lake City • $20/hr • Local",
+        img: "https://via.placeholder.com/400x200?text=Dog+Walker",
+        extra: "Must love dogs! Flexible hours. Experience with pets preferred. Available weekends."
+      },
+      {
+        title: "Event Assistant",
+        details: "Virtual • $18/hr • Weekend Work",
+        img: "https://via.placeholder.com/400x200?text=Event+Assistant",
+        extra: "Help with virtual events. Good communication skills required. Flexible schedule."
+      },
+      {
+        title: "Yard Cleanup Crew",
+        details: "West Valley • $22/hr • 1-day Gig",
+        img: "https://via.placeholder.com/400x200?text=Yard+Cleanup",
+        extra: "Outdoor work. Must be able to lift 30 lbs. One day only."
+      },
+      {
+        title: "Tutoring Assistant",
+        details: "University of Utah • $25/hr • Part-time",
+        img: "https://via.placeholder.com/400x200?text=Tutoring",
+        extra: "Help students with math and science. Must have strong academic background."
+      },
+      {
+        title: "Social Media Manager",
+        details: "Remote • $30/hr • Flexible",
+        img: "https://via.placeholder.com/400x200?text=Social+Media",
+        extra: "Manage social media accounts for small business. Creative content creation required."
+      }
+    ];
+
+    let jobIndex = 0;
+    let startX = 0, startY = 0, currentX = 0, currentY = 0, isDragging = false;
+    const swipeThreshold = 100;
+    const swipeUpThreshold = 80;
+
+    function setTransform(x, y) {
+      card.style.transform = `translate(${x}px, ${y}px) rotate(${x * 0.05}deg)`;
+    }
+
+    function resetCard() {
+      card.style.transition = 'transform 0.3s ease';
+      setTransform(0, 0);
+      setTimeout(() => { 
+        card.style.transition = ''; 
+      }, 300);
+    }
+
+    function loadJob(idx) {
+      if (idx >= jobs.length) {
+        jobTitle.textContent = "No more jobs!";
+        jobDetails.textContent = "Check back later!";
+        jobImg.src = "https://via.placeholder.com/400x200?text=No+More+Jobs";
+        jobExtra.textContent = "";
+        jobTitleBack.textContent = "No more jobs!";
+        jobDetailsBack.textContent = "Check back later!";
+        jobExtraBack.textContent = "";
+        cardFlip.classList.remove('flipped');
+        return;
+      }
+
+      const job = jobs[idx];
+      jobTitle.textContent = job.title;
+      jobDetails.textContent = job.details;
+      jobImg.src = job.img;
+      jobExtra.textContent = job.extra;
+      jobTitleBack.textContent = job.title;
+      jobDetailsBack.textContent = job.details;
+      jobExtraBack.textContent = job.extra;
+      resetCard();
+      cardFlip.classList.remove('flipped');
+    }
+
+    function loadNextJob() {
+      jobIndex++;
+      loadJob(jobIndex);
+    }
+
+    function handleSwipe(endX, endY) {
+      // Swipe up to apply
+      if (endY < -swipeUpThreshold && Math.abs(endX) < swipeThreshold / 2) {
+        card.style.transition = 'transform 0.3s ease';
+        card.style.transform = 'translateY(-100vh)';
+        setTimeout(() => {
+          alert('🎉 You applied to this job!');
+          loadNextJob();
+        }, 300);
+      }
+      // Swipe left to pass
+      else if (endX < -swipeThreshold) {
+        card.style.transition = 'transform 0.3s ease';
+        card.style.transform = 'translateX(-100vw) rotate(-15deg)';
+        setTimeout(() => {
+          console.log('❌ Passed on job');
+          loadNextJob();
+        }, 300);
+      }
+      // Swipe right to match
+      else if (endX > swipeThreshold) {
+        card.style.transition = 'transform 0.3s ease';
+        card.style.transform = 'translateX(100vw) rotate(15deg)';
+        setTimeout(() => {
+          console.log('✅ Matched with job');
+          loadNextJob();
+        }, 300);
+      }
+      // Not enough swipe distance - reset
+      else {
+        resetCard();
+      }
+    }
+
+    // Button actions
+    matchBtn.addEventListener("click", () => {
+      card.style.transition = 'transform 0.3s ease';
+      card.style.transform = 'translateX(100vw) rotate(15deg)';
+      setTimeout(() => {
+        console.log('✅ Matched with job');
+        loadNextJob();
+      }, 300);
+    });
+
+    passBtn.addEventListener("click", () => {
+      card.style.transition = 'transform 0.3s ease';
+      card.style.transform = 'translateX(-100vw) rotate(-15deg)';
+      setTimeout(() => {
+        console.log('❌ Passed on job');
+        loadNextJob();
+      }, 300);
+    });
+
+    // Flip to back on card click (but not during drag)
+    card.addEventListener("click", (e) => {
+      if (Math.abs(currentX) > 10 || Math.abs(currentY) > 10) return;
+      cardFlip.classList.add('flipped');
+    });
+
+    // Flip back to front
+    flipBackBtn.addEventListener("click", () => {
+      cardFlip.classList.remove('flipped');
+    });
+
+    // Apply button on back
+    applyBtn.addEventListener("click", () => {
+      alert('🎉 You applied to this job!');
+      loadNextJob();
+    });
+
+    // Mouse Events for Desktop
+    card.addEventListener("mousedown", (e) => {
+      e.preventDefault();
+      startX = e.clientX;
+      startY = e.clientY;
+      isDragging = true;
+      card.style.cursor = 'grabbing';
+    });
+
+    document.addEventListener("mousemove", (e) => {
+      if (!isDragging) return;
+      currentX = e.clientX - startX;
+      currentY = e.clientY - startY;
+      setTransform(currentX, currentY);
+    });
+
+    document.addEventListener("mouseup", () => {
+      if (!isDragging) return;
+      isDragging = false;
+      card.style.cursor = 'grab';
+      handleSwipe(currentX, currentY);
+      currentX = 0;
+      currentY = 0;
+    });
+
+    // Touch Events for Mobile
+    card.addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      const touch = e.touches[0];
+      startX = touch.clientX;
+      startY = touch.clientY;
+      isDragging = true;
+    });
+
+    card.addEventListener("touchmove", (e) => {
+      if (!isDragging) return;
+      e.preventDefault();
+      const touch = e.touches[0];
+      currentX = touch.clientX - startX;
+      currentY = touch.clientY - startY;
+      setTransform(currentX, currentY);
+    });
+
+    card.addEventListener("touchend", (e) => {
+      if (!isDragging) return;
+      e.preventDefault();
+      isDragging = false;
+      handleSwipe(currentX, currentY);
+      currentX = 0;
+      currentY = 0;
+    });
+
+    // Prevent default behaviors that might interfere with swipe
+    card.addEventListener("dragstart", (e) => e.preventDefault());
+    card.addEventListener("selectstart", (e) => e.preventDefault());
+
+    // Initialize with first job
+    loadJob(jobIndex);
+
+    // Set initial cursor
+    card.style.cursor = 'grab';
   </script>
 </body>
 </html>
