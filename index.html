@@ -24,7 +24,6 @@
       font-weight: bold;
       letter-spacing: -0.5px;
     }
-
     .hero-box {
       background-color: #2f8732;
       color: white;
@@ -50,10 +49,6 @@
       font-size: 1rem;
       background-color: white;
       color: #2f8732;
-    }
-    .hero-box input::placeholder {
-      color: #2f8732;
-      opacity: 0.9;
     }
     .filters {
       display: flex;
@@ -111,28 +106,6 @@
       justify-content: center;
       align-items: center;
     }
-    .card-back h3 {
-      margin-top: 0;
-    }
-    .card-back p {
-      margin: 1rem 0;
-      color: #333;
-    }
-    .card-back button {
-      margin-top: 1rem;
-      background: #2f8732;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      padding: 0.75rem 1.5rem;
-      font-size: 1rem;
-      cursor: pointer;
-    }
-    .card-back .back-btn {
-      background: #ccc;
-      color: #222;
-      margin-top: 0.5rem;
-    }
     .card-front img {
       width: 100%;
       height: 200px;
@@ -167,112 +140,20 @@
       background-color: #2f8732;
       color: #fff;
     }
-    .popup-modal {
-     position: fixed;
-     top: 0; left: 0;
-     width: 100vw; height: 100vh;
-     background: rgba(0, 0, 0, 0.6);
-     display: none;
-     justify-content: center;
-     align-items: center;
-     z-index: 1000;
-    }
-
-  .popup-content {
-     background: #fff;
-     padding: 2rem;
-     border-radius: 12px;
-     text-align: center;
-     max-width: 90%;
-     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    }
-
-    .post-type-filters {
-      display: flex;
-      gap: 0.5rem;
-      padding: 0 1rem 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    .post-type-btn {
-      padding: 0.5rem 1rem;
-      border: 1px solid #2f8732;
-      border-radius: 20px;
-      background: white;
-      color: #2f8732;
-      font-size: 0.85rem;
-      cursor: pointer;
-      transition: background 0.2s, color 0.2s;
-    }
-    .post-type-btn:hover,
-    .post-type-btn.active {
+    .card-back button {
+      margin-top: 1rem;
       background: #2f8732;
-      color: white;
-    }
-    .job-extra {
-      display: none;
-      padding: 1rem;
-      font-size: 0.9rem;
-      color: #444;
-      background-color: #fdfdfb;
-      border-top: 1px solid #eee;
-      animation: fadeIn 0.3s ease;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background-color: rgba(0,0,0,0.4);
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s;
-    }
-    .modal.show {
-      display: flex;
-     opacity: 1;
-     pointer-events: all;
-    }
-    .modal-content {
-      background: white;
-      border-radius: 12px;
-      padding: 1.5rem;
-      width: 90%;
-      max-width: 400px;
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-    .modal-content input,
-    .modal-content textarea,
-    .modal-content select {
-      padding: 0.6rem;
-      font-size: 0.95rem;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      width: 100%;
-    }
-    .modal-content button {
-      padding: 0.6rem;
-      font-size: 1rem;
-      border-radius: 8px;
+      color: #fff;
       border: none;
+      border-radius: 8px;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
       cursor: pointer;
     }
-    #submit-post {
-      background-color: #2f8732;
-      color: white;
-    }
-    #close-post-modal {
-      background-color: #ccc;
-      color: black;
+    .card-back .back-btn {
+      background: #ccc;
+      color: #222;
+      margin-top: 0.5rem;
     }
     .side-buttons {
       position: fixed;
@@ -293,199 +174,70 @@
       margin-bottom: 0.5rem;
       box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     }
-
-    /* Profile Button Styles */
-    .profile-btn {
-      background: none;
-      border: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .profile-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid #2f8732;
-    }
-    .profile-avatar.placeholder {
-      background: #2f8732;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: bold;
-      font-size: 1.2rem;
-    }
-
-    /* Profile Page Styles */
-    .profile-page {
+    .modal {
       display: none;
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: #fdfaf5;
-      z-index: 2000;
-      overflow-y: auto;
-    }
-    .profile-page.show {
-      display: block;
-    }
-    .profile-header {
-      background: #2f8732;
-      color: white;
-      padding: 1rem;
-      display: flex;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.4);
+      justify-content: center;
       align-items: center;
-      gap: 1rem;
+      z-index: 1000;
     }
-    .profile-back-btn {
-      background: none;
-      border: none;
-      color: white;
-      font-size: 1.5rem;
-      cursor: pointer;
+    .modal.show {
+      display: flex;
     }
-    .profile-content {
-      padding: 2rem;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-    .profile-section {
+    .modal-content {
       background: white;
       border-radius: 12px;
       padding: 1.5rem;
-      margin-bottom: 1rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
-    .profile-section h3 {
-      margin-top: 0;
-      color: #2f8732;
-      border-bottom: 2px solid #e6f5e6;
-      padding-bottom: 0.5rem;
-    }
-    .profile-photo-section {
-      text-align: center;
-    }
-    .profile-photo-large {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 4px solid #2f8732;
-      margin-bottom: 1rem;
-    }
-    .profile-photo-large.placeholder {
-      background: #2f8732;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: bold;
-      font-size: 2rem;
-    }
-    .form-group {
-      margin-bottom: 1rem;
-    }
-    .form-group label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: 600;
-      color: #333;
-    }
-    .form-group input,
-    .form-group textarea {
-      width: 100%;
-      padding: 0.8rem;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      font-size: 1rem;
-    }
-    .form-group textarea {
-      min-height: 100px;
-      resize: vertical;
-    }
-    .experience-item {
-      border: 1px solid #e6f5e6;
-      border-radius: 8px;
-      padding: 1rem;
-      margin-bottom: 1rem;
-      background: #fafafa;
-    }
-    .experience-header {
+      width: 90%;
+      max-width: 400px;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 0.5rem;
+      flex-direction: column;
+      gap: 0.75rem;
     }
-    .remove-experience {
-      background: #ff4444;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      padding: 0.3rem 0.6rem;
-      cursor: pointer;
-      font-size: 0.8rem;
-    }
-    .add-experience {
-      background: #2f8732;
-      color: white;
-      border: none;
+    .modal-content input,
+    .modal-content textarea,
+    .modal-content select {
+      padding: 0.6rem;
       border-radius: 8px;
-      padding: 0.8rem 1.5rem;
-      cursor: pointer;
-      font-size: 1rem;
-      margin-top: 1rem;
-    }
-    .save-profile {
-      background: #2f8732;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      padding: 1rem 2rem;
-      cursor: pointer;
-      font-size: 1rem;
+      border: 1px solid #ccc;
       width: 100%;
-      margin-top: 1rem;
     }
-    .file-input-wrapper {
-      position: relative;
-      display: inline-block;
+    .modal-content button {
+      padding: 0.6rem;
+      border-radius: 8px;
+      border: none;
       cursor: pointer;
     }
-    .file-input-wrapper input[type=file] {
-      position: absolute;
-      left: -9999px;
+    .post-type-filters {
+      display: flex;
+      gap: 0.5rem;
+      padding: 0 1rem 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
     }
-    .file-input-label {
+    .post-type-btn {
+      padding: 0.5rem 1rem;
+      border: 1px solid #2f8732;
+      border-radius: 20px;
+      background: white;
+      color: #2f8732;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+    .post-type-btn:hover {
       background: #2f8732;
       color: white;
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      cursor: pointer;
-      display: inline-block;
-    }
-    .logout-btn {
-      background: #ff4444;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      padding: 0.8rem 1.5rem;
-      cursor: pointer;
-      font-size: 1rem;
-      margin-top: 1rem;
     }
   </style>
 </head>
 <body>
   <header>
     <div class="logo">OnlyJobs</div>
-    <div style="display: flex; gap: 0.5rem; align-items: center;">
-      <button id="profile-btn" class="profile-btn" style="background:#2f8732;color:#fff;border:none;padding:0.6rem 1.2rem;border-radius:8px;cursor:pointer;">Profile</button>
+    <div style="display: flex; gap: 0.5rem;">
+      <button id="profile-btn" style="background:#2f8732;color:#fff;border:none;padding:0.6rem 1.2rem;border-radius:8px;cursor:pointer;">Profile</button>
       <button id="auth-btn" style="background:#2f8732;color:#fff;border:none;padding:0.6rem 1.2rem;border-radius:8px;cursor:pointer;">Log In</button>
     </div>
   </header>
@@ -494,166 +246,74 @@
     <button class="side-btn" id="post-btn">➕</button>
   </div>
 
-  <!-- Main Content -->
-  <div id="main-content">
-    <div class="hero-box">
-      <h1>Swipe. Match. Hustle.</h1>
-      <p>Find gigs, tasks, and local work — in seconds.</p>
-      <input type="text" placeholder="Enter your location" />
-    </div>
+  <div class="hero-box">
+    <h1>Swipe. Match. Hustle.</h1>
+    <p>Find gigs, tasks, and local work — in seconds.</p>
+    <input type="text" placeholder="Enter your location" />
+  </div>
 
-    <div class="filters">
-      <button class="filter-btn">5 mi</button>
-      <button class="filter-btn">25 mi</button>
-      <button class="filter-btn">50+ mi</button>
-      <button class="filter-btn">Virtual</button>
-      <button class="filter-btn">Local</button>
-    </div>
+  <div class="filters">
+    <button class="filter-btn">5 mi</button>
+    <button class="filter-btn">25 mi</button>
+    <button class="filter-btn">50+ mi</button>
+    <button class="filter-btn">Virtual</button>
+    <button class="filter-btn">Local</button>
+  </div>
 
-    <div class="post-type-filters">
-      <button class="post-type-btn" data-type="available">I'm available</button>
-      <button class="post-type-btn" data-type="looking">I'm looking for</button>
-      <button class="post-type-btn" data-type="hiring">Hiring help</button>
-    </div>
+  <div class="post-type-filters">
+    <button class="post-type-btn">I'm available</button>
+    <button class="post-type-btn">I'm looking for</button>
+    <button class="post-type-btn">Hiring help</button>
+  </div>
 
-    <!-- Card Flip Container -->
-    <div class="card-flip-container">
-      <div class="card-flip" id="card-flip">
-        <!-- Front Side -->
-        <div class="card card-front" id="swipe-card">
-          <img id="job-img" src="https://via.placeholder.com/400x200" alt="Job Preview">
-          <div class="card-content">
-            <div class="job-title" id="job-title">Part-Time Dog Walker</div>
-            <div class="job-details" id="job-details">Salt Lake City • $20/hr • Local</div>
-          </div>
-          <div class="job-extra" id="job-extra">
-            Must love dogs! Flexible hours. Experience with pets preferred. Available weekends.
-          </div>
-          <div class="action-buttons">
-            <button id="pass-btn">❌ Pass</button>
-            <button id="match-btn">✅ Match</button>
-          </div>
+  <div class="card-flip-container">
+    <div class="card-flip" id="card-flip">
+      <div class="card card-front" id="swipe-card">
+        <img id="job-img" src="https://via.placeholder.com/400x200?text=Dog+Walker" alt="Job Preview">
+        <div class="card-content">
+          <div class="job-title" id="job-title">Part-Time Dog Walker</div>
+          <div class="job-details" id="job-details">Salt Lake City • $20/hr • Local</div>
         </div>
-        <!-- Back Side -->
-        <div class="card card-back" id="card-back">
-          <h3 id="job-title-back">Part-Time Dog Walker</h3>
-          <p id="job-details-back">Salt Lake City • $20/hr • Local</p>
-          <div id="job-extra-back">Must love dogs! Flexible hours. Experience with pets preferred. Available weekends.</div>
-          <button id="apply-btn">Apply</button>
-          <button class="back-btn" id="flip-back-btn">Back</button>
+        <div class="action-buttons">
+          <button id="pass-btn">❌ Pass</button>
+          <button id="match-btn">✅ Match</button>
         </div>
+      </div>
+      <div class="card card-back" id="card-back">
+        <h3 id="job-title-back">Part-Time Dog Walker</h3>
+        <p id="job-details-back">Salt Lake City • $20/hr • Local</p>
+        <p>Must love dogs! Flexible hours. Experience preferred.</p>
+        <button id="apply-btn">Apply</button>
+        <button class="back-btn" id="flip-back-btn">Back</button>
       </div>
     </div>
   </div>
 
-  <!-- Profile Page -->
-  <div id="profile-page" class="profile-page">
-    <div class="profile-header">
-      <button class="profile-back-btn" id="profile-back-btn">←</button>
-      <h2>My Profile</h2>
-    </div>
-    <div class="profile-content">
-      <!-- Profile Photo Section -->
-      <div class="profile-section profile-photo-section">
-        <div id="profile-photo-large" class="profile-photo-large placeholder">?</div>
-        <div class="file-input-wrapper">
-          <input type="file" id="profile-photo-input" accept="image/*">
-          <label for="profile-photo-input" class="file-input-label">Change Photo</label>
-        </div>
-      </div>
-
-      <!-- Basic Info Section -->
-      <div class="profile-section">
-        <h3>Basic Information</h3>
-        <div class="form-group">
-          <label for="profile-name">Full Name</label>
-          <input type="text" id="profile-name" placeholder="Enter your full name">
-        </div>
-        <div class="form-group">
-          <label for="profile-email">Email</label>
-          <input type="email" id="profile-email" readonly>
-        </div>
-        <div class="form-group">
-          <label for="profile-phone">Phone Number</label>
-          <input type="tel" id="profile-phone" placeholder="Your phone number">
-        </div>
-        <div class="form-group">
-          <label for="profile-location">Location</label>
-          <input type="text" id="profile-location" placeholder="City, State">
-        </div>
-      </div>
-
-      <!-- About Me Section -->
-      <div class="profile-section">
-        <h3>About Me</h3>
-        <div class="form-group">
-          <label for="profile-about">Tell us about yourself</label>
-          <textarea id="profile-about" placeholder="Describe your skills, interests, and what you're looking for..."></textarea>
-        </div>
-      </div>
-
-      <!-- Resume Section -->
-      <div class="profile-section">
-        <h3>Resume</h3>
-        <div class="form-group">
-          <label for="resume-upload">Upload Resume</label>
-          <div class="file-input-wrapper">
-            <input type="file" id="resume-upload" accept=".pdf,.doc,.docx">
-            <label for="resume-upload" class="file-input-label">Choose File</label>
-          </div>
-          <div id="resume-status" style="margin-top:0.5rem; color:#666;"></div>
-        </div>
-      </div>
-
-      <!-- Experience Section -->
-      <div class="profile-section">
-        <h3>Work Experience</h3>
-        <div id="experience-list"></div>
-        <button class="add-experience" id="add-experience-btn">+ Add Experience</button>
-      </div>
-
-      <!-- Save & Logout -->
-      <div class="profile-section">
-        <button class="save-profile" id="save-profile-btn">Save Profile</button>
-        <button class="logout-btn" id="logout-btn">Logout</button>
-      </div>
+  <!-- Auth Modal -->
+  <div id="auth-modal" class="modal">
+    <div class="modal-content">
+      <h3>Log In or Sign Up</h3>
+      <input type="email" id="auth-email" placeholder="Email" />
+      <input type="password" id="auth-password" placeholder="Password" />
+      <button id="login-email-btn" style="background:#2f8732;color:white;">Log In</button>
+      <button id="signup-email-btn" style="background:#2f8732;color:white;">Sign Up</button>
+      <button id="google-auth-btn" style="background:#fff;color:#222;border:1px solid #ccc;">
+        Sign in with Google
+      </button>
+      <button id="close-auth-modal" style="background:#ccc;color:#222;">Close</button>
     </div>
   </div>
 
   <!-- Post Modal -->
   <div id="post-modal" class="modal">
     <div class="modal-content">
-      <button id="close-post-modal" style="position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.5rem;cursor:pointer;">✕</button>
-      <h2 style="margin-bottom:0.5rem;text-align:center;">Create a New Post</h2>
-      <input type="file" id="post-image" accept="image/*" />
-      <input type="text" id="post-title" placeholder="Title (e.g: developer, florist, nail artist)" />
-      <textarea id="post-description" placeholder="Describe the job, task, offer"></textarea>
-      <input type="text" id="post-price" placeholder="Price (e.g. 20, 50, negotiable)" />
-      <select id="post-type">
-        <option value="available">I'm Available</option>
-        <option value="looking">I'm Looking For</option>
-        <option value="hiring">Hiring Help</option>
-      </select>
-      <input type="text" id="post-location" placeholder="Location (or 'Virtual')" />
-      <button id="submit-post">Submit</button>
-      <button id="exit-post-modal" style="background:#ccc;color:#222;">Exit</button>
-    </div>
-  </div>
-
-  <!-- Auth Modal -->
-  <div id="auth-modal" class="modal">
-    <div class="modal-content" style="max-width:350px;">
-      <h3>Log In or Sign Up</h3>
-      <input type="email" id="auth-email" placeholder="Email" />
-      <input type="password" id="auth-password" placeholder="Password" />
-      <div style="display:flex;gap:0.5rem;margin-bottom:0.5rem;">
-        <button id="login-email-btn">Log In</button>
-        <button id="signup-email-btn">Sign Up</button>
-      </div>
-      <button id="google-auth-btn" style="background:#fff;color:#222;border:1px solid #ccc;display:flex;align-items:center;gap:0.5rem;justify-content:center;">
-        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" style="width:20px;height:20px;"> Sign in with Google
-      </button>
-      <button id="close-auth-modal" style="background:#ccc;color:#222;margin-top:1rem;">Close</button>
+      <h2>Create a New Post</h2>
+      <input type="text" id="post-title" placeholder="Job title" />
+      <textarea id="post-description" placeholder="Job description"></textarea>
+      <input type="text" id="post-price" placeholder="Price" />
+      <input type="text" id="post-location" placeholder="Location" />
+      <button id="submit-post" style="background:#2f8732;color:white;">Submit</button>
+      <button id="close-post-modal" style="background:#ccc;color:#222;">Close</button>
     </div>
   </div>
 
@@ -661,7 +321,6 @@
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
 
   <script>
     // Firebase Configuration
@@ -674,90 +333,83 @@
       appId: "1:660645282144:web:de0864d9cecc4f9ac61e05",
       measurementId: "G-W9K18Q5SJC"
     };
+    
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const db = firebase.firestore();
-    const storage = firebase.storage();
 
-    // Global elements
-    const authBtn = document.getElementById('auth-btn');
-    const profileBtn = document.getElementById('profile-btn');
-    const mainContent = document.getElementById('main-content');
-    const profilePage = document.getElementById('profile-page');
-
-    // Modal Helper Functions
+    // Helper Functions
     function showModal(modal) {
-      if (modal) {
-        modal.classList.add('show');
-        modal.style.display = 'flex';
-      }
+      modal.classList.add('show');
     }
 
     function hideModal(modal) {
-      if (modal) {
-        modal.classList.remove('show');
-        modal.style.display = 'none';
-      }
+      modal.classList.remove('show');
     }
 
-    // Auth Modal Elements
+    // Elements
+    const authBtn = document.getElementById('auth-btn');
+    const profileBtn = document.getElementById('profile-btn');
     const authModal = document.getElementById('auth-modal');
+    const postModal = document.getElementById('post-modal');
     const loginEmailBtn = document.getElementById('login-email-btn');
     const signupEmailBtn = document.getElementById('signup-email-btn');
     const googleAuthBtn = document.getElementById('google-auth-btn');
     const closeAuthModal = document.getElementById('close-auth-modal');
     const authEmail = document.getElementById('auth-email');
     const authPassword = document.getElementById('auth-password');
+    const postBtn = document.getElementById('post-btn');
+    const closePostModal = document.getElementById('close-post-modal');
+    const submitPost = document.getElementById('submit-post');
 
-    // Profile Elements
-    const profileBackBtn = document.getElementById('profile-back-btn');
-    const profilePhotoLarge = document.getElementById('profile-photo-large');
-    const profilePhotoInput = document.getElementById('profile-photo-input');
-    const profileName = document.getElementById('profile-name');
-    const profileEmail = document.getElementById('profile-email');
-    const profilePhone = document.getElementById('profile-phone');
-    const profileLocation = document.getElementById('profile-location');
-    const profileAbout = document.getElementById('profile-about');
-    const resumeUpload = document.getElementById('resume-upload');
-    const resumeStatus = document.getElementById('resume-status');
-    const experienceList = document.getElementById('experience-list');
-    const addExperienceBtn = document.getElementById('add-experience-btn');
-    const saveProfileBtn = document.getElementById('save-profile-btn');
-    const logoutBtn = document.getElementById('logout-btn');
+    // Card Elements
+    const card = document.getElementById('swipe-card');
+    const cardFlip = document.getElementById('card-flip');
+    const jobTitle = document.getElementById('job-title');
+    const jobDetails = document.getElementById('job-details');
+    const jobImg = document.getElementById('job-img');
+    const jobTitleBack = document.getElementById('job-title-back');
+    const jobDetailsBack = document.getElementById('job-details-back');
+    const passBtn = document.getElementById('pass-btn');
+    const matchBtn = document.getElementById('match-btn');
+    const applyBtn = document.getElementById('apply-btn');
+    const flipBackBtn = document.getElementById('flip-back-btn');
 
-    // Show/Hide Profile Page
-    function showProfilePage() {
-      mainContent.style.display = 'none';
-      profilePage.classList.add('show');
-      loadUserProfile();
-    }
+    // Jobs Data
+    const jobs = [
+      {
+        title: "Part-Time Dog Walker",
+        details: "Salt Lake City • $20/hr • Local",
+        img: "https://via.placeholder.com/400x200?text=Dog+Walker"
+      },
+      {
+        title: "Event Assistant", 
+        details: "Virtual • $18/hr • Weekend Work",
+        img: "https://via.placeholder.com/400x200?text=Event+Assistant"
+      },
+      {
+        title: "Yard Cleanup Crew",
+        details: "West Valley • $22/hr • 1-day Gig", 
+        img: "https://via.placeholder.com/400x200?text=Yard+Cleanup"
+      }
+    ];
 
-    function hideProfilePage() {
-      profilePage.classList.remove('show');
-      mainContent.style.display = 'block';
-    }
+    let jobIndex = 0;
+    let startX = 0, startY = 0, currentX = 0, currentY = 0, isDragging = false;
 
-    profileBackBtn.onclick = hideProfilePage;
-
-    // Profile Button Handler (always available)
-    profileBtn.onclick = () => {
-      showProfilePage();
-    };
-
-    // Auth Button Handler
+    // Auth Handlers
     authBtn.onclick = () => {
       if (auth.currentUser) {
-        // If logged in, logout
-        auth.signOut().then(() => {
-          alert('Logged out successfully');
-        });
+        auth.signOut();
       } else {
-        // If logged out, show login modal
         showModal(authModal);
       }
     };
 
-    // Email login
+    profileBtn.onclick = () => {
+      alert('Profile page coming soon!');
+    };
+
     loginEmailBtn.onclick = () => {
       auth.signInWithEmailAndPassword(authEmail.value, authPassword.value)
         .then(() => {
@@ -767,7 +419,6 @@
         .catch(err => alert(err.message));
     };
 
-    // Email signup
     signupEmailBtn.onclick = () => {
       auth.createUserWithEmailAndPassword(authEmail.value, authPassword.value)
         .then(() => {
@@ -777,7 +428,6 @@
         .catch(err => alert(err.message));
     };
 
-    // Google login
     googleAuthBtn.onclick = () => {
       const provider = new firebase.auth.GoogleAuthProvider();
       auth.signInWithPopup(provider)
@@ -790,363 +440,34 @@
 
     closeAuthModal.onclick = () => hideModal(authModal);
 
-    // Profile Photo Upload
-    profilePhotoInput.onchange = function() {
-      const file = this.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          profilePhotoLarge.src = e.target.result;
-          profilePhotoLarge.classList.remove('placeholder');
-          profilePhotoLarge.innerHTML = '';
-        };
-        reader.readAsDataURL(file);
-      }
-    };
+    // Post Handlers
+    postBtn.onclick = () => showModal(postModal);
+    closePostModal.onclick = () => hideModal(postModal);
 
-    // Resume Upload
-    resumeUpload.onchange = function() {
-      const file = this.files[0];
-      if (file) {
-        resumeStatus.textContent = `Selected: ${file.name}`;
-      }
-    };
-
-    // Experience Management
-    let experienceCount = 0;
-
-    function addExperienceItem() {
-      const user = auth.currentUser;
-      if (!user) {
-        alert('Please log in to add work experience');
-        showModal(authModal);
-        return;
-      }
-
-      experienceCount++;
-      const experienceItem = document.createElement('div');
-      experienceItem.className = 'experience-item';
-      experienceItem.innerHTML = `
-        <div class="experience-header">
-          <h4>Experience ${experienceCount}</h4>
-          <button class="remove-experience" onclick="removeExperience(this)">Remove</button>
-        </div>
-        <div class="form-group">
-          <label>Job Title</label>
-          <input type="text" placeholder="e.g. Software Developer">
-        </div>
-        <div class="form-group">
-          <label>Company</label>
-          <input type="text" placeholder="e.g. Tech Corp">
-        </div>
-        <div class="form-group">
-          <label>Duration</label>
-          <input type="text" placeholder="e.g. 2020-2023">
-        </div>
-        <div class="form-group">
-          <label>Description</label>
-          <textarea placeholder="Describe your role and achievements..."></textarea>
-        </div>
-      `;
-      experienceList.appendChild(experienceItem);
-    }
-
-    function removeExperience(button) {
-      button.closest('.experience-item').remove();
-    }
-
-    addExperienceBtn.onclick = addExperienceItem;
-
-    // Load User Profile
-    async function loadUserProfile() {
-      const user = auth.currentUser;
-      
-      if (!user) {
-        // Show logged out state
-        profileEmail.value = 'Please log in to edit profile';
-        profileEmail.disabled = true;
-        profileName.value = '';
-        profileName.disabled = true;
-        profilePhone.disabled = true;
-        profileLocation.disabled = true;
-        profileAbout.disabled = true;
-        profilePhotoInput.disabled = true;
-        resumeUpload.disabled = true;
-        saveProfileBtn.disabled = true;
-        saveProfileBtn.textContent = 'Log in to save profile';
-        
-        // Show placeholder avatar
-        profilePhotoLarge.classList.add('placeholder');
-        profilePhotoLarge.innerHTML = '?';
-        
-        // Clear experience list
-        experienceList.innerHTML = '<p style="color: #666; text-align: center;">Log in to add work experience</p>';
-        addExperienceBtn.disabled = true;
-        addExperienceBtn.textContent = 'Log in to add experience';
-        
-        return;
-      }
-
-      // User is logged in - enable all fields
-      profileEmail.disabled = false;
-      profileName.disabled = false;
-      profilePhone.disabled = false;
-      profileLocation.disabled = false;
-      profileAbout.disabled = false;
-      profilePhotoInput.disabled = false;
-      resumeUpload.disabled = false;
-      saveProfileBtn.disabled = false;
-      saveProfileBtn.textContent = 'Save Profile';
-      addExperienceBtn.disabled = false;
-      addExperienceBtn.textContent = '+ Add Experience';
-
-      profileEmail.value = user.email;
-      profileName.value = user.displayName || '';
-
-      // Set profile photo
-      if (user.photoURL) {
-        profilePhotoLarge.src = user.photoURL;
-        profilePhotoLarge.classList.remove('placeholder');
-        profilePhotoLarge.innerHTML = '';
-      } else {
-        profilePhotoLarge.classList.add('placeholder');
-        profilePhotoLarge.innerHTML = (user.displayName || user.email).charAt(0).toUpperCase();
-      }
-
-      // Load additional profile data from Firestore
-      try {
-        const profileDoc = await db.collection('profiles').doc(user.uid).get();
-        if (profileDoc.exists) {
-          const data = profileDoc.data();
-          profilePhone.value = data.phone || '';
-          profileLocation.value = data.location || '';
-          profileAbout.value = data.about || '';
-          
-          // Load experiences
-          if (data.experiences) {
-            experienceList.innerHTML = '';
-            experienceCount = 0;
-            data.experiences.forEach(exp => {
-              addExperienceItem();
-              const lastItem = experienceList.lastElementChild;
-              const inputs = lastItem.querySelectorAll('input, textarea');
-              inputs[0].value = exp.title || '';
-              inputs[1].value = exp.company || '';
-              inputs[2].value = exp.duration || '';
-              inputs[3].value = exp.description || '';
-            });
-          } else {
-            experienceList.innerHTML = '';
-          }
-        } else {
-          experienceList.innerHTML = '';
-        }
-      } catch (error) {
-        console.error('Error loading profile:', error);
-      }
-    }
-
-    // Save User Profile
-    saveProfileBtn.onclick = async () => {
-      const user = auth.currentUser;
-      if (!user) {
-        alert('Please log in to save your profile');
-        showModal(authModal);
-        return;
-      }
-
-      try {
-        saveProfileBtn.textContent = 'Saving...';
-        saveProfileBtn.disabled = true;
-
-        let profilePhotoURL = user.photoURL;
-
-        // Upload profile photo if changed
-        const photoFile = profilePhotoInput.files[0];
-        if (photoFile) {
-          const photoRef = storage.ref(`profile-photos/${user.uid}`);
-          const uploadTask = await photoRef.put(photoFile);
-          profilePhotoURL = await uploadTask.ref.getDownloadURL();
-        }
-
-        // Upload resume if provided
-        let resumeURL = null;
-        const resumeFile = resumeUpload.files[0];
-        if (resumeFile) {
-          const resumeRef = storage.ref(`resumes/${user.uid}_${resumeFile.name}`);
-          const uploadTask = await resumeRef.put(resumeFile);
-          resumeURL = await uploadTask.ref.getDownloadURL();
-        }
-
-        // Collect experience data
-        const experiences = [];
-        const experienceItems = experienceList.querySelectorAll('.experience-item');
-        experienceItems.forEach(item => {
-          const inputs = item.querySelectorAll('input, textarea');
-          if (inputs[0].value.trim()) {
-            experiences.push({
-              title: inputs[0].value.trim(),
-              company: inputs[1].value.trim(),
-              duration: inputs[2].value.trim(),
-              description: inputs[3].value.trim()
-            });
-          }
-        });
-
-        // Save to Firestore
-        const profileData = {
-          name: profileName.value,
-          phone: profilePhone.value,
-          location: profileLocation.value,
-          about: profileAbout.value,
-          experiences: experiences,
-          profilePhotoURL: profilePhotoURL,
-          resumeURL: resumeURL,
-          updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-        };
-
-        await db.collection('profiles').doc(user.uid).set(profileData, { merge: true });
-
-        alert('Profile saved successfully!');
-        
-      } catch (error) {
-        console.error('Error saving profile:', error);
-        alert('Error saving profile: ' + error.message);
-      } finally {
-        saveProfileBtn.textContent = 'Save Profile';
-        saveProfileBtn.disabled = false;
-      }
-    };
-
-    // Logout
-    logoutBtn.onclick = () => {
-      auth.signOut().then(() => {
-        alert('Logged out successfully');
-        hideProfilePage();
-      });
-    };
-
-    // Update Auth Button Based on Login State
-    auth.onAuthStateChanged(user => {
-      if (user) {
-        // User is logged in
-        authBtn.textContent = 'Logout';
-        authBtn.style.background = '#ff4444';
-      } else {
-        // User is logged out
-        authBtn.textContent = 'Log In';
-        authBtn.style.background = '#2f8732';
-      }
-    });
-
-    // Post Modal Logic
-    const postBtn = document.getElementById('post-btn');
-    const postModal = document.getElementById('post-modal');
-    const closePostModalBtn = document.getElementById('close-post-modal');
-    const submitPost = document.getElementById('submit-post');
-    const exitPostModal = document.getElementById('exit-post-modal');
-
-    postBtn.addEventListener('click', () => showModal(postModal));
-    closePostModalBtn.addEventListener('click', () => hideModal(postModal));
-    exitPostModal.addEventListener('click', () => hideModal(postModal));
-
-    submitPost.addEventListener('click', () => {
+    submitPost.onclick = () => {
       const post = {
         title: document.getElementById('post-title').value,
         description: document.getElementById('post-description').value,
-        type: document.getElementById('post-type').value,
         price: document.getElementById('post-price').value,
         location: document.getElementById('post-location').value,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        userId: auth.currentUser ? auth.currentUser.uid : null,
-        userEmail: auth.currentUser ? auth.currentUser.email : null
+        userId: auth.currentUser ? auth.currentUser.uid : null
       };
 
       db.collection('posts').add(post)
         .then(() => {
-          alert("✅ Post created and saved!");
+          alert('Post created!');
           hideModal(postModal);
         })
-        .catch(err => {
-          alert("Error saving post: " + err.message);
-        });
-    });
+        .catch(err => alert('Error: ' + err.message));
+    };
 
-    // Card Swipe and Flip Logic
-    const cardFlip = document.getElementById("card-flip");
-    const card = document.getElementById("swipe-card");
-    const jobImg = document.getElementById("job-img");
-    const jobTitle = document.getElementById("job-title");
-    const jobDetails = document.getElementById("job-details");
-    const jobExtra = document.getElementById("job-extra");
-    const jobTitleBack = document.getElementById("job-title-back");
-    const jobDetailsBack = document.getElementById("job-details-back");
-    const jobExtraBack = document.getElementById("job-extra-back");
-    const passBtn = document.getElementById("pass-btn");
-    const matchBtn = document.getElementById("match-btn");
-    const applyBtn = document.getElementById("apply-btn");
-    const flipBackBtn = document.getElementById("flip-back-btn");
-
-    const jobs = [
-      {
-        title: "Part-Time Dog Walker",
-        details: "Salt Lake City • $20/hr • Local",
-        img: "https://via.placeholder.com/400x200?text=Dog+Walker",
-        extra: "Must love dogs! Flexible hours. Experience with pets preferred. Available weekends."
-      },
-      {
-        title: "Event Assistant",
-        details: "Virtual • $18/hr • Weekend Work",
-        img: "https://via.placeholder.com/400x200?text=Event+Assistant",
-        extra: "Help with virtual events. Good communication skills required. Flexible schedule."
-      },
-      {
-        title: "Yard Cleanup Crew",
-        details: "West Valley • $22/hr • 1-day Gig",
-        img: "https://via.placeholder.com/400x200?text=Yard+Cleanup",
-        extra: "Outdoor work. Must be able to lift 30 lbs. One day only."
-      },
-      {
-        title: "Tutoring Assistant",
-        details: "University of Utah • $25/hr • Part-time",
-        img: "https://via.placeholder.com/400x200?text=Tutoring",
-        extra: "Help students with math and science. Must have strong academic background."
-      },
-      {
-        title: "Social Media Manager",
-        details: "Remote • $30/hr • Flexible",
-        img: "https://via.placeholder.com/400x200?text=Social+Media",
-        extra: "Manage social media accounts for small business. Creative content creation required."
-      }
-    ];
-
-    let jobIndex = 0;
-    let startX = 0, startY = 0, currentX = 0, currentY = 0, isDragging = false;
-    const swipeThreshold = 100;
-    const swipeUpThreshold = 80;
-
-    function setTransform(x, y) {
-      card.style.transform = `translate(${x}px, ${y}px) rotate(${x * 0.05}deg)`;
-    }
-
-    function resetCard() {
-      card.style.transition = 'transform 0.3s ease';
-      setTransform(0, 0);
-      setTimeout(() => { 
-        card.style.transition = ''; 
-      }, 300);
-    }
-
+    // Card Functions
     function loadJob(idx) {
       if (idx >= jobs.length) {
         jobTitle.textContent = "No more jobs!";
         jobDetails.textContent = "Check back later!";
         jobImg.src = "https://via.placeholder.com/400x200?text=No+More+Jobs";
-        jobExtra.textContent = "";
-        jobTitleBack.textContent = "No more jobs!";
-        jobDetailsBack.textContent = "Check back later!";
-        jobExtraBack.textContent = "";
-        cardFlip.classList.remove('flipped');
         return;
       }
 
@@ -1154,10 +475,8 @@
       jobTitle.textContent = job.title;
       jobDetails.textContent = job.details;
       jobImg.src = job.img;
-      jobExtra.textContent = job.extra;
       jobTitleBack.textContent = job.title;
       jobDetailsBack.textContent = job.details;
-      jobExtraBack.textContent = job.extra;
       resetCard();
       cardFlip.classList.remove('flipped');
     }
@@ -1167,140 +486,133 @@
       loadJob(jobIndex);
     }
 
+    function setTransform(x, y) {
+      card.style.transform = `translate(${x}px, ${y}px) rotate(${x * 0.05}deg)`;
+    }
+
+    function resetCard() {
+      card.style.transition = 'transform 0.3s ease';
+      setTransform(0, 0);
+      setTimeout(() => card.style.transition = '', 300);
+    }
+
     function handleSwipe(endX, endY) {
-      // Swipe up to apply
-      if (endY < -swipeUpThreshold && Math.abs(endX) < swipeThreshold / 2) {
+      if (endY < -80 && Math.abs(endX) < 50) {
+        // Swipe up to apply
         card.style.transition = 'transform 0.3s ease';
         card.style.transform = 'translateY(-100vh)';
         setTimeout(() => {
-          alert('🎉 You applied to this job!');
+          alert('🎉 You applied!');
           loadNextJob();
         }, 300);
-      }
-      // Swipe left to pass
-      else if (endX < -swipeThreshold) {
+      } else if (endX < -100) {
+        // Swipe left to pass
         card.style.transition = 'transform 0.3s ease';
         card.style.transform = 'translateX(-100vw) rotate(-15deg)';
-        setTimeout(() => {
-          console.log('❌ Passed on job');
-          loadNextJob();
-        }, 300);
-      }
-      // Swipe right to match
-      else if (endX > swipeThreshold) {
+        setTimeout(loadNextJob, 300);
+      } else if (endX > 100) {
+        // Swipe right to match
         card.style.transition = 'transform 0.3s ease';
         card.style.transform = 'translateX(100vw) rotate(15deg)';
-        setTimeout(() => {
-          console.log('✅ Matched with job');
-          loadNextJob();
-        }, 300);
-      }
-      // Not enough swipe distance - reset
-      else {
+        setTimeout(loadNextJob, 300);
+      } else {
         resetCard();
       }
     }
 
-    // Button actions
-    matchBtn.addEventListener("click", () => {
+    // Button Actions
+    matchBtn.onclick = () => {
       card.style.transition = 'transform 0.3s ease';
       card.style.transform = 'translateX(100vw) rotate(15deg)';
-      setTimeout(() => {
-        console.log('✅ Matched with job');
-        loadNextJob();
-      }, 300);
-    });
+      setTimeout(loadNextJob, 300);
+    };
 
-    passBtn.addEventListener("click", () => {
+    passBtn.onclick = () => {
       card.style.transition = 'transform 0.3s ease';
       card.style.transform = 'translateX(-100vw) rotate(-15deg)';
-      setTimeout(() => {
-        console.log('❌ Passed on job');
-        loadNextJob();
-      }, 300);
-    });
+      setTimeout(loadNextJob, 300);
+    };
 
-    // Flip to back on card click (but not during drag)
-    card.addEventListener("click", (e) => {
+    applyBtn.onclick = () => {
+      alert('🎉 You applied!');
+      loadNextJob();
+    };
+
+    // Card flip
+    card.onclick = (e) => {
       if (Math.abs(currentX) > 10 || Math.abs(currentY) > 10) return;
       cardFlip.classList.add('flipped');
-    });
+    };
 
-    // Flip back to front
-    flipBackBtn.addEventListener("click", () => {
-      cardFlip.classList.remove('flipped');
-    });
+    flipBackBtn.onclick = () => cardFlip.classList.remove('flipped');
 
-    // Apply button on back
-    applyBtn.addEventListener("click", () => {
-      alert('🎉 You applied to this job!');
-      loadNextJob();
-    });
-
-    // Mouse Events for Desktop
-    card.addEventListener("mousedown", (e) => {
+    // Mouse Events
+    card.onmousedown = (e) => {
       e.preventDefault();
       startX = e.clientX;
       startY = e.clientY;
       isDragging = true;
       card.style.cursor = 'grabbing';
-    });
+    };
 
-    document.addEventListener("mousemove", (e) => {
+    document.onmousemove = (e) => {
       if (!isDragging) return;
       currentX = e.clientX - startX;
       currentY = e.clientY - startY;
       setTransform(currentX, currentY);
-    });
+    };
 
-    document.addEventListener("mouseup", () => {
+    document.onmouseup = () => {
       if (!isDragging) return;
       isDragging = false;
       card.style.cursor = 'grab';
       handleSwipe(currentX, currentY);
       currentX = 0;
       currentY = 0;
-    });
+    };
 
-    // Touch Events for Mobile
-    card.addEventListener("touchstart", (e) => {
+    // Touch Events
+    card.ontouchstart = (e) => {
       e.preventDefault();
       const touch = e.touches[0];
       startX = touch.clientX;
       startY = touch.clientY;
       isDragging = true;
-    });
+    };
 
-    card.addEventListener("touchmove", (e) => {
+    card.ontouchmove = (e) => {
       if (!isDragging) return;
       e.preventDefault();
       const touch = e.touches[0];
       currentX = touch.clientX - startX;
       currentY = touch.clientY - startY;
       setTransform(currentX, currentY);
-    });
+    };
 
-    card.addEventListener("touchend", (e) => {
+    card.ontouchend = (e) => {
       if (!isDragging) return;
       e.preventDefault();
       isDragging = false;
       handleSwipe(currentX, currentY);
       currentX = 0;
       currentY = 0;
+    };
+
+    // Auth State
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        authBtn.textContent = 'Logout';
+        authBtn.style.background = '#ff4444';
+      } else {
+        authBtn.textContent = 'Log In';
+        authBtn.style.background = '#2f8732';
+      }
     });
 
-    // Prevent default behaviors that might interfere with swipe
-    card.addEventListener("dragstart", (e) => e.preventDefault());
-    card.addEventListener("selectstart", (e) => e.preventDefault());
-
-    // Initialize with first job
-    loadJob(jobIndex);
-
-    // Set initial cursor
+    // Initialize
+    loadJob(0);
     card.style.cursor = 'grab';
-
-    // Expose removeExperience function globally
-    window.removeExperience = removeExperience;
+    console.log('OnlyJobs loaded successfully!');
   </script>
 </body>
 </html>
