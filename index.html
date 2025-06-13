@@ -572,18 +572,7 @@
     </div>
   </div>
  </div>
- const loginTopBtn = document.getElementById('login-top-btn');
-if (loginTopBtn) {
-  loginTopBtn.onclick = () => {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup(provider)
-      .then(result => {
-        alert("Logged in as " + (result.user.displayName || result.user.email));
-      })
-      .catch(err => alert(err.message));
-  };
-}
-      
+   
    <!-- Firebase App (core) -->
    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
    <!-- Firebase Auth -->
@@ -617,6 +606,29 @@ if (loginTopBtn) {
     </div>
   </div>
 </div>
+    };
+
+        hideModal(settingsModal);
+    
+      <!-- No <prompt> tag! -->
+<script>
+  // Sign Up
+  function signUpWithEmail(email, password) {
+    return auth.createUserWithEmailAndPassword(email, password);
+  }
+
+  const loginTopBtn = document.getElementById('login-top-btn');
+  if (loginTopBtn) {
+    loginTopBtn.onclick = () => {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      firebase.auth().signInWithPopup(provider)
+        .then(result => {
+          alert("Logged in as " + (result.user.displayName || result.user.email));
+        })
+        .catch(err => alert(err.message));
+    };
+  }
+</script>
    <script>
     window.addEventListener('DOMContentLoaded', () => {
       // TODO: Replace with your Firebase project config
@@ -1165,10 +1177,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
         hideModal(settingsModal);
     
-      // Sign Up
-   function signUpWithEmail(email, password) {
-   return auth.createUserWithEmailAndPassword(email, password);
-  }
+      <!-- No <prompt> tag! -->
+
 
  // Log In
    function logInWithEmail(email, password) {
