@@ -718,7 +718,7 @@
      #conversations-list div {
      border-bottom: 1px solid #f3f3f3;
      }
-     #conversations-list div:hover {
+     #conversations-list div:hover 
       background: #f3f3f3;
      
     
@@ -1475,26 +1475,51 @@ function closePostModal() {
     })
     .catch(err => alert(err.message));
 });
+// Profile section logic (in-page)
+const profileBtn = document.getElementById('profile-btn');
+const profileContainer = document.getElementById('profile-container');
+const sidebarHomeBtn = document.getElementById('sidebar-home');
 
-      // Profile section logic (in-page)
-      const profileBtn = document.getElementById('profile-btn');
-      const profileContainer = document.getElementById('profile-container');
-      const profileHeader = document.getElementById('profile-header');
-      const profileForm = document.getElementById('profile-form');
-      const profileBackBtn = document.getElementById('profile-back-btn');
-      const mainSections = [
-        document.querySelector('.hero-box'),
-        document.querySelector('.filters'),
-        document.querySelector('.post-type-filters'),
-        document.querySelector('.card-flip-container'),
-        document.getElementById('post-modal'),
-        document.getElementById('welcome-modal')
-      ];
-      profileBtn.addEventListener('click', () => {
-  hideAllModals();
+// mainSections does NOT include profileContainer
+const mainSections = [
+  document.querySelector('.hero-box'),
+  document.querySelector('.filters'),
+  document.querySelector('.post-type-filters'),
+  document.querySelector('.card-flip-container')
+];
+
+// Helper functions for showing/hiding sections
+function showMainSections() {
+  mainSections.forEach(sec => { if(sec) sec.style.display = ''; });
+  profileContainer.style.display = 'none';
+}
+function showProfileSection() {
   mainSections.forEach(sec => { if(sec) sec.style.display = 'none'; });
   profileContainer.style.display = 'flex';
+}
+
+// Profile button logic
+profileBtn.addEventListener('click', () => {
+  hideAllModals();
+  showProfileSection();
   window.scrollTo(0,0);
+});
+
+// Sidebar home button logic
+sidebarHomeBtn.onclick = () => {
+  hideAllModals();
+  showMainSections();
+  window.scrollTo(0,0);
+};
+
+// Make sure hideAllModals does NOT hide profileContainer
+function hideAllModals() {
+  document.querySelectorAll('.modal, .welcome-modal').forEach(modal => {
+    modal.classList.remove('show');
+    modal.style.display = 'none';
+  });
+  // Do NOT hide profileContainer here!
+}
 });
 
       // Home button in sidebar
