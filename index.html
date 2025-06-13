@@ -879,6 +879,7 @@
         <img id="post-image-preview" src="https://via.placeholder.com/120x80?text=Preview" style="display:none;width:100%;max-width:220px;margin:0.5rem auto 0.5rem;border-radius:12px;object-fit:cover;" alt="Preview">
         <input type="text" id="post-title" class="post-input" placeholder="Title (e.g: developer, florist, nail artist, personal job)" />
         <textarea id="post-description" class="post-input" placeholder="Describe the job, task, offer"></textarea>
+        <input type="text" id="post-price" class="post-input" placeholder="Price (e.g. 20, 50, negotiable)" />
         <div class="post-row">
           <div>
             <label for="post-type" class="post-label">Post Type</label>
@@ -1234,15 +1235,20 @@ const auth = firebase.auth();
        const exitPostModal = document.getElementById('exit-post-modal');
 
       function openPostModal() {
-        postModal.classList.add('show');
-      }
-      function closePostModal() {
-        postModal.classList.remove('show');
-      }
+  showModal(postModal);
+}
+function closePostModal() {
+  hideModal(postModal);
+}
 
-      postBtn.addEventListener('click', openPostModal);
-      closeModal.addEventListener('click', closePostModal);
-      exitPostModal.addEventListener('click', closePostModal);
+     // ...existing code...
+       postBtn.addEventListener('click', () => {
+       hideAllModals();
+       showModal(postModal);
+       });
+       closeModal.addEventListener('click', () => hideModal(postModal));
+       exitPostModal.addEventListener('click', () => hideModal(postModal));
+       // ...existing code...
 
       submitPost.addEventListener('click', () => {
         const post = {
@@ -1438,21 +1444,15 @@ const auth = firebase.auth();
       const skipBtn = document.getElementById('skip-btn');
 
       setTimeout(() => {
-        welcomeModal.style.display = 'flex';
-        requestAnimationFrame(() => {
-          welcomeModal.classList.add('show');
-        });
-      }, 10000); // 10 seconds
+     showModal(welcomeModal);
+     }, 10000);
 
-      function closeWelcomeModal() {
-        welcomeModal.classList.remove('show');
-        setTimeout(() => {
-          welcomeModal.style.display = 'none';
-        }, 500); // Match your CSS transition duration
-      }
-
+     function closeWelcomeModal() {
+      hideModal(welcomeModal);
+     }
       closeBtn.addEventListener('click', closeWelcomeModal);
-      skipBtn.addEventListener('click', closeWelcomeModal);
+     skipBtn.addEventListener('click', closeWelcomeModal);
+     // ...existing code...
 
       loginBtn.addEventListener('click', () => {
       const email = prompt("Enter your email:");
@@ -1490,25 +1490,12 @@ const auth = firebase.auth();
         document.getElementById('post-modal'),
         document.getElementById('welcome-modal')
       ];
-
       profileBtn.addEventListener('click', () => {
-        // Hide all modals and overlays
-  document.querySelectorAll('.modal, .welcome-modal').forEach(modal => {
-    modal.classList.remove('show');
-    modal.style.display = 'none';
-  });
-  // Hide main sections
+  hideAllModals();
   mainSections.forEach(sec => { if(sec) sec.style.display = 'none'; });
-  // Show profile
   profileContainer.style.display = 'flex';
   window.scrollTo(0,0);
-      });
-
-      profileBackBtn.addEventListener('click', () => {
-        // Show main sections
-        mainSections.forEach(sec => { if(sec) sec.style.display = ''; });
-        profileContainer.style.display = 'none';
-      });
+});
 
       // Home button in sidebar
       const sidebarHomeBtn = document.getElementById('sidebar-home');
@@ -1727,16 +1714,15 @@ logoutBtn.addEventListener('click', () => {
       };
 
       // Open/close modal
-      document.getElementById('sidebar-calendar').onclick = () => {
-        calendarModal.classList.add('show');
-        renderCalendar();
-        // Show today's events by default
+       document.getElementById('sidebar-calendar').onclick = () => {
+       hideAllModals();
+       showModal(calendarModal);
+       renderCalendar();
         const todayKey = dateKey(new Date());
         showEventsFor(todayKey);
-      };
-      calendarCloseBtn.onclick = () => {
-        calendarModal.classList.remove('show');
-      };
+       };
+      calendarCloseBtn.onclick = () => hideModal(calendarModal);
+      }
 
       // Settings modal logic
       const settingsModal = document.getElementById('settings-modal');
@@ -1744,15 +1730,14 @@ logoutBtn.addEventListener('click', () => {
       const settingsCloseBtn = document.getElementById('settings-close-btn');
       const settingsSaveBtn = document.getElementById('settings-save-btn');
 
-      sidebarSettingsBtn.onclick = () => {
-        settingsModal.classList.add('show');
-      };
+     sidebarSettingsBtn.onclick = () => {
+     hideAllModals();
+     showModal(settingsModal);
+    };
 
-      settingsCloseBtn.onclick = () => {
-        settingsModal.classList.remove('show');
-      };
+settingsCloseBtn.onclick = () => hideModal(settingsModal);
 
-      settingsSaveBtn.onclick = () => {
+       settingsSaveBtn.onclick = () => {
         // Example: read settings values
         const emailNotifications = document.getElementById('settings-email-notifications').checked;
         const showProfilePublic = document.getElementById('settings-show-profile-public').checked;
@@ -1763,7 +1748,7 @@ logoutBtn.addEventListener('click', () => {
           'Show Profile: ' + (showProfilePublic ? 'Yes' : 'No') + '\n' +
           'Theme: ' + theme
         );
-        settingsModal.classList.remove('show');
+        hideModal(settingsModal);
       };
       // Sign Up
 function signUpWithEmail(email, password) {
@@ -1855,9 +1840,8 @@ sidebarNotificationsBtn.onclick = () => {
   renderNotifications();
 };
 
-closeNotificationsBtn.onclick = () => {
-  notificationsModal.classList.remove('show');
-};
+closeNotificationsBtn.onclick = () => hideModal(notificationsModal);
+
 
 markAllReadBtn.onclick = () => {
   notifications.forEach(n => n.read = true);
@@ -1934,9 +1918,8 @@ sidebarMessagesBtn.onclick = () => {
   renderMessages();
 };
 
-closeMessagingBtn.onclick = () => {
-  messagingModal.classList.remove('show');
-};
+closeMessagingBtn.onclick = () => hideModal(messagingModal);
+;
 
 sendMessageForm.onsubmit = (e) => {
   e.preventDefault();
@@ -1965,7 +1948,38 @@ sendMessageForm.onsubmit = (e) => {
           postImagePreview.style.display = 'none';
         }
       });
-    });
+
+      function showModal(modal) {
+  modal.style.display = 'flex';
+  requestAnimationFrame(() => {
+    modal.classList.add('show');
+  });
+}
+function hideModal(modal) {
+  modal.classList.remove('show');
+  setTimeout(() => {
+    modal.style.display = 'none';
+  }, 300); // Match your CSS transition
+}
+function hideAllModals() {
+  document.querySelectorAll('.modal, .welcome-modal').forEach(modal => {
+    modal.classList.remove('show');
+    modal.style.display = 'none';
+  });
+}
+sidebarNotificationsBtn.onclick = () => {
+  hideAllModals();
+  showModal(notificationsModal);
+  renderNotifications();
+};
+
+sidebarMessagesBtn.onclick = () => {
+  hideAllModals();
+  showModal(messagingModal);
+  renderConversations();
+  renderMessages();
+};
+    );
   </script>
 </body>
 </html>
