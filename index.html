@@ -1983,38 +1983,7 @@ sendMessageForm.onsubmit = (e) => {
           postImagePreview.style.display = 'none';
         }
       });
-
-      function showModal(modal) {
-  modal.style.display = 'flex';
-  requestAnimationFrame(() => {
-    modal.classList.add('show');
-  });
-}
-function hideModal(modal) {
-  modal.classList.remove('show');
-  setTimeout(() => {
-    modal.style.display = 'none';
-  }, 300); // Match your CSS transition
-}
-function hideAllModals() {
-  document.querySelectorAll('.modal, .welcome-modal').forEach(modal => {
-    modal.classList.remove('show');
-    modal.style.display = 'none';
-  });
-}
-sidebarNotificationsBtn.onclick = () => {
-  hideAllModals();
-  showModal(notificationsModal);
-  renderNotifications();
-};
-
-sidebarMessagesBtn.onclick = () => {
-  hideAllModals();
-  showModal(messagingModal);
-  renderConversations();
-  renderMessages();
-};
-
+    ;
   </script>
 </body>
 </html>
