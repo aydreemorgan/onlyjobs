@@ -1,0 +1,11 @@
+const loginTopBtn = document.getElementById('login-top-btn');
+if (loginTopBtn) {
+  loginTopBtn.onclick = () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(provider)
+      .then(result => {
+        alert("Logged in as " + (result.user.displayName || result.user.email));
+      })
+      .catch(err => alert(err.message));
+  };
+}

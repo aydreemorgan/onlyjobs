@@ -406,6 +406,7 @@
 <body>
 
     <div class="logo">OnlyJobs</div>
+    <button id="login-top-btn" style="margin:1rem;float:right;background:#2f8732;color:#fff;border:none;padding:0.6rem 1.2rem;border-radius:8px;cursor:pointer;">Log In</button>
   <div class="side-buttons">
     <button class="side-btn" id="post-btn">➕</button>
   </div>
@@ -571,7 +572,17 @@
     </div>
   </div>
  </div>
- 
+ const loginTopBtn = document.getElementById('login-top-btn');
+if (loginTopBtn) {
+  loginTopBtn.onclick = () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(provider)
+      .then(result => {
+        alert("Logged in as " + (result.user.displayName || result.user.email));
+      })
+      .catch(err => alert(err.message));
+  };
+}
       
    <!-- Firebase App (core) -->
    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
