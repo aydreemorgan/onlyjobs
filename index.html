@@ -492,18 +492,6 @@
         <!-- ...existing code... -->
     </div>
   </div>
-
-  <div id="welcome-modal" class="welcome-modal">
-    <div class="welcome-content">
-      <button class="close-btn" id="close-welcome">✕</button>
-      <button class="welcome-btn" id="login-btn">Log In</button>
-      <button class="welcome-btn" id="signup-btn">Sign Up</button>
-      <button class="welcome-btn" id="skip-btn">Skip</button>
-      <button class="welcome-btn" id="google-login-btn" style="display:flex;align-items:center;gap:0.5rem;justify-content:center;">
-  <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" style="width:20px;height:20px;"> Sign in with Google
- </button>
-    </div>
-  </div>
   <div id="user-info" style="display:none;align-items:center;gap:0.7rem;margin-top:1rem;">
   <img id="user-photo" src="" alt="User Photo" style="width:32px;height:32px;border-radius:50%;object-fit:cover;">
   <span id="user-name" style="font-weight:600;"></span>
@@ -946,37 +934,48 @@
    }
 
  
-    // Show welcome modal after 5 seconds
-  window.addEventListener('DOMContentLoaded', () => {
-    const welcomeModal = document.getElementById('welcome-modal');
-    const loginBtn = document.getElementById('welcome-login-btn');
-    const signupBtn = document.getElementById('welcome-signup-btn');
-    const skipBtn = document.getElementById('welcome-skip-btn');
+    // ...existing code...
+window.addEventListener('DOMContentLoaded', () => {
+  // ...existing code...
 
-   function showModal(modal) {
+  const welcomeModal = document.getElementById('welcome-modal');
+  const loginBtn = document.getElementById('welcome-login-btn');
+  const signupBtn = document.getElementById('welcome-signup-btn');
+  const skipBtn = document.getElementById('welcome-skip-btn');
+
+  function showModal(modal) {
     modal.classList.add('show');
-   }
-   function hideModal(modal) {
+  }
+  function hideModal(modal) {
     modal.classList.remove('show');
-   }
+  }
 
-   setTimeout(() => {
+  setTimeout(() => {
     showModal(welcomeModal);
-   } , 5000);
+  }, 5000);
 
+  // Log In with Google when user clicks "Log In"
   loginBtn.onclick = () => {
-    hideModal(welcomeModal);
-    // Show your login modal here, e.g. showModal(authModal);
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(provider)
+      .then(result => {
+        hideModal(welcomeModal);
+        alert("Logged in as " + (result.user.displayName || result.user.email));
+      })
+      .catch(err => alert(err.message));
   };
+
   signupBtn.onclick = () => {
+    // You can show your sign up modal or handle sign up here
     hideModal(welcomeModal);
-    // Show your signup modal here, e.g. showModal(authModal);
+    alert("Sign up flow coming soon!");
   };
+
   skipBtn.onclick = () => {
     hideModal(welcomeModal);
   };
 });
-  
+// ...existing code...
 
    // Make sure hideAllModals does NOT hide profileContainer
    function hideAllModals() {
