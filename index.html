@@ -277,7 +277,7 @@
 
     /* Profile Page Styles */
     .profile-page {
-      display: none !important;
+      display: none;
       position: fixed;
       top: 0;
       left: 0;
@@ -286,14 +286,9 @@
       background: #fdfaf5;
       z-index: 2000;
       overflow-y: auto;
-      visibility: hidden;
-      opacity: 0;
-      transition: opacity 0.3s ease;
     }
     .profile-page.show {
-      display: flex !important;
-      visibility: visible;
-      opacity: 1;
+      display: flex;
     }
     
     /* Profile Sidebar Styles */
@@ -523,13 +518,11 @@
 
     /* Content areas for different sidebar sections */
     .sidebar-content {
-      display: none !important;
-      visibility: hidden;
+      display: none;
     }
     
     .sidebar-content.active {
-      display: block !important;
-      visibility: visible;
+      display: block;
     }
     
     /* Responsive Design */
@@ -1008,23 +1001,11 @@
     // Show/Hide Profile Page
     function showProfilePage() {
       mainContent.style.display = 'none';
-      profilePage.style.display = 'flex';
-      profilePage.style.visibility = 'visible';
-      profilePage.style.opacity = '1';
-      profilePage.style.position = 'fixed';
-      profilePage.style.top = '0';
-      profilePage.style.left = '0';
       profilePage.classList.add('show');
       loadUserProfile();
     }
 
     function hideProfilePage() {
-      profilePage.style.display = 'none';
-      profilePage.style.visibility = 'hidden';
-      profilePage.style.opacity = '0';
-      profilePage.style.position = 'fixed';
-      profilePage.style.top = '-9999px';
-      profilePage.style.left = '-9999px';
       profilePage.classList.remove('show');
       mainContent.style.display = 'block';
       
