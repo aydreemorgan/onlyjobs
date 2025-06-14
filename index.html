@@ -1158,14 +1158,22 @@
         // Show placeholder avatar
         profilePhotoLarge.classList.add('placeholder');
         profilePhotoLarge.innerHTML = '?';
+        if (profilePhotoLarge.src) {
+          profilePhotoLarge.removeAttribute('src');
+        }
         
         // Clear experience list
         experienceList.innerHTML = '<p style="color: #666; text-align: center;">Log in to add work experience</p>';
         addExperienceBtn.disabled = true;
         addExperienceBtn.textContent = 'Log in to add experience';
+        experienceCount = 0; // Reset counter
         
         return;
       }
+
+      // Show loading state
+      saveProfileBtn.textContent = 'Loading profile...';
+      saveProfileBtn.disabled = true;
 
       // User is logged in - enable all fields
       profileEmail.disabled = false;
@@ -1175,8 +1183,6 @@
       profileAbout.disabled = false;
       profilePhotoInput.disabled = false;
       resumeUpload.disabled = false;
-      saveProfileBtn.disabled = false;
-      saveProfileBtn.textContent = 'Save Profile';
       addExperienceBtn.disabled = false;
       addExperienceBtn.textContent = '+ Add Experience';
 
@@ -1191,6 +1197,9 @@
       } else {
         profilePhotoLarge.classList.add('placeholder');
         profilePhotoLarge.innerHTML = (user.displayName || user.email).charAt(0).toUpperCase();
+        if (profilePhotoLarge.src) {
+          profilePhotoLarge.removeAttribute('src');
+        }
       }
 
       // Load additional profile data from Firestore
@@ -1205,7 +1214,7 @@
           // Load experiences
           if (data.experiences) {
             experienceList.innerHTML = '';
-            experienceCount = 0;
+            experienceCount = 0; // Reset counter to prevent desync
             data.experiences.forEach(exp => {
               addExperienceItem();
               const lastItem = experienceList.lastElementChild;
@@ -1217,12 +1226,19 @@
             });
           } else {
             experienceList.innerHTML = '';
+            experienceCount = 0; // Reset counter
           }
         } else {
           experienceList.innerHTML = '';
+          experienceCount = 0; // Reset counter
         }
       } catch (error) {
         console.error('Error loading profile:', error);
+        alert('Error loading profile data. Please try again.');
+      } finally {
+        // Reset button state
+        saveProfileBtn.textContent = 'Save Profile';
+        saveProfileBtn.disabled = false;
       }
     }
 
@@ -1331,12 +1347,40 @@
     exitPostModal.addEventListener('click', () => hideModal(postModal));
 
     submitPost.addEventListener('click', () => {
+      // Validate required fields
+      const title = document.getElementById('post-title').value.trim();
+      const description = document.getElementById('post-description').value.trim();
+      const price = document.getElementById('post-price').value.trim();
+      const location = document.getElementById('post-location').value.trim();
+      
+      if (!title) {
+        alert('Please enter a job title');
+        return;
+      }
+      if (!description) {
+        alert('Please enter a job description');
+        return;
+      }
+      if (!price) {
+        alert('Please enter a price');
+        return;
+      }
+      if (!location) {
+        alert('Please enter a location');
+        return;
+      }
+
+      // Show loading state
+      const originalText = submitPost.textContent;
+      submitPost.textContent = 'Posting...';
+      submitPost.disabled = true;
+
       const post = {
-        title: document.getElementById('post-title').value,
-        description: document.getElementById('post-description').value,
+        title: title,
+        description: description,
         type: document.getElementById('post-type').value,
-        price: document.getElementById('post-price').value,
-        location: document.getElementById('post-location').value,
+        price: price,
+        location: location,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         userId: auth.currentUser ? auth.currentUser.uid : null,
         userEmail: auth.currentUser ? auth.currentUser.email : null
@@ -1346,9 +1390,20 @@
         .then(() => {
           alert("✅ Post created and saved!");
           hideModal(postModal);
+          // Clear form
+          document.getElementById('post-title').value = '';
+          document.getElementById('post-description').value = '';
+          document.getElementById('post-price').value = '';
+          document.getElementById('post-location').value = '';
+          document.getElementById('post-image').value = '';
         })
         .catch(err => {
           alert("Error saving post: " + err.message);
+        })
+        .finally(() => {
+          // Reset button state
+          submitPost.textContent = originalText;
+          submitPost.disabled = false;
         });
     });
 
