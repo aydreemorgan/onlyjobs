@@ -439,6 +439,9 @@
       top: 50%;
       transform: translateY(-50%);
       z-index: 100;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
     }
     .side-btn {
       background: #2f8732;
@@ -449,8 +452,12 @@
       height: 50px;
       font-size: 1.2rem;
       cursor: pointer;
-      margin-bottom: 0.5rem;
       box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+    }
+    .side-btn:hover {
+      background: #246928;
+      transform: scale(1.1);
     }
 
     /* Profile Page Styles */
@@ -734,6 +741,7 @@
 
   <div class="side-buttons">
     <button class="side-btn" id="post-btn">➕</button>
+    <button class="side-btn" id="view-toggle-side-btn">📋</button>
   </div>
 
   <!-- Main Content -->
@@ -1693,6 +1701,11 @@
       listViewBtn.classList.remove('active');
       splitContainer.classList.remove('active');
       cardFlipContainer.style.display = 'block';
+      
+      // Update side button icon
+      viewToggleSideBtn.textContent = '📋';
+      viewToggleSideBtn.title = 'Switch to List View';
+      
       loadJob(jobIndex);
     }
 
@@ -1702,8 +1715,21 @@
       swipeViewBtn.classList.remove('active');
       cardFlipContainer.style.display = 'none';
       splitContainer.classList.add('active');
+      
+      // Update side button icon
+      viewToggleSideBtn.textContent = '🎯';
+      viewToggleSideBtn.title = 'Switch to Swipe View';
+      
       populateJobsList();
       showJobPreview(selectedJobIndex);
+    }
+
+    function toggleView() {
+      if (currentView === 'swipe') {
+        switchToListView();
+      } else {
+        switchToSwipeView();
+      }
     }
 
     function populateJobsList() {
@@ -1788,6 +1814,7 @@
     // View Toggle Event Listeners
     swipeViewBtn.addEventListener('click', switchToSwipeView);
     listViewBtn.addEventListener('click', switchToListView);
+    viewToggleSideBtn.addEventListener('click', toggleView);
 
     function setTransform(x, y) {
       card.style.transform = `translate(${x}px, ${y}px) rotate(${x * 0.05}deg)`;
