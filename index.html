@@ -190,6 +190,184 @@
       background: #2f8732;
       color: white;
     }
+
+    /* View Toggle Styles */
+    .view-toggle {
+      display: flex;
+      gap: 0.5rem;
+      padding: 0 1rem 1rem;
+      justify-content: center;
+    }
+    .view-toggle-btn {
+      padding: 0.6rem 1.2rem;
+      border: 2px solid #2f8732;
+      border-radius: 25px;
+      background: white;
+      color: #2f8732;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .view-toggle-btn:hover,
+    .view-toggle-btn.active {
+      background: #2f8732;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(47, 135, 50, 0.3);
+    }
+
+    /* Split Screen Styles */
+    .split-container {
+      display: none;
+      height: calc(100vh - 200px);
+      margin: 1rem;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    }
+    .split-container.active {
+      display: flex;
+    }
+
+    .jobs-list {
+      flex: 1;
+      background: white;
+      overflow-y: auto;
+      border-right: 2px solid #e6f5e6;
+    }
+
+    .job-preview {
+      flex: 1;
+      background: #fdfaf5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #666;
+      font-size: 1.1rem;
+    }
+
+    .job-item {
+      padding: 1.5rem;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .job-item:hover {
+      background: #f8fff8;
+      border-left: 4px solid #2f8732;
+      padding-left: calc(1.5rem - 4px);
+    }
+    .job-item.selected {
+      background: #e6f5e6;
+      border-left: 4px solid #2f8732;
+      padding-left: calc(1.5rem - 4px);
+    }
+    .job-item:last-child {
+      border-bottom: none;
+    }
+
+    .job-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.5rem;
+    }
+    .job-item-title {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #2f8732;
+      margin: 0;
+    }
+    .job-item-price {
+      background: #2f8732;
+      color: white;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .job-item-details {
+      color: #666;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+    .job-item-description {
+      color: #444;
+      font-size: 0.85rem;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .job-preview-card {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      margin: 2rem;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      border: 2px solid #2f8732;
+    }
+    .job-preview-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+    }
+    .job-preview-title {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: #2f8732;
+      margin-bottom: 0.5rem;
+    }
+    .job-preview-details {
+      color: #666;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+    .job-preview-description {
+      color: #444;
+      line-height: 1.5;
+      margin-bottom: 1.5rem;
+    }
+    .job-preview-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+    .job-preview-actions button {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .job-preview-actions .pass-btn {
+      background: #f5f5f5;
+      color: #666;
+    }
+    .job-preview-actions .pass-btn:hover {
+      background: #ff6b6b;
+      color: white;
+    }
+    .job-preview-actions .apply-btn {
+      background: #2f8732;
+      color: white;
+    }
+    .job-preview-actions .apply-btn:hover {
+      background: #246928;
+      transform: translateY(-2px);
+    }
     .job-extra {
       display: none;
       padding: 1rem;
@@ -578,6 +756,26 @@
       <button class="post-type-btn" data-type="available">I'm available</button>
       <button class="post-type-btn" data-type="looking">I'm looking for</button>
       <button class="post-type-btn" data-type="hiring">Hiring help</button>
+    </div>
+
+    <!-- View Toggle -->
+    <div class="view-toggle">
+      <button class="view-toggle-btn active" id="swipe-view-btn">
+        <span>🎯</span> Swipe View
+      </button>
+      <button class="view-toggle-btn" id="list-view-btn">
+        <span>📋</span> List View
+      </button>
+    </div>
+
+    <!-- Split Screen Container -->
+    <div class="split-container" id="split-container">
+      <div class="jobs-list" id="jobs-list">
+        <!-- Job items will be populated here -->
+      </div>
+      <div class="job-preview" id="job-preview">
+        <div>Select a job to preview</div>
+      </div>
     </div>
 
     <!-- Card Flip Container -->
@@ -1426,39 +1624,170 @@
       {
         title: "Part-Time Dog Walker",
         details: "Salt Lake City • $20/hr • Local",
+        price: "$20/hr",
         img: "https://via.placeholder.com/400x200?text=Dog+Walker",
         extra: "Must love dogs! Flexible hours. Experience with pets preferred. Available weekends."
       },
       {
         title: "Event Assistant",
         details: "Virtual • $18/hr • Weekend Work",
+        price: "$18/hr",
         img: "https://via.placeholder.com/400x200?text=Event+Assistant",
         extra: "Help with virtual events. Good communication skills required. Flexible schedule."
       },
       {
         title: "Yard Cleanup Crew",
         details: "West Valley • $22/hr • 1-day Gig",
+        price: "$22/hr",
         img: "https://via.placeholder.com/400x200?text=Yard+Cleanup",
         extra: "Outdoor work. Must be able to lift 30 lbs. One day only."
       },
       {
         title: "Tutoring Assistant",
         details: "University of Utah • $25/hr • Part-time",
+        price: "$25/hr",
         img: "https://via.placeholder.com/400x200?text=Tutoring",
         extra: "Help students with math and science. Must have strong academic background."
       },
       {
         title: "Social Media Manager",
         details: "Remote • $30/hr • Flexible",
+        price: "$30/hr",
         img: "https://via.placeholder.com/400x200?text=Social+Media",
         extra: "Manage social media accounts for small business. Creative content creation required."
+      },
+      {
+        title: "Photography Assistant",
+        details: "Downtown SLC • $25/hr • Weekends",
+        price: "$25/hr",
+        img: "https://via.placeholder.com/400x200?text=Photography",
+        extra: "Help with wedding photography, equipment handling. Creative eye preferred."
+      },
+      {
+        title: "Delivery Driver",
+        details: "Salt Lake City • $20/hr + tips • Flexible",
+        price: "$20/hr",
+        img: "https://via.placeholder.com/400x200?text=Delivery",
+        extra: "Food delivery service. Must have reliable vehicle and valid driver's license."
+      },
+      {
+        title: "House Cleaning",
+        details: "Millcreek • $25/hr • Weekly",
+        price: "$25/hr",
+        img: "https://via.placeholder.com/400x200?text=Cleaning",
+        extra: "Weekly house cleaning service. Attention to detail required. Supplies provided."
       }
     ];
 
     let jobIndex = 0;
     let startX = 0, startY = 0, currentX = 0, currentY = 0, isDragging = false;
+    let currentView = 'swipe'; // 'swipe' or 'list'
+    let selectedJobIndex = 0;
     const swipeThreshold = 100;
     const swipeUpThreshold = 80;
+
+    // View Toggle Functions
+    function switchToSwipeView() {
+      currentView = 'swipe';
+      swipeViewBtn.classList.add('active');
+      listViewBtn.classList.remove('active');
+      splitContainer.classList.remove('active');
+      cardFlipContainer.style.display = 'block';
+      loadJob(jobIndex);
+    }
+
+    function switchToListView() {
+      currentView = 'list';
+      listViewBtn.classList.add('active');
+      swipeViewBtn.classList.remove('active');
+      cardFlipContainer.style.display = 'none';
+      splitContainer.classList.add('active');
+      populateJobsList();
+      showJobPreview(selectedJobIndex);
+    }
+
+    function populateJobsList() {
+      jobsList.innerHTML = '';
+      jobs.forEach((job, index) => {
+        const jobItem = document.createElement('div');
+        jobItem.className = 'job-item';
+        if (index === selectedJobIndex) {
+          jobItem.classList.add('selected');
+        }
+        
+        jobItem.innerHTML = `
+          <div class="job-item-header">
+            <h3 class="job-item-title">${job.title}</h3>
+            <span class="job-item-price">${job.price}</span>
+          </div>
+          <div class="job-item-details">${job.details}</div>
+          <div class="job-item-description">${job.extra}</div>
+        `;
+        
+        jobItem.addEventListener('click', () => {
+          // Remove selected class from all items
+          document.querySelectorAll('.job-item').forEach(item => {
+            item.classList.remove('selected');
+          });
+          // Add selected class to clicked item
+          jobItem.classList.add('selected');
+          selectedJobIndex = index;
+          showJobPreview(index);
+        });
+        
+        jobsList.appendChild(jobItem);
+      });
+    }
+
+    function showJobPreview(index) {
+      if (index >= jobs.length) {
+        jobPreview.innerHTML = '<div>No job selected</div>';
+        return;
+      }
+      
+      const job = jobs[index];
+      jobPreview.innerHTML = `
+        <div class="job-preview-card">
+          <img src="${job.img}" alt="${job.title}">
+          <h2 class="job-preview-title">${job.title}</h2>
+          <div class="job-preview-details">${job.details}</div>
+          <div class="job-preview-description">${job.extra}</div>
+          <div class="job-preview-actions">
+            <button class="pass-btn" onclick="handleListAction('pass', ${index})">❌ Pass</button>
+            <button class="apply-btn" onclick="handleListAction('apply', ${index})">✅ Apply</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function handleListAction(action, index) {
+      if (action === 'apply') {
+        alert('🎉 You applied to this job!');
+      } else {
+        console.log('❌ Passed on job');
+      }
+      
+      // Remove job from list
+      jobs.splice(index, 1);
+      
+      // Update selected index if needed
+      if (selectedJobIndex >= jobs.length) {
+        selectedJobIndex = Math.max(0, jobs.length - 1);
+      }
+      
+      // Refresh the list view
+      if (jobs.length > 0) {
+        populateJobsList();
+        showJobPreview(selectedJobIndex);
+      } else {
+        jobsList.innerHTML = '<div style="padding: 2rem; text-align: center; color: #666;">No more jobs available!</div>';
+        jobPreview.innerHTML = '<div>No more jobs to preview</div>';
+      }
+    }
+
+    // View Toggle Event Listeners
+    swipeViewBtn.addEventListener('click', switchToSwipeView);
+    listViewBtn.addEventListener('click', switchToListView);
 
     function setTransform(x, y) {
       card.style.transform = `translate(${x}px, ${y}px) rotate(${x * 0.05}deg)`;
@@ -1499,7 +1828,9 @@
 
     function loadNextJob() {
       jobIndex++;
-      loadJob(jobIndex);
+      if (currentView === 'swipe') {
+        loadJob(jobIndex);
+      }
     }
 
     function handleSwipe(endX, endY) {
@@ -1628,14 +1959,15 @@
     card.addEventListener("dragstart", (e) => e.preventDefault());
     card.addEventListener("selectstart", (e) => e.preventDefault());
 
-    // Initialize with first job
+    // Initialize with first job and swipe view
     loadJob(jobIndex);
 
     // Set initial cursor
     card.style.cursor = 'grab';
 
-    // Expose removeExperience function globally
+    // Expose functions globally
     window.removeExperience = removeExperience;
+    window.handleListAction = handleListAction;
   </script>
 </body>
 </html>
