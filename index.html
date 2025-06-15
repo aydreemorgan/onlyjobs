@@ -967,7 +967,7 @@
       </button>
     </div>
 
-    <!-- Split Screen Container -->
+    <!-- Split Screen Container for List View -->
     <div class="split-container" id="split-container">
       <div class="jobs-list" id="jobs-list">
         <!-- Job items will be populated here -->
@@ -977,8 +977,8 @@
       </div>
     </div>
 
-    <!-- Card Flip Container -->
-    <div class="card-flip-container">
+    <!-- Card Flip Container for Swipe View -->
+    <div class="card-flip-container" id="card-flip-container">
       <div class="card-flip" id="card-flip">
         <!-- Front Side -->
         <div class="card card-front" id="swipe-card">
@@ -1368,6 +1368,16 @@
     const mainContent = document.getElementById('main-content');
     const profilePage = document.getElementById('profile-page');
 
+    // Define all required elements with null checks
+    const cardFlipContainer = document.getElementById('card-flip-container');
+    const splitContainer = document.getElementById('split-container');
+    const jobsList = document.getElementById('jobs-list');
+    const jobPreview = document.getElementById('job-preview');
+    const swipeViewBtn = document.getElementById('swipe-view-btn');
+    const listViewBtn = document.getElementById('list-view-btn');
+    const viewToggleSideBtn = document.getElementById('view-toggle-side-btn');
+    const welcomeLoginBtn = document.getElementById('welcome-login-btn');
+
     // Sidebar functionality
     const sidebarIcons = document.querySelectorAll('.sidebar-icon');
     const sidebarContents = document.querySelectorAll('.sidebar-content');
@@ -1460,80 +1470,98 @@
       profileHeaderTitle.textContent = 'My Profile';
     }
 
-    profileBackBtn.onclick = hideProfilePage;
+    if (profileBackBtn) {
+      profileBackBtn.onclick = hideProfilePage;
+    }
 
     // Profile Button Handler (always available)
-    profileBtn.onclick = () => {
-      showProfilePage();
-    };
+    if (profileBtn) {
+      profileBtn.onclick = () => {
+        showProfilePage();
+      };
+    }
 
     // Auth Button Handler
-    authBtn.onclick = () => {
-      if (auth.currentUser) {
-        // If logged in, logout
-        auth.signOut().then(() => {
-          alert('Logged out successfully');
-        });
-      } else {
-        // If logged out, show login modal
-        showModal(authModal);
-      }
-    };
+    if (authBtn) {
+      authBtn.onclick = () => {
+        if (auth.currentUser) {
+          // If logged in, logout
+          auth.signOut().then(() => {
+            alert('Logged out successfully');
+          });
+        } else {
+          // If logged out, show login modal
+          showModal(authModal);
+        }
+      };
+    }
 
     // Email login
-    loginEmailBtn.onclick = () => {
-      auth.signInWithEmailAndPassword(authEmail.value, authPassword.value)
-        .then(() => {
-          hideModal(authModal);
-          alert('Logged in!');
-        })
-        .catch(err => alert(err.message));
-    };
+    if (loginEmailBtn) {
+      loginEmailBtn.onclick = () => {
+        auth.signInWithEmailAndPassword(authEmail.value, authPassword.value)
+          .then(() => {
+            hideModal(authModal);
+            alert('Logged in!');
+          })
+          .catch(err => alert(err.message));
+      };
+    }
 
     // Email signup
-    signupEmailBtn.onclick = () => {
-      auth.createUserWithEmailAndPassword(authEmail.value, authPassword.value)
-        .then(() => {
-          hideModal(authModal);
-          alert('Account created!');
-        })
-        .catch(err => alert(err.message));
-    };
+    if (signupEmailBtn) {
+      signupEmailBtn.onclick = () => {
+        auth.createUserWithEmailAndPassword(authEmail.value, authPassword.value)
+          .then(() => {
+            hideModal(authModal);
+            alert('Account created!');
+          })
+          .catch(err => alert(err.message));
+      };
+    }
 
     // Google login
-    googleAuthBtn.onclick = () => {
-      const provider = new firebase.auth.GoogleAuthProvider();
-      auth.signInWithPopup(provider)
-        .then(() => {
-          hideModal(authModal);
-          alert('Logged in with Google!');
-        })
-        .catch(err => alert(err.message));
-    };
+    if (googleAuthBtn) {
+      googleAuthBtn.onclick = () => {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        auth.signInWithPopup(provider)
+          .then(() => {
+            hideModal(authModal);
+            alert('Logged in with Google!');
+          })
+          .catch(err => alert(err.message));
+      };
+    }
 
-    closeAuthModal.onclick = () => hideModal(authModal);
+    if (closeAuthModal) {
+      closeAuthModal.onclick = () => hideModal(authModal);
+    }
 
     // Profile Photo Upload
-    profilePhotoInput.onchange = function() {
-      const file = this.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          profilePhotoLarge.src = e.target.result;
-          profilePhotoLarge.classList.remove('placeholder');
-          profilePhotoLarge.innerHTML = '';
-        };
-        reader.readAsDataURL(file);
-      }
-    };
+    if (profilePhotoInput) {
+      profilePhotoInput.onchange = function() {
+        const file = this.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            profilePhotoLarge.src = e.target.result;
+            profilePhotoLarge.classList.remove('placeholder');
+            profilePhotoLarge.innerHTML = '';
+          };
+          reader.readAsDataURL(file);
+        }
+      };
+    }
 
     // Resume Upload
-    resumeUpload.onchange = function() {
-      const file = this.files[0];
-      if (file) {
-        resumeStatus.textContent = `Selected: ${file.name}`;
-      }
-    };
+    if (resumeUpload) {
+      resumeUpload.onchange = function() {
+        const file = this.files[0];
+        if (file) {
+          resumeStatus.textContent = `Selected: ${file.name}`;
+        }
+      };
+    }
 
     // Experience Management
     let experienceCount = 0;
@@ -1578,7 +1606,9 @@
       button.closest('.experience-item').remove();
     }
 
-    addExperienceBtn.onclick = addExperienceItem;
+    if (addExperienceBtn) {
+      addExperienceBtn.onclick = addExperienceItem;
+    }
 
     // Load User Profile
     async function loadUserProfile() {
@@ -1586,62 +1616,80 @@
       
       if (!user) {
         // Show logged out state
-        profileEmail.value = 'Please log in to edit profile';
-        profileEmail.disabled = true;
-        profileName.value = '';
-        profileName.disabled = true;
-        profilePhone.disabled = true;
-        profileLocation.disabled = true;
-        profileAbout.disabled = true;
-        profilePhotoInput.disabled = true;
-        resumeUpload.disabled = true;
-        saveProfileBtn.disabled = true;
-        saveProfileBtn.textContent = 'Log in to save profile';
+        if (profileEmail) {
+          profileEmail.value = 'Please log in to edit profile';
+          profileEmail.disabled = true;
+        }
+        if (profileName) {
+          profileName.value = '';
+          profileName.disabled = true;
+        }
+        if (profilePhone) profilePhone.disabled = true;
+        if (profileLocation) profileLocation.disabled = true;
+        if (profileAbout) profileAbout.disabled = true;
+        if (profilePhotoInput) profilePhotoInput.disabled = true;
+        if (resumeUpload) resumeUpload.disabled = true;
+        if (saveProfileBtn) {
+          saveProfileBtn.disabled = true;
+          saveProfileBtn.textContent = 'Log in to save profile';
+        }
         
         // Show placeholder avatar
-        profilePhotoLarge.classList.add('placeholder');
-        profilePhotoLarge.innerHTML = '?';
-        if (profilePhotoLarge.src) {
-          profilePhotoLarge.removeAttribute('src');
+        if (profilePhotoLarge) {
+          profilePhotoLarge.classList.add('placeholder');
+          profilePhotoLarge.innerHTML = '?';
+          if (profilePhotoLarge.src) {
+            profilePhotoLarge.removeAttribute('src');
+          }
         }
         
         // Clear experience list
-        experienceList.innerHTML = '<p style="color: #666; text-align: center;">Log in to add work experience</p>';
-        addExperienceBtn.disabled = true;
-        addExperienceBtn.textContent = 'Log in to add experience';
+        if (experienceList) {
+          experienceList.innerHTML = '<p style="color: #666; text-align: center;">Log in to add work experience</p>';
+        }
+        if (addExperienceBtn) {
+          addExperienceBtn.disabled = true;
+          addExperienceBtn.textContent = 'Log in to add experience';
+        }
         experienceCount = 0; // Reset counter
         
         return;
       }
 
       // Show loading state
-      saveProfileBtn.textContent = 'Loading profile...';
-      saveProfileBtn.disabled = true;
+      if (saveProfileBtn) {
+        saveProfileBtn.textContent = 'Loading profile...';
+        saveProfileBtn.disabled = true;
+      }
 
       // User is logged in - enable all fields
-      profileEmail.disabled = false;
-      profileName.disabled = false;
-      profilePhone.disabled = false;
-      profileLocation.disabled = false;
-      profileAbout.disabled = false;
-      profilePhotoInput.disabled = false;
-      resumeUpload.disabled = false;
-      addExperienceBtn.disabled = false;
-      addExperienceBtn.textContent = '+ Add Experience';
+      if (profileEmail) profileEmail.disabled = false;
+      if (profileName) profileName.disabled = false;
+      if (profilePhone) profilePhone.disabled = false;
+      if (profileLocation) profileLocation.disabled = false;
+      if (profileAbout) profileAbout.disabled = false;
+      if (profilePhotoInput) profilePhotoInput.disabled = false;
+      if (resumeUpload) resumeUpload.disabled = false;
+      if (addExperienceBtn) {
+        addExperienceBtn.disabled = false;
+        addExperienceBtn.textContent = '+ Add Experience';
+      }
 
-      profileEmail.value = user.email;
-      profileName.value = user.displayName || '';
+      if (profileEmail) profileEmail.value = user.email;
+      if (profileName) profileName.value = user.displayName || '';
 
       // Set profile photo
-      if (user.photoURL) {
-        profilePhotoLarge.src = user.photoURL;
-        profilePhotoLarge.classList.remove('placeholder');
-        profilePhotoLarge.innerHTML = '';
-      } else {
-        profilePhotoLarge.classList.add('placeholder');
-        profilePhotoLarge.innerHTML = (user.displayName || user.email).charAt(0).toUpperCase();
-        if (profilePhotoLarge.src) {
-          profilePhotoLarge.removeAttribute('src');
+      if (profilePhotoLarge) {
+        if (user.photoURL) {
+          profilePhotoLarge.src = user.photoURL;
+          profilePhotoLarge.classList.remove('placeholder');
+          profilePhotoLarge.innerHTML = '';
+        } else {
+          profilePhotoLarge.classList.add('placeholder');
+          profilePhotoLarge.innerHTML = (user.displayName || user.email).charAt(0).toUpperCase();
+          if (profilePhotoLarge.src) {
+            profilePhotoLarge.removeAttribute('src');
+          }
         }
       }
 
@@ -1650,12 +1698,12 @@
         const profileDoc = await db.collection('profiles').doc(user.uid).get();
         if (profileDoc.exists) {
           const data = profileDoc.data();
-          profilePhone.value = data.phone || '';
-          profileLocation.value = data.location || '';
-          profileAbout.value = data.about || '';
+          if (profilePhone) profilePhone.value = data.phone || '';
+          if (profileLocation) profileLocation.value = data.location || '';
+          if (profileAbout) profileAbout.value = data.about || '';
           
           // Load experiences
-          if (data.experiences) {
+          if (data.experiences && experienceList) {
             experienceList.innerHTML = '';
             experienceCount = 0; // Reset counter to prevent desync
             data.experiences.forEach(exp => {
@@ -1667,11 +1715,11 @@
               inputs[2].value = exp.duration || '';
               inputs[3].value = exp.description || '';
             });
-          } else {
+          } else if (experienceList) {
             experienceList.innerHTML = '';
             experienceCount = 0; // Reset counter
           }
-        } else {
+        } else if (experienceList) {
           experienceList.innerHTML = '';
           experienceCount = 0; // Reset counter
         }
@@ -1680,97 +1728,107 @@
         alert('Error loading profile data. Please try again.');
       } finally {
         // Reset button state
-        saveProfileBtn.textContent = 'Save Profile';
-        saveProfileBtn.disabled = false;
+        if (saveProfileBtn) {
+          saveProfileBtn.textContent = 'Save Profile';
+          saveProfileBtn.disabled = false;
+        }
       }
     }
 
     // Save User Profile
-    saveProfileBtn.onclick = async () => {
-      const user = auth.currentUser;
-      if (!user) {
-        alert('Please log in to save your profile');
-        showModal(authModal);
-        return;
-      }
-
-      try {
-        saveProfileBtn.textContent = 'Saving...';
-        saveProfileBtn.disabled = true;
-
-        let profilePhotoURL = user.photoURL;
-
-        // Upload profile photo if changed
-        const photoFile = profilePhotoInput.files[0];
-        if (photoFile) {
-          const photoRef = storage.ref(`profile-photos/${user.uid}`);
-          const uploadTask = await photoRef.put(photoFile);
-          profilePhotoURL = await uploadTask.ref.getDownloadURL();
+    if (saveProfileBtn) {
+      saveProfileBtn.onclick = async () => {
+        const user = auth.currentUser;
+        if (!user) {
+          alert('Please log in to save your profile');
+          showModal(authModal);
+          return;
         }
 
-        // Upload resume if provided
-        let resumeURL = null;
-        const resumeFile = resumeUpload.files[0];
-        if (resumeFile) {
-          const resumeRef = storage.ref(`resumes/${user.uid}_${resumeFile.name}`);
-          const uploadTask = await resumeRef.put(resumeFile);
-          resumeURL = await uploadTask.ref.getDownloadURL();
-        }
+        try {
+          saveProfileBtn.textContent = 'Saving...';
+          saveProfileBtn.disabled = true;
 
-        // Collect experience data
-        const experiences = [];
-        const experienceItems = experienceList.querySelectorAll('.experience-item');
-        experienceItems.forEach(item => {
-          const inputs = item.querySelectorAll('input, textarea');
-          if (inputs[0].value.trim()) {
-            experiences.push({
-              title: inputs[0].value.trim(),
-              company: inputs[1].value.trim(),
-              duration: inputs[2].value.trim(),
-              description: inputs[3].value.trim()
+          let profilePhotoURL = user.photoURL;
+
+          // Upload profile photo if changed
+          const photoFile = profilePhotoInput ? profilePhotoInput.files[0] : null;
+          if (photoFile) {
+            const photoRef = storage.ref(`profile-photos/${user.uid}`);
+            const uploadTask = await photoRef.put(photoFile);
+            profilePhotoURL = await uploadTask.ref.getDownloadURL();
+          }
+
+          // Upload resume if provided
+          let resumeURL = null;
+          const resumeFile = resumeUpload ? resumeUpload.files[0] : null;
+          if (resumeFile) {
+            const resumeRef = storage.ref(`resumes/${user.uid}_${resumeFile.name}`);
+            const uploadTask = await resumeRef.put(resumeFile);
+            resumeURL = await uploadTask.ref.getDownloadURL();
+          }
+
+          // Collect experience data
+          const experiences = [];
+          if (experienceList) {
+            const experienceItems = experienceList.querySelectorAll('.experience-item');
+            experienceItems.forEach(item => {
+              const inputs = item.querySelectorAll('input, textarea');
+              if (inputs[0].value.trim()) {
+                experiences.push({
+                  title: inputs[0].value.trim(),
+                  company: inputs[1].value.trim(),
+                  duration: inputs[2].value.trim(),
+                  description: inputs[3].value.trim()
+                });
+              }
             });
           }
-        });
 
-        // Save to Firestore
-        const profileData = {
-          name: profileName.value,
-          phone: profilePhone.value,
-          location: profileLocation.value,
-          about: profileAbout.value,
-          experiences: experiences,
-          profilePhotoURL: profilePhotoURL,
-          resumeURL: resumeURL,
-          updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-        };
+          // Save to Firestore
+          const profileData = {
+            name: profileName ? profileName.value : '',
+            phone: profilePhone ? profilePhone.value : '',
+            location: profileLocation ? profileLocation.value : '',
+            about: profileAbout ? profileAbout.value : '',
+            experiences: experiences,
+            profilePhotoURL: profilePhotoURL,
+            resumeURL: resumeURL,
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+          };
 
-        await db.collection('profiles').doc(user.uid).set(profileData, { merge: true });
+          await db.collection('profiles').doc(user.uid).set(profileData, { merge: true });
 
-        alert('Profile saved successfully!');
-        
-      } catch (error) {
-        console.error('Error saving profile:', error);
-        alert('Error saving profile: ' + error.message);
-      } finally {
-        saveProfileBtn.textContent = 'Save Profile';
-        saveProfileBtn.disabled = false;
-      }
-    };
+          alert('Profile saved successfully!');
+          
+        } catch (error) {
+          console.error('Error saving profile:', error);
+          alert('Error saving profile: ' + error.message);
+        } finally {
+          saveProfileBtn.textContent = 'Save Profile';
+          saveProfileBtn.disabled = false;
+        }
+      };
+    }
 
     // Logout
-    logoutBtn.onclick = () => {
-      auth.signOut().then(() => {
-        alert('Logged out successfully');
-        hideProfilePage();
-      });
-    };
+    if (logoutBtn) {
+      logoutBtn.onclick = () => {
+        auth.signOut().then(() => {
+          alert('Logged out successfully');
+          hideProfilePage();
+        });
+      };
+    }
 
     // Update Auth Button Based on Login State
     auth.onAuthStateChanged(user => {
       if (user) {
         // User is logged in
-        authBtn.textContent = 'Logout';
-        authBtn.style.background = '#ff4444';
+        if (authBtn) {
+          authBtn.textContent = 'Logout';
+          authBtn.style.background = '#ff4444';
+        }
         
         // Update welcome popup login button if visible
         if (welcomeLoginBtn) {
@@ -1778,8 +1836,10 @@
         }
       } else {
         // User is logged out
-        authBtn.textContent = 'Log In';
-        authBtn.style.background = '#2f8732';
+        if (authBtn) {
+          authBtn.textContent = 'Log In';
+          authBtn.style.background = '#2f8732';
+        }
         
         // Update welcome popup login button if visible
         if (welcomeLoginBtn) {
@@ -1795,70 +1855,78 @@
     const submitPost = document.getElementById('submit-post');
     const exitPostModal = document.getElementById('exit-post-modal');
 
-    postBtn.addEventListener('click', () => showModal(postModal));
-    closePostModalBtn.addEventListener('click', () => hideModal(postModal));
-    exitPostModal.addEventListener('click', () => hideModal(postModal));
+    if (postBtn) {
+      postBtn.addEventListener('click', () => showModal(postModal));
+    }
+    if (closePostModalBtn) {
+      closePostModalBtn.addEventListener('click', () => hideModal(postModal));
+    }
+    if (exitPostModal) {
+      exitPostModal.addEventListener('click', () => hideModal(postModal));
+    }
 
-    submitPost.addEventListener('click', () => {
-      // Validate required fields
-      const title = document.getElementById('post-title').value.trim();
-      const description = document.getElementById('post-description').value.trim();
-      const price = document.getElementById('post-price').value.trim();
-      const location = document.getElementById('post-location').value.trim();
-      
-      if (!title) {
-        alert('Please enter a job title');
-        return;
-      }
-      if (!description) {
-        alert('Please enter a job description');
-        return;
-      }
-      if (!price) {
-        alert('Please enter a price');
-        return;
-      }
-      if (!location) {
-        alert('Please enter a location');
-        return;
-      }
+    if (submitPost) {
+      submitPost.addEventListener('click', () => {
+        // Validate required fields
+        const title = document.getElementById('post-title').value.trim();
+        const description = document.getElementById('post-description').value.trim();
+        const price = document.getElementById('post-price').value.trim();
+        const location = document.getElementById('post-location').value.trim();
+        
+        if (!title) {
+          alert('Please enter a job title');
+          return;
+        }
+        if (!description) {
+          alert('Please enter a job description');
+          return;
+        }
+        if (!price) {
+          alert('Please enter a price');
+          return;
+        }
+        if (!location) {
+          alert('Please enter a location');
+          return;
+        }
 
-      // Show loading state
-      const originalText = submitPost.textContent;
-      submitPost.textContent = 'Posting...';
-      submitPost.disabled = true;
+        // Show loading state
+        const originalText = submitPost.textContent;
+        submitPost.textContent = 'Posting...';
+        submitPost.disabled = true;
 
-      const post = {
-        title: title,
-        description: description,
-        type: document.getElementById('post-type').value,
-        price: price,
-        location: location,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        userId: auth.currentUser ? auth.currentUser.uid : null,
-        userEmail: auth.currentUser ? auth.currentUser.email : null
-      };
+        const post = {
+          title: title,
+          description: description,
+          type: document.getElementById('post-type').value,
+          price: price,
+          location: location,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+          userId: auth.currentUser ? auth.currentUser.uid : null,
+          userEmail: auth.currentUser ? auth.currentUser.email : null
+        };
 
-      db.collection('posts').add(post)
-        .then(() => {
-          alert("✅ Post created and saved!");
-          hideModal(postModal);
-          // Clear form
-          document.getElementById('post-title').value = '';
-          document.getElementById('post-description').value = '';
-          document.getElementById('post-price').value = '';
-          document.getElementById('post-location').value = '';
-          document.getElementById('post-image').value = '';
-        })
-        .catch(err => {
-          alert("Error saving post: " + err.message);
-        })
-        .finally(() => {
-          // Reset button state
-          submitPost.textContent = originalText;
-          submitPost.disabled = false;
-        });
-    });
+        db.collection('posts').add(post)
+          .then(() => {
+            alert("✅ Post created and saved!");
+            hideModal(postModal);
+            // Clear form
+            document.getElementById('post-title').value = '';
+            document.getElementById('post-description').value = '';
+            document.getElementById('post-price').value = '';
+            document.getElementById('post-location').value = '';
+            document.getElementById('post-image').value = '';
+          })
+          .catch(err => {
+            alert("Error saving post: " + err.message);
+          })
+          .finally(() => {
+            // Reset button state
+            submitPost.textContent = originalText;
+            submitPost.disabled = false;
+          });
+      });
+    }
 
     // Card Swipe and Flip Logic
     const cardFlip = document.getElementById("card-flip");
@@ -1944,28 +2012,38 @@
     // View Toggle Functions
     function switchToSwipeView() {
       currentView = 'swipe';
-      swipeViewBtn.classList.add('active');
-      listViewBtn.classList.remove('active');
-      splitContainer.classList.remove('active');
-      cardFlipContainer.style.display = 'block';
+      if (swipeViewBtn) swipeViewBtn.classList.add('active');
+      if (listViewBtn) listViewBtn.classList.remove('active');
+      if (splitContainer) splitContainer.classList.remove('active');
+      if (cardFlipContainer) cardFlipContainer.style.display = 'block';
       
       // Update side button icon
-      viewToggleSideBtn.textContent = '📋';
-      viewToggleSideBtn.title = 'Switch to List View';
+      if (viewToggleSideBtn) {
+        viewToggleSideBtn.textContent = '📋';
+        viewToggleSideBtn.title = 'Switch to List View';
+      }
       
       loadJob(jobIndex);
     }
 
     function switchToListView() {
+      console.log('Switching to list view');
       currentView = 'list';
-      listViewBtn.classList.add('active');
-      swipeViewBtn.classList.remove('active');
-      cardFlipContainer.style.display = 'none';
-      splitContainer.classList.add('active');
+      if (listViewBtn) listViewBtn.classList.add('active');
+      if (swipeViewBtn) swipeViewBtn.classList.remove('active');
+      if (cardFlipContainer) cardFlipContainer.style.display = 'none';
+      if (splitContainer) splitContainer.classList.add('active');
       
       // Update side button icon
-      viewToggleSideBtn.textContent = '🎯';
-      viewToggleSideBtn.title = 'Switch to Swipe View';
+      if (viewToggleSideBtn) {
+        viewToggleSideBtn.textContent = '🎯';
+        viewToggleSideBtn.title = 'Switch to Swipe View';
+      }
+      
+      // Ensure we have a valid selectedJobIndex
+      if (selectedJobIndex >= jobs.length) {
+        selectedJobIndex = 0;
+      }
       
       populateJobsList();
       showJobPreview(selectedJobIndex);
@@ -1980,7 +2058,16 @@
     }
 
     function populateJobsList() {
+      console.log('Populating jobs list with', jobs.length, 'jobs');
+      if (!jobsList) return;
+      
       jobsList.innerHTML = '';
+      
+      if (jobs.length === 0) {
+        jobsList.innerHTML = '<div style="padding: 2rem; text-align: center; color: #666;">No more jobs available!</div>';
+        return;
+      }
+      
       jobs.forEach((job, index) => {
         const jobItem = document.createElement('div');
         jobItem.className = 'job-item';
@@ -1998,6 +2085,7 @@
         `;
         
         jobItem.addEventListener('click', () => {
+          console.log('Job item clicked:', index);
           // Remove selected class from all items
           document.querySelectorAll('.job-item').forEach(item => {
             item.classList.remove('selected');
@@ -2013,7 +2101,10 @@
     }
 
     function showJobPreview(index) {
-      if (index >= jobs.length) {
+      console.log('Showing job preview for index:', index);
+      if (!jobPreview) return;
+      
+      if (index >= jobs.length || index < 0) {
         jobPreview.innerHTML = '<div>No job selected</div>';
         return;
       }
@@ -2053,51 +2144,65 @@
         populateJobsList();
         showJobPreview(selectedJobIndex);
       } else {
-        jobsList.innerHTML = '<div style="padding: 2rem; text-align: center; color: #666;">No more jobs available!</div>';
-        jobPreview.innerHTML = '<div>No more jobs to preview</div>';
+        if (jobsList) {
+          jobsList.innerHTML = '<div style="padding: 2rem; text-align: center; color: #666;">No more jobs available!</div>';
+        }
+        if (jobPreview) {
+          jobPreview.innerHTML = '<div>No more jobs to preview</div>';
+        }
       }
     }
 
     // View Toggle Event Listeners
-    swipeViewBtn.addEventListener('click', switchToSwipeView);
-    listViewBtn.addEventListener('click', switchToListView);
-    viewToggleSideBtn.addEventListener('click', toggleView);
+    if (swipeViewBtn) {
+      swipeViewBtn.addEventListener('click', switchToSwipeView);
+    }
+    if (listViewBtn) {
+      listViewBtn.addEventListener('click', switchToListView);
+    }
+    if (viewToggleSideBtn) {
+      viewToggleSideBtn.addEventListener('click', toggleView);
+    }
 
     function setTransform(x, y) {
-      card.style.transform = `translate(${x}px, ${y}px) rotate(${x * 0.05}deg)`;
+      if (card) {
+        card.style.transform = `translate(${x}px, ${y}px) rotate(${x * 0.05}deg)`;
+      }
     }
 
     function resetCard() {
-      card.style.transition = 'transform 0.3s ease';
-      setTransform(0, 0);
-      setTimeout(() => { 
-        card.style.transition = ''; 
-      }, 300);
+      if (card) {
+        card.style.transition = 'transform 0.3s ease';
+        setTransform(0, 0);
+        setTimeout(() => { 
+          card.style.transition = ''; 
+        }, 300);
+      }
     }
 
     function loadJob(idx) {
       if (idx >= jobs.length) {
-        jobTitle.textContent = "No more jobs!";
-        jobDetails.textContent = "Check back later!";
-        jobImg.src = "https://via.placeholder.com/400x200?text=No+More+Jobs";
-        jobExtra.textContent = "";
-        jobTitleBack.textContent = "No more jobs!";
-        jobDetailsBack.textContent = "Check back later!";
-        jobExtraBack.textContent = "";
-        cardFlip.classList.remove('flipped');
+        if (jobTitle) jobTitle.textContent = "No more jobs!";
+        if (jobDetails) jobDetails.textContent = "Check back later!";
+        if (jobImg) jobImg.src = "https://via.placeholder.com/400x200?text=No+More+Jobs";
+        if (jobExtra) jobExtra.textContent = "";
+        if (jobTitleBack) jobTitleBack.textContent = "No more jobs!";
+        if (jobDetailsBack) jobDetailsBack.textContent = "Check back later!";
+        if (jobExtraBack) jobExtraBack.textContent = "";
+        if (cardFlip) cardFlip.classList.remove('flipped');
         return;
       }
 
       const job = jobs[idx];
-      jobTitle.textContent = job.title;
-      jobDetails.textContent = job.details;
-      jobImg.src = job.img;
-      jobExtra.textContent = job.extra;
-      jobTitleBack.textContent = job.title;
-      jobDetailsBack.textContent = job.details;
-      jobExtraBack.textContent = job.extra;
+      if (jobTitle) jobTitle.textContent = job.title;
+      if (jobDetails) jobDetails.textContent = job.details;
+      if (jobImg) jobImg.src = job.img;
+      if (jobExtra) jobExtra.textContent = job.extra;
+      if (jobTitleBack) jobTitleBack.textContent = job.title;
+      if (jobDetailsBack) jobDetailsBack.textContent = job.details;
+      if (jobExtraBack) jobExtraBack.textContent = job.extra;
       resetCard();
-      cardFlip.classList.remove('flipped');
+      if (cardFlip) cardFlip.classList.remove('flipped');
     }
 
     function loadNextJob() {
@@ -2108,6 +2213,8 @@
     }
 
     function handleSwipe(endX, endY) {
+      if (!card) return;
+      
       // Swipe up to apply
       if (endY < -swipeUpThreshold && Math.abs(endX) < swipeThreshold / 2) {
         card.style.transition = 'transform 0.3s ease';
@@ -2142,102 +2249,118 @@
     }
 
     // Button actions
-    matchBtn.addEventListener("click", () => {
-      card.style.transition = 'transform 0.3s ease';
-      card.style.transform = 'translateX(100vw) rotate(15deg)';
-      setTimeout(() => {
-        console.log('✅ Matched with job');
-        loadNextJob();
-      }, 300);
-    });
+    if (matchBtn) {
+      matchBtn.addEventListener("click", () => {
+        if (card) {
+          card.style.transition = 'transform 0.3s ease';
+          card.style.transform = 'translateX(100vw) rotate(15deg)';
+          setTimeout(() => {
+            console.log('✅ Matched with job');
+            loadNextJob();
+          }, 300);
+        }
+      });
+    }
 
-    passBtn.addEventListener("click", () => {
-      card.style.transition = 'transform 0.3s ease';
-      card.style.transform = 'translateX(-100vw) rotate(-15deg)';
-      setTimeout(() => {
-        console.log('❌ Passed on job');
-        loadNextJob();
-      }, 300);
-    });
+    if (passBtn) {
+      passBtn.addEventListener("click", () => {
+        if (card) {
+          card.style.transition = 'transform 0.3s ease';
+          card.style.transform = 'translateX(-100vw) rotate(-15deg)';
+          setTimeout(() => {
+            console.log('❌ Passed on job');
+            loadNextJob();
+          }, 300);
+        }
+      });
+    }
 
     // Flip to back on card click (but not during drag)
-    card.addEventListener("click", (e) => {
-      if (Math.abs(currentX) > 10 || Math.abs(currentY) > 10) return;
-      cardFlip.classList.add('flipped');
-    });
+    if (card) {
+      card.addEventListener("click", (e) => {
+        if (Math.abs(currentX) > 10 || Math.abs(currentY) > 10) return;
+        if (cardFlip) cardFlip.classList.add('flipped');
+      });
+    }
 
     // Flip back to front
-    flipBackBtn.addEventListener("click", () => {
-      cardFlip.classList.remove('flipped');
-    });
+    if (flipBackBtn) {
+      flipBackBtn.addEventListener("click", () => {
+        if (cardFlip) cardFlip.classList.remove('flipped');
+      });
+    }
 
     // Apply button on back
-    applyBtn.addEventListener("click", () => {
-      alert('🎉 You applied to this job!');
-      loadNextJob();
-    });
+    if (applyBtn) {
+      applyBtn.addEventListener("click", () => {
+        alert('🎉 You applied to this job!');
+        loadNextJob();
+      });
+    }
 
     // Mouse Events for Desktop
-    card.addEventListener("mousedown", (e) => {
-      e.preventDefault();
-      startX = e.clientX;
-      startY = e.clientY;
-      isDragging = true;
-      card.style.cursor = 'grabbing';
-    });
+    if (card) {
+      card.addEventListener("mousedown", (e) => {
+        e.preventDefault();
+        startX = e.clientX;
+        startY = e.clientY;
+        isDragging = true;
+        card.style.cursor = 'grabbing';
+      });
 
-    document.addEventListener("mousemove", (e) => {
-      if (!isDragging) return;
-      currentX = e.clientX - startX;
-      currentY = e.clientY - startY;
-      setTransform(currentX, currentY);
-    });
+      document.addEventListener("mousemove", (e) => {
+        if (!isDragging) return;
+        currentX = e.clientX - startX;
+        currentY = e.clientY - startY;
+        setTransform(currentX, currentY);
+      });
 
-    document.addEventListener("mouseup", () => {
-      if (!isDragging) return;
-      isDragging = false;
+      document.addEventListener("mouseup", () => {
+        if (!isDragging) return;
+        isDragging = false;
+        if (card) card.style.cursor = 'grab';
+        handleSwipe(currentX, currentY);
+        currentX = 0;
+        currentY = 0;
+      });
+
+      // Touch Events for Mobile
+      card.addEventListener("touchstart", (e) => {
+        e.preventDefault();
+        const touch = e.touches[0];
+        startX = touch.clientX;
+        startY = touch.clientY;
+        isDragging = true;
+      });
+
+      card.addEventListener("touchmove", (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+        const touch = e.touches[0];
+        currentX = touch.clientX - startX;
+        currentY = touch.clientY - startY;
+        setTransform(currentX, currentY);
+      });
+
+      card.addEventListener("touchend", (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+        isDragging = false;
+        handleSwipe(currentX, currentY);
+        currentX = 0;
+        currentY = 0;
+      });
+
+      // Prevent default behaviors that might interfere with swipe
+      card.addEventListener("dragstart", (e) => e.preventDefault());
+      card.addEventListener("selectstart", (e) => e.preventDefault());
+
+      // Set initial cursor
       card.style.cursor = 'grab';
-      handleSwipe(currentX, currentY);
-      currentX = 0;
-      currentY = 0;
-    });
-
-    // Touch Events for Mobile
-    card.addEventListener("touchstart", (e) => {
-      e.preventDefault();
-      const touch = e.touches[0];
-      startX = touch.clientX;
-      startY = touch.clientY;
-      isDragging = true;
-    });
-
-    card.addEventListener("touchmove", (e) => {
-      if (!isDragging) return;
-      e.preventDefault();
-      const touch = e.touches[0];
-      currentX = touch.clientX - startX;
-      currentY = touch.clientY - startY;
-      setTransform(currentX, currentY);
-    });
-
-    card.addEventListener("touchend", (e) => {
-      if (!isDragging) return;
-      e.preventDefault();
-      isDragging = false;
-      handleSwipe(currentX, currentY);
-      currentX = 0;
-      currentY = 0;
-    });
-
-    // Prevent default behaviors that might interfere with swipe
-    card.addEventListener("dragstart", (e) => e.preventDefault());
-    card.addEventListener("selectstart", (e) => e.preventDefault());
+    }
 
     // Initialize with first job and swipe view
     loadJob(jobIndex);
-
-    // Set initial cursor
-    card.style.cursor = 'grab';
 
     // Expose functions globally
     window.removeExperience = removeExperience;
