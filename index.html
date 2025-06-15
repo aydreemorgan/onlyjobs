@@ -1949,56 +1949,92 @@
         details: "Salt Lake City • $20/hr • Local",
         price: "$20/hr",
         img: "https://via.placeholder.com/400x200?text=Dog+Walker",
-        extra: "Must love dogs! Flexible hours. Experience with pets preferred. Available weekends."
+        extra: "Must love dogs! Flexible hours. Experience with pets preferred. Available weekends.",
+        lat: 40.7608,
+        lon: -111.8910 // Downtown Salt Lake City
       },
       {
         title: "Event Assistant",
         details: "Virtual • $18/hr • Weekend Work",
         price: "$18/hr",
         img: "https://via.placeholder.com/400x200?text=Event+Assistant",
-        extra: "Help with virtual events. Good communication skills required. Flexible schedule."
+        extra: "Help with virtual events. Good communication skills required. Flexible schedule.",
+        lat: 40.7608,
+        lon: -111.8910, // Virtual - using SLC coordinates
+        isVirtual: true
       },
       {
         title: "Yard Cleanup Crew",
         details: "West Valley • $22/hr • 1-day Gig",
         price: "$22/hr",
         img: "https://via.placeholder.com/400x200?text=Yard+Cleanup",
-        extra: "Outdoor work. Must be able to lift 30 lbs. One day only."
+        extra: "Outdoor work. Must be able to lift 30 lbs. One day only.",
+        lat: 40.6916,
+        lon: -112.0011 // West Valley City
       },
       {
         title: "Tutoring Assistant",
         details: "University of Utah • $25/hr • Part-time",
         price: "$25/hr",
         img: "https://via.placeholder.com/400x200?text=Tutoring",
-        extra: "Help students with math and science. Must have strong academic background."
+        extra: "Help students with math and science. Must have strong academic background.",
+        lat: 40.7649,
+        lon: -111.8421 // University of Utah
       },
       {
         title: "Social Media Manager",
         details: "Remote • $30/hr • Flexible",
         price: "$30/hr",
         img: "https://via.placeholder.com/400x200?text=Social+Media",
-        extra: "Manage social media accounts for small business. Creative content creation required."
+        extra: "Manage social media accounts for small business. Creative content creation required.",
+        lat: 40.7608,
+        lon: -111.8910, // Remote - using SLC coordinates
+        isVirtual: true
       },
       {
         title: "Photography Assistant",
         details: "Downtown SLC • $25/hr • Weekends",
         price: "$25/hr",
         img: "https://via.placeholder.com/400x200?text=Photography",
-        extra: "Help with wedding photography, equipment handling. Creative eye preferred."
+        extra: "Help with wedding photography, equipment handling. Creative eye preferred.",
+        lat: 40.7589,
+        lon: -111.8883 // Downtown SLC
       },
       {
         title: "Delivery Driver",
-        details: "Salt Lake City • $20/hr + tips • Flexible",
+        details: "Murray • $20/hr + tips • Flexible",
         price: "$20/hr",
         img: "https://via.placeholder.com/400x200?text=Delivery",
-        extra: "Food delivery service. Must have reliable vehicle and valid driver's license."
+        extra: "Food delivery service. Must have reliable vehicle and valid driver's license.",
+        lat: 40.6669,
+        lon: -111.8904 // Murray, UT
       },
       {
         title: "House Cleaning",
         details: "Millcreek • $25/hr • Weekly",
         price: "$25/hr",
         img: "https://via.placeholder.com/400x200?text=Cleaning",
-        extra: "Weekly house cleaning service. Attention to detail required. Supplies provided."
+        extra: "Weekly house cleaning service. Attention to detail required. Supplies provided.",
+        lat: 40.6869,
+        lon: -111.8147 // Millcreek, UT
+      },
+      {
+        title: "Babysitter Needed",
+        details: "Herriman • $15/hr • Evenings",
+        price: "$15/hr",
+        img: "https://via.placeholder.com/400x200?text=Babysitter",
+        extra: "Watch 2 kids (ages 5 & 8). Light meal prep. Must have references.",
+        lat: 40.5131,
+        lon: -112.0327 // Herriman, UT
+      },
+      {
+        title: "Moving Help",
+        details: "Provo • $18/hr • One Day",
+        price: "$18/hr",
+        img: "https://via.placeholder.com/400x200?text=Moving",
+        extra: "Help load/unload moving truck. Must be able to lift heavy items.",
+        lat: 40.2338,
+        lon: -111.6585 // Provo, UT
       }
     ];
 
@@ -2008,6 +2044,72 @@
     let selectedJobIndex = 0;
     const swipeThreshold = 100;
     const swipeUpThreshold = 80;
+
+    // User location variables
+    let userLat = null;
+    let userLon = null;
+
+    // Get user location
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        userLat = position.coords.latitude;
+        userLon = position.coords.longitude;
+        console.log('Location obtained:', userLat, userLon);
+        sortJobsByDistance();
+        renderCurrentView();
+      },
+      (error) => {
+        console.warn("Geolocation failed or denied.", error);
+        renderCurrentView();
+      }
+    );
+
+    // Calculate distance using Haversine formula
+    function getDistanceMiles(lat1, lon1, lat2, lon2) {
+      const R = 3958.8; // Earth radius in miles
+      const dLat = ((lat2 - lat1) * Math.PI) / 180;
+      const dLon = ((lon2 - lon1) * Math.PI) / 180;
+      const a = Math.sin(dLat / 2) ** 2 + 
+                Math.cos((lat1 * Math.PI) / 180) * 
+                Math.cos((lat2 * Math.PI) / 180) * 
+                Math.sin(dLon / 2) ** 2;
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      return Math.round(R * c);
+    }
+
+    // Sort jobs by distance from user
+    function sortJobsByDistance() {
+      if (userLat && userLon) {
+        jobs.sort((a, b) => {
+          const distA = getDistanceMiles(userLat, userLon, a.lat, a.lon);
+          const distB = getDistanceMiles(userLat, userLon, b.lat, b.lon);
+          return distA - distB;
+        });
+        console.log('Jobs sorted by distance');
+      }
+    }
+
+    // Get distance text for display
+    function getDistanceText(job) {
+      if (!userLat || !userLon) {
+        return job.isVirtual ? 'Virtual' : '';
+      }
+      if (job.isVirtual) {
+        return 'Virtual';
+      }
+      const distance = getDistanceMiles(userLat, userLon, job.lat, job.lon);
+      return `${distance} mi away`;
+    }
+
+    // Render current view (helper function)
+    function renderCurrentView() {
+      if (currentView === 'swipe') {
+        loadJob(jobIndex);
+      } else {
+        populateJobsList();
+        showJobPreview(selectedJobIndex);
+      }
+    }
 
     // View Toggle Functions
     function switchToSwipeView() {
@@ -2075,12 +2177,15 @@
           jobItem.classList.add('selected');
         }
         
+        const distanceText = getDistanceText(job);
+        const distanceTag = distanceText ? `<small style="color:#888; font-style: italic;">${distanceText}</small>` : '';
+        
         jobItem.innerHTML = `
           <div class="job-item-header">
             <h3 class="job-item-title">${job.title}</h3>
             <span class="job-item-price">${job.price}</span>
           </div>
-          <div class="job-item-details">${job.details}</div>
+          <div class="job-item-details">${job.details} ${distanceTag}</div>
           <div class="job-item-description">${job.extra}</div>
         `;
         
@@ -2110,11 +2215,14 @@
       }
       
       const job = jobs[index];
+      const distanceText = getDistanceText(job);
+      const distanceTag = distanceText ? `<small style="color:#888; font-style: italic; display: block; margin-top: 0.5rem;">${distanceText}</small>` : '';
+      
       jobPreview.innerHTML = `
         <div class="job-preview-card">
           <img src="${job.img}" alt="${job.title}">
           <h2 class="job-preview-title">${job.title}</h2>
-          <div class="job-preview-details">${job.details}</div>
+          <div class="job-preview-details">${job.details}${distanceTag}</div>
           <div class="job-preview-description">${job.extra}</div>
           <div class="job-preview-actions">
             <button class="pass-btn" onclick="handleListAction('pass', ${index})">❌ Pass</button>
@@ -2194,12 +2302,15 @@
       }
 
       const job = jobs[idx];
+      const distanceText = getDistanceText(job);
+      const detailsWithDistance = distanceText ? `${job.details} • ${distanceText}` : job.details;
+      
       if (jobTitle) jobTitle.textContent = job.title;
-      if (jobDetails) jobDetails.textContent = job.details;
+      if (jobDetails) jobDetails.textContent = detailsWithDistance;
       if (jobImg) jobImg.src = job.img;
       if (jobExtra) jobExtra.textContent = job.extra;
       if (jobTitleBack) jobTitleBack.textContent = job.title;
-      if (jobDetailsBack) jobDetailsBack.textContent = job.details;
+      if (jobDetailsBack) jobDetailsBack.textContent = detailsWithDistance;
       if (jobExtraBack) jobExtraBack.textContent = job.extra;
       resetCard();
       if (cardFlip) cardFlip.classList.remove('flipped');
